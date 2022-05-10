@@ -8,6 +8,6 @@ class CustomIcons {
 
   static const IconData eye =
       IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData eye_off =
+  static const IconData eyeOff =
       IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

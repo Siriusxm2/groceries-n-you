@@ -18,8 +18,8 @@ void main() {
       ),
       home: const MyFirebaseUserAuth(),
       routes: {
-        '/login/': ((context) => const ProfileLogin()),
         '/profile/': ((context) => ProfileView()),
+        '/login/': ((context) => const ProfileLogin()),
         '/register/': ((context) => const ProfileRegister()),
       },
     ),

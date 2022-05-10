@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'dart:developer' as devtools show log;
 
 import '../myWidgets/my_header.dart';
 
@@ -14,7 +13,7 @@ class ProfileViewLogged extends StatelessWidget {
         children: [
           Column(
             children: [
-              MyHeaderWidget(
+              const MyHeaderWidget(
                 text: 'Profile',
               ),
               ElevatedButton(
@@ -67,8 +66,10 @@ class ProfileViewLogged extends StatelessWidget {
                   final shouldLogout = await showLogOutDialog(context);
                   if (shouldLogout) {
                     await FirebaseAuth.instance.signOut();
-                    Navigator.of(context)
-                        .pushNamedAndRemoveUntil('/login/', (_) => false);
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      '/login/',
+                      (_) => false,
+                    );
                   }
                 },
                 child: const Text(

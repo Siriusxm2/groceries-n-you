@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../profile/profile.dart';
-
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const MyAppBar({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -25,7 +25,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                 iconSize: 30.0,
                 onPressed: () {
                   Navigator.of(context)
-                      .pushNamedAndRemoveUntil('/profile/', (route) => false);
+                      .pushNamedAndRemoveUntil('/profile/', (route) => true);
                 },
                 icon: const Icon(Icons.person_outline),
               ),

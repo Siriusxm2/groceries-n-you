@@ -13,7 +13,7 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(),
+      appBar: const MyAppBar(),
       body: (user != null)
           ? const ProfileViewLogged()
           : const ProfileViewNotLogged(),

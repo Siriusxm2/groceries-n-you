@@ -12,13 +12,13 @@ class ProfileViewNotLogged extends StatelessWidget {
         children: [
           Column(
             children: [
-              MyHeaderWidget(
+              const MyHeaderWidget(
                 text: 'Profile',
               ),
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context)
-                      .pushNamedAndRemoveUntil('/login/', (route) => false);
+                      .pushNamedAndRemoveUntil('/login/', (route) => true);
                 },
                 child: const Text(
                   'Log in',
@@ -36,7 +36,7 @@ class ProfileViewNotLogged extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context)
-                      .pushNamedAndRemoveUntil('/register/', (route) => false);
+                      .pushNamedAndRemoveUntil('/register/', (route) => true);
                 },
                 child: const Text(
                   'Register',

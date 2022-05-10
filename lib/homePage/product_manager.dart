@@ -7,7 +7,7 @@ import 'product_control.dart';
 class ProductManager extends StatefulWidget {
   final String startingOffers;
 
-  ProductManager({this.startingOffers = ''});
+  const ProductManager({Key? key, this.startingOffers = ''}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -48,9 +48,9 @@ class _ProductManagerState extends State<ProductManager> {
       children: [
         Container(
           alignment: Alignment.center,
-          child: ProductControl(_updateOffers),
+          child: ProductControl(changeOffer: _updateOffers),
         ),
-        Products(_offers)
+        Products(null, _offers),
       ],
     );
   }

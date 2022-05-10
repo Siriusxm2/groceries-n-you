@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 class MyHeaderWidget extends StatelessWidget {
-  String text;
+  final String text;
 
-  MyHeaderWidget({this.text = ''});
+  const MyHeaderWidget({Key? key, this.text = ''}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +29,7 @@ class MyHeaderWidget extends StatelessWidget {
               angle: -90 * math.pi / 180,
               child: IconButton(
                 onPressed: () {
-                  Navigator.of(context)
-                      .pushNamedAndRemoveUntil('/', (route) => false);
+                  Navigator.of(context).pop(true);
                 },
                 icon: const Icon(
                   Icons.expand_less,
