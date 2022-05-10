@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../profile/profile_login.dart';
-import '../landing_page.dart';
-
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
@@ -25,12 +22,8 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
               IconButton(
                 iconSize: 30.0,
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ProfileLogin(),
-                    ),
-                  );
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil('/login/', (route) => false);
                 },
                 icon: const Icon(Icons.person_outline),
               ),
@@ -40,12 +33,8 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Center(
               child: GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LandingPage(),
-                    ),
-                  );
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil('/', (route) => false);
                 },
                 child: Image.asset(
                   'assets/logo.png',

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:material_color_generator/material_color_generator.dart';
+import 'package:shop_app/profile/profile_email_verify.dart';
 
 import 'firebase/firebase_options.dart';
 import 'myWidgets/my_app_bar.dart';
@@ -12,34 +12,30 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: generateMaterialColor(color: const Color(0xff699BFF)),
-      ),
-      home: Scaffold(
-        appBar: MyAppBar(),
-        body: FutureBuilder(
-          future: Firebase.initializeApp(
-            options: DefaultFirebaseOptions.currentPlatform,
-          ),
-          builder: (context, snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.done:
-                final user = FirebaseAuth.instance.currentUser;
-                final emailVerified = user?.emailVerified ?? false;
-                if (emailVerified) {
-                  print('You are a verified user!');
-                } else {
-                  print('You need to verify your email!');
-                }
+    return Scaffold(
+      appBar: MyAppBar(),
+      body: FutureBuilder(
+        future: Firebase.initializeApp(
+          options: DefaultFirebaseOptions.currentPlatform,
+        ),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.done:
+              final user = FirebaseAuth.instance.currentUser;
+              final emailVerified = user?.emailVerified ?? false;
+              if (emailVerified) {
                 return ProductManager(
                   startingOffers: 'assets/Lasagna.png',
                 );
-              default:
-                return const Text('Loading...');
-            }
-          },
-        ),
+              } else {
+                return VerifyEmail(
+                  fbUser: user,
+                );
+              }
+            default:
+              return const CircularProgressIndicator();
+          }
+        },
       ),
     );
   }
