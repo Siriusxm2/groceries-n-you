@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'homePage/product_manager.dart';
-import 'myWidgets/my_app_bar.dart';
+import 'package:shop_app/homePage/product_manager.dart';
+import 'package:shop_app/myWidgets/my_app_bar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);

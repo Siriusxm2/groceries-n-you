@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/constants/routes.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({Key? key}) : super(key: key);
@@ -25,7 +26,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                 iconSize: 30.0,
                 onPressed: () {
                   Navigator.of(context)
-                      .pushNamedAndRemoveUntil('/profile/', (route) => true);
+                      .pushNamedAndRemoveUntil(profileRoute, (route) => true);
                 },
                 icon: const Icon(Icons.person_outline),
               ),
@@ -36,7 +37,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
               child: GestureDetector(
                 onTap: () {
                   Navigator.of(context)
-                      .pushNamedAndRemoveUntil('/', (_) => false);
+                      .pushNamedAndRemoveUntil(initialRoute, (_) => false);
                 },
                 child: Image.asset(
                   'assets/logo.png',

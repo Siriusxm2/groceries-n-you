@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../myWidgets/my_header.dart';
+import 'package:shop_app/constants/routes.dart';
+import 'package:shop_app/myWidgets/my_header.dart';
 
 class ProfileViewNotLogged extends StatelessWidget {
   const ProfileViewNotLogged({Key? key}) : super(key: key);
@@ -18,7 +18,7 @@ class ProfileViewNotLogged extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context)
-                      .pushNamedAndRemoveUntil('/login/', (route) => true);
+                      .pushNamedAndRemoveUntil(loginRoute, (route) => true);
                 },
                 child: const Text(
                   'Log in',
@@ -36,7 +36,7 @@ class ProfileViewNotLogged extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context)
-                      .pushNamedAndRemoveUntil('/register/', (route) => true);
+                      .pushNamedAndRemoveUntil(registerRoute, (route) => true);
                 },
                 child: const Text(
                   'Register',

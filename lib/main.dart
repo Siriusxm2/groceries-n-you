@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:material_color_generator/material_color_generator.dart';
-
-import 'profile/profile_login.dart';
-import 'profile/profile.dart';
-import 'profile/profile_register.dart';
-import 'firebase_user_auth.dart';
+import 'package:shop_app/constants/routes.dart';
+import 'package:shop_app/profile/profile_email_verify.dart';
+import 'package:shop_app/profile/profile_login.dart';
+import 'package:shop_app/profile/profile.dart';
+import 'package:shop_app/profile/profile_register.dart';
+import 'package:shop_app/firebase/firebase_user_auth.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,9 +19,10 @@ void main() {
       ),
       home: const MyFirebaseUserAuth(),
       routes: {
-        '/profile/': ((context) => ProfileView()),
-        '/login/': ((context) => const ProfileLogin()),
-        '/register/': ((context) => const ProfileRegister()),
+        profileRoute: ((context) => ProfileView()),
+        loginRoute: ((context) => const ProfileLogin()),
+        registerRoute: ((context) => const ProfileRegister()),
+        verifyRoute: ((context) => const VerifyEmail()),
       },
     ),
   );

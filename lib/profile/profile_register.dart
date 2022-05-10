@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shop_app/custom_widget_functions.dart';
 import 'package:shop_app/myWidgets/my_header.dart';
-
-import '../customIcons/custom_icons_icons.dart';
-import '../myWidgets/my_app_bar.dart';
+import 'package:shop_app/constants/routes.dart';
+import 'package:shop_app/customIcons/custom_icons_icons.dart';
+import 'package:shop_app/myWidgets/my_app_bar.dart';
 
 class ProfileRegister extends StatefulWidget {
   const ProfileRegister({Key? key}) : super(key: key);
@@ -184,37 +184,40 @@ class _ProfileRegisterPageState extends State<ProfileRegister> {
                       email: email,
                       password: password,
                     );
-                    CustomWidgets.mySnackBarWidget(
-                      context,
-                      'A verification code has been sent to the corresponding email.',
-                    );
                     final user = FirebaseAuth.instance.currentUser;
-                    if (user != null) {
-                      if (!user.emailVerified) {
-                        await user.sendEmailVerification();
-                      }
-                    }
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                      '/login/',
-                      (route) => false,
+                    await user?.sendEmailVerification();
+                    await CustomWidgets.mySnackBarWidget(
+                      context,
+                      'Verification email sent!',
                     );
+                    Navigator.of(context).pushNamed(verifyRoute);
                   } on FirebaseAuthException catch (e) {
                     if (e.code == 'weak-password') {
-                      CustomWidgets.mySnackBarWidget(
+                      await CustomWidgets.showErrorDialog(
                         context,
                         'Password is too weak!',
                       );
                     } else if (e.code == 'email-already-in-use') {
-                      CustomWidgets.mySnackBarWidget(
+                      await CustomWidgets.showErrorDialog(
                         context,
                         'There is already an account with that email!',
                       );
                     } else if (e.code == 'invalid-email') {
-                      CustomWidgets.mySnackBarWidget(
+                      await CustomWidgets.showErrorDialog(
                         context,
                         'Invalid email!',
                       );
+                    } else {
+                      await CustomWidgets.showErrorDialog(
+                        context,
+                        'Error: ${e.code}',
+                      );
                     }
+                  } catch (e) {
+                    CustomWidgets.showErrorDialog(
+                      context,
+                      e.toString(),
+                    );
                   }
                 },
                 child: const Text(

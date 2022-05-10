@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import '../myWidgets/my_header.dart';
+import 'package:shop_app/constants/routes.dart';
+import 'package:shop_app/myWidgets/my_header.dart';
 
 class ProfileViewLogged extends StatelessWidget {
   const ProfileViewLogged({Key? key}) : super(key: key);
@@ -67,7 +67,7 @@ class ProfileViewLogged extends StatelessWidget {
                   if (shouldLogout) {
                     await FirebaseAuth.instance.signOut();
                     Navigator.of(context).pushNamedAndRemoveUntil(
-                      '/login/',
+                      initialRoute,
                       (_) => false,
                     );
                   }

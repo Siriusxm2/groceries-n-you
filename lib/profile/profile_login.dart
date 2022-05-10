@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shop_app/custom_widget_functions.dart';
-
-import '../myWidgets/my_app_bar.dart';
-import '../customIcons/custom_icons_icons.dart';
-import '../myWidgets/my_header.dart';
+import 'package:shop_app/constants/routes.dart';
+import 'package:shop_app/myWidgets/my_app_bar.dart';
+import 'package:shop_app/customIcons/custom_icons_icons.dart';
+import 'package:shop_app/myWidgets/my_header.dart';
 
 class ProfileLogin extends StatefulWidget {
   const ProfileLogin({Key? key}) : super(key: key);
@@ -114,35 +114,53 @@ class _ProfilePageState extends State<ProfileLogin> {
                     final email = _email.text;
                     final password = _password.text;
                     try {
+                      final user = FirebaseAuth.instance.currentUser;
                       await FirebaseAuth.instance.signInWithEmailAndPassword(
                         email: email,
                         password: password,
                       );
-                      CustomWidgets.mySnackBarWidget(
-                        context,
-                        'Logged in successfully!',
-                      );
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                        '/',
-                        (_) => false,
-                      );
+                      if (user?.emailVerified ?? false) {
+                        await CustomWidgets.mySnackBarWidget(
+                          context,
+                          'Logged in successfully!',
+                        );
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                          initialRoute,
+                          (route) => false,
+                        );
+                      } else {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                          verifyRoute,
+                          (route) => false,
+                        );
+                      }
                     } on FirebaseAuthException catch (e) {
                       if (e.code == 'user-not-found') {
-                        CustomWidgets.mySnackBarWidget(
+                        await CustomWidgets.showErrorDialog(
                           context,
-                          'User has been deleted or never existed!',
+                          'No user found!',
                         );
                       } else if (e.code == 'wrong-password') {
-                        CustomWidgets.mySnackBarWidget(
+                        await CustomWidgets.showErrorDialog(
                           context,
                           'Wrong password!',
                         );
                       } else if (e.code == 'invalid-email') {
-                        CustomWidgets.mySnackBarWidget(
+                        await CustomWidgets.showErrorDialog(
                           context,
                           'Invalid email!',
                         );
+                      } else {
+                        await CustomWidgets.showErrorDialog(
+                          context,
+                          'Error: ${e.code}',
+                        );
                       }
+                    } catch (e) {
+                      CustomWidgets.showErrorDialog(
+                        context,
+                        e.toString(),
+                      );
                     }
                   },
                   child: const Text(
@@ -170,7 +188,7 @@ class _ProfilePageState extends State<ProfileLogin> {
               child: TextButton(
                 onPressed: () {
                   Navigator.of(context).pushNamedAndRemoveUntil(
-                    '/register/',
+                    registerRoute,
                     (route) => true,
                   );
                 },
