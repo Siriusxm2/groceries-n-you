@@ -30,7 +30,7 @@ class MyHeaderWidget extends StatelessWidget {
               child: IconButton(
                 onPressed: () {
                   Navigator.of(context)
-                      .pushNamedAndRemoveUntil('/login/', (route) => false);
+                      .pushNamedAndRemoveUntil('/', (route) => false);
                 },
                 icon: const Icon(
                   Icons.expand_less,

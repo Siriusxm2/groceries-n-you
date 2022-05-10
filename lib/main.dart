@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:material_color_generator/material_color_generator.dart';
 
 import 'profile/profile_login.dart';
+import 'profile/profile.dart';
 import 'profile/profile_register.dart';
-import 'landing_page.dart';
+import 'firebase_user_auth.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,9 +16,10 @@ void main() {
           color: const Color(0xff699BFF),
         ),
       ),
-      home: const LandingPage(),
+      home: const MyFirebaseUserAuth(),
       routes: {
         '/login/': ((context) => const ProfileLogin()),
+        '/profile/': ((context) => ProfileView()),
         '/register/': ((context) => const ProfileRegister()),
       },
     ),

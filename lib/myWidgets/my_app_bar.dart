@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../profile/profile.dart';
+
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                 iconSize: 30.0,
                 onPressed: () {
                   Navigator.of(context)
-                      .pushNamedAndRemoveUntil('/login/', (route) => false);
+                      .pushNamedAndRemoveUntil('/profile/', (route) => false);
                 },
                 icon: const Icon(Icons.person_outline),
               ),
@@ -34,7 +36,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
               child: GestureDetector(
                 onTap: () {
                   Navigator.of(context)
-                      .pushNamedAndRemoveUntil('/', (route) => false);
+                      .pushNamedAndRemoveUntil('/', (_) => false);
                 },
                 child: Image.asset(
                   'assets/logo.png',

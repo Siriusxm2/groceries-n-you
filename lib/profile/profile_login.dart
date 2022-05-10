@@ -113,6 +113,8 @@ class _ProfilePageState extends State<ProfileLogin> {
                         email: email,
                         password: password,
                       );
+                      Navigator.of(context)
+                          .pushNamedAndRemoveUntil('/', (_) => false);
                     } on FirebaseAuthException catch (e) {
                       if (e.code == 'user-not-found') {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
