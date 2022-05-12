@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_n_you/constants/routes.dart';
+//import 'dart:developer' as devtools show log;
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({Key? key}) : super(key: key);
@@ -16,7 +17,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           IconButton(
             iconSize: 30.0,
-            onPressed: () {},
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
             icon: const Icon(Icons.menu),
           ),
           Stack(
@@ -25,8 +28,10 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
               IconButton(
                 iconSize: 30.0,
                 onPressed: () {
-                  Navigator.of(context)
-                      .pushNamedAndRemoveUntil(profileRoute, (route) => true);
+                  if (ModalRoute.of(context)!.settings.name != profileRoute) {
+                    Navigator.of(context)
+                        .pushNamedAndRemoveUntil(profileRoute, (route) => true);
+                  }
                 },
                 icon: const Icon(Icons.person_outline),
               ),
@@ -36,8 +41,10 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Center(
               child: GestureDetector(
                 onTap: () {
-                  Navigator.of(context)
-                      .pushNamedAndRemoveUntil(initialRoute, (_) => false);
+                  if (ModalRoute.of(context)!.settings.name != initialRoute) {
+                    Navigator.of(context)
+                        .pushNamedAndRemoveUntil(initialRoute, (_) => false);
+                  }
                 },
                 child: Image.asset(
                   'assets/logo.png',

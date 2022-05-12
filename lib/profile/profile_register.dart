@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_n_you/custom_widget_functions.dart';
 import 'package:groceries_n_you/myWidgets/my_bottom_navbar.dart';
+import 'package:groceries_n_you/myWidgets/my_drawer.dart';
 import 'package:groceries_n_you/myWidgets/my_floating_button.dart';
 import 'package:groceries_n_you/myWidgets/my_header.dart';
 import 'package:groceries_n_you/constants/routes.dart';
@@ -233,6 +234,7 @@ class _ProfileRegisterPageState extends State<ProfileRegister> {
           ),
         ],
       ),
+      drawer: const MyDrawer(),
       floatingActionButton: const MyFloatingButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       bottomNavigationBar: const MyBottomNavbar(),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import 'package:groceries_n_you/constants/routes.dart';
+
 class MyBottomNavbar extends StatelessWidget {
   const MyBottomNavbar({Key? key}) : super(key: key);
 
@@ -13,7 +15,11 @@ class MyBottomNavbar extends StatelessWidget {
         child: Column(
           children: [
             OutlinedButton(
-              onPressed: () {},
+              onPressed: () {
+                if (ModalRoute.of(context)!.settings.name != aboutRoute) {
+                  Navigator.of(context).pushNamed(aboutRoute);
+                }
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -48,7 +54,11 @@ class MyBottomNavbar extends StatelessWidget {
               ),
             ),
             OutlinedButton(
-              onPressed: () {},
+              onPressed: () {
+                if (ModalRoute.of(context)!.settings.name != contactRoute) {
+                  Navigator.of(context).pushNamed(contactRoute);
+                }
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
