@@ -15,8 +15,6 @@ class MyFloatingButton extends StatelessWidget {
       child: SvgPicture.asset(
         '../../assets/bla.svg',
         fit: BoxFit.cover,
-        width: 30,
-        height: 30,
       ),
       backgroundColor: Colors.white,
       shape: const CircleBorder(
