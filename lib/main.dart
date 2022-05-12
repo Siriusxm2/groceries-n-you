@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:material_color_generator/material_color_generator.dart';
-import 'package:shop_app/constants/routes.dart';
-import 'package:shop_app/profile/profile_email_verify.dart';
-import 'package:shop_app/profile/profile_login.dart';
-import 'package:shop_app/profile/profile.dart';
-import 'package:shop_app/profile/profile_register.dart';
-import 'package:shop_app/firebase/firebase_user_auth.dart';
+import 'package:groceries_n_you/constants/routes.dart';
+import 'package:groceries_n_you/profile/profile_email_verify.dart';
+import 'package:groceries_n_you/profile/profile_login.dart';
+import 'package:groceries_n_you/profile/profile.dart';
+import 'package:groceries_n_you/profile/profile_register.dart';
+import 'package:groceries_n_you/services/auth/firebase_user_auth.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

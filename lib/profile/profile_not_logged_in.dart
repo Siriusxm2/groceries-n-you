@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/constants/routes.dart';
-import 'package:shop_app/myWidgets/my_header.dart';
+import 'package:groceries_n_you/constants/routes.dart';
+import 'package:groceries_n_you/myWidgets/my_header.dart';
 
 class ProfileViewNotLogged extends StatelessWidget {
   const ProfileViewNotLogged({Key? key}) : super(key: key);

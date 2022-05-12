@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:shop_app/firebase/firebase_user_auth.dart';
+import 'package:groceries_n_you/auth/firebase_user_auth.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

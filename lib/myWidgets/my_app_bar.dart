@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/constants/routes.dart';
+import 'package:groceries_n_you/constants/routes.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({Key? key}) : super(key: key);

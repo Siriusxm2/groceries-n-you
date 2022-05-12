@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/constants/routes.dart';
-import 'package:shop_app/custom_widget_functions.dart';
-import 'package:shop_app/myWidgets/my_app_bar.dart';
+import 'package:groceries_n_you/constants/routes.dart';
+import 'package:groceries_n_you/custom_widget_functions.dart';
+import 'package:groceries_n_you/myWidgets/my_app_bar.dart';
 
 import '../myWidgets/my_header.dart';
 

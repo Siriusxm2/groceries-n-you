@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/constants/routes.dart';
-import 'package:shop_app/myWidgets/my_header.dart';
+import 'package:groceries_n_you/constants/routes.dart';
+import 'package:groceries_n_you/myWidgets/my_header.dart';
 
 class ProfileViewLogged extends StatelessWidget {
   const ProfileViewLogged({Key? key}) : super(key: key);

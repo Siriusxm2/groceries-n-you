@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
-import 'package:shop_app/homePage/products.dart';
-import 'package:shop_app/homePage/product_control.dart';
+import 'package:groceries_n_you/homePage/products.dart';
+import 'package:groceries_n_you/homePage/product_control.dart';
 
 class ProductManager extends StatefulWidget {
   final String startingOffers;
