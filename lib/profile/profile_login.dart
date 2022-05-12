@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:groceries_n_you/custom_widget_functions.dart';
 import 'package:groceries_n_you/constants/routes.dart';
 import 'package:groceries_n_you/myWidgets/my_app_bar.dart';
 import 'package:groceries_n_you/customIcons/custom_icons_icons.dart';
 import 'package:groceries_n_you/myWidgets/my_header.dart';
+import 'package:groceries_n_you/services/auth/auth_exceptions.dart';
+import 'package:groceries_n_you/services/auth/auth_service.dart';
 
 class ProfileLogin extends StatefulWidget {
   const ProfileLogin({Key? key}) : super(key: key);
@@ -114,12 +115,12 @@ class _ProfilePageState extends State<ProfileLogin> {
                     final email = _email.text;
                     final password = _password.text;
                     try {
-                      final user = FirebaseAuth.instance.currentUser;
-                      await FirebaseAuth.instance.signInWithEmailAndPassword(
+                      await AuthService.firebase().logIn(
                         email: email,
                         password: password,
                       );
-                      if (user?.emailVerified ?? false) {
+                      final user = AuthService.firebase().currentUser;
+                      if (user?.isEmailVerified ?? false) {
                         await CustomWidgets.mySnackBarWidget(
                           context,
                           'Logged in successfully!',
@@ -134,32 +135,25 @@ class _ProfilePageState extends State<ProfileLogin> {
                           (route) => false,
                         );
                       }
-                    } on FirebaseAuthException catch (e) {
-                      if (e.code == 'user-not-found') {
-                        await CustomWidgets.showErrorDialog(
-                          context,
-                          'No user found!',
-                        );
-                      } else if (e.code == 'wrong-password') {
-                        await CustomWidgets.showErrorDialog(
-                          context,
-                          'Wrong password!',
-                        );
-                      } else if (e.code == 'invalid-email') {
-                        await CustomWidgets.showErrorDialog(
-                          context,
-                          'Invalid email!',
-                        );
-                      } else {
-                        await CustomWidgets.showErrorDialog(
-                          context,
-                          'Error: ${e.code}',
-                        );
-                      }
-                    } catch (e) {
+                    } on UserNotFoundAuthException {
+                      await CustomWidgets.showErrorDialog(
+                        context,
+                        'No user found!',
+                      );
+                    } on WrongPasswordAuthException {
+                      await CustomWidgets.showErrorDialog(
+                        context,
+                        'Wrong password!',
+                      );
+                    } on InvalidEmailAuthException {
+                      await CustomWidgets.showErrorDialog(
+                        context,
+                        'Invalid email!',
+                      );
+                    } on GenericAuthException {
                       CustomWidgets.showErrorDialog(
                         context,
-                        e.toString(),
+                        'Authentication error',
                       );
                     }
                   },

@@ -1,8 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:groceries_n_you/constants/routes.dart';
 import 'package:groceries_n_you/custom_widget_functions.dart';
 import 'package:groceries_n_you/myWidgets/my_app_bar.dart';
+import 'package:groceries_n_you/services/auth/auth_service.dart';
 
 import '../myWidgets/my_header.dart';
 
@@ -37,12 +37,11 @@ class VerifyEmail extends StatelessWidget {
               ),
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
                   onPressed: () async {
-                    final user = FirebaseAuth.instance.currentUser;
-                    await user?.sendEmailVerification();
+                    await AuthService.firebase().sendEmailVerification();
                     await CustomWidgets.mySnackBarWidget(
                       context,
                       'Verification email sent!',
@@ -63,7 +62,7 @@ class VerifyEmail extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    await FirebaseAuth.instance.signOut();
+                    await AuthService.firebase().logOut();
                     Navigator.of(context).pushNamedAndRemoveUntil(
                       registerRoute,
                       (route) => false,

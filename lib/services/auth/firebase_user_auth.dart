@@ -1,7 +1,6 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:groceries_n_you/firebase/firebase_options.dart';
 import 'package:groceries_n_you/home_page.dart';
+import 'package:groceries_n_you/services/auth/auth_service.dart';
 
 class MyFirebaseUserAuth extends StatelessWidget {
   const MyFirebaseUserAuth({Key? key}) : super(key: key);
@@ -9,9 +8,7 @@ class MyFirebaseUserAuth extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-      ),
+      future: AuthService.firebase().initialize(),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.done:
