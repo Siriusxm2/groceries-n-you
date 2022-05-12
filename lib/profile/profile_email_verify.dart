@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:groceries_n_you/constants/routes.dart';
 import 'package:groceries_n_you/custom_widget_functions.dart';
 import 'package:groceries_n_you/myWidgets/my_app_bar.dart';
+import 'package:groceries_n_you/myWidgets/my_bottom_navbar.dart';
+import 'package:groceries_n_you/myWidgets/my_floating_button.dart';
 import 'package:groceries_n_you/services/auth/auth_service.dart';
 
 import '../myWidgets/my_header.dart';
@@ -86,6 +88,9 @@ class VerifyEmail extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: const MyFloatingButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      bottomNavigationBar: const MyBottomNavbar(),
     );
   }
 }
