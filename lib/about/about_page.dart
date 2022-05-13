@@ -79,12 +79,11 @@ class AboutUsPage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          Center(
-            child: Container(
-              height: 1,
-              width: 360,
-              color: const Color(0xffcccccc),
-            ),
+          const Divider(
+            indent: 10,
+            endIndent: 10,
+            thickness: 1,
+            color: Color(0xffcccccc),
           ),
         ],
       ),

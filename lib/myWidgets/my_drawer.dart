@@ -86,85 +86,41 @@ class _MyDrawerState extends State<MyDrawer> {
             () {},
           ),
           // ExpansionTile
-          Container(
-            decoration: const BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  color: Color(0xffB4CDFF),
-                ),
+          MyListTileExpand(
+            children: [
+              MyListTileSub(
+                'MINCED',
+                () {},
+                const SizedBox(),
               ),
-              color: Color(0xff699BFF),
-            ),
-            child: ExpansionTile(
-              onExpansionChanged: (value) {
-                setState(() {
-                  _isExpanded = value;
-                });
-              },
-              leading: Image.asset('assets/categoryMeat.png'),
-              title: const Text(
-                'Meats',
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xffFFAE2D),
-                ),
-              ),
-              trailing: Icon(
-                !_isExpanded ? Icons.add : CustomIcons.minus,
-                color: const Color(0xffFFAE2D),
-              ),
-              children: [
-                MyListTileSub(
-                  'MINCED',
-                  () {},
-                ),
-                // ExpansionTile
-                Container(
-                  decoration: const BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: Color(0xffD9E6FF),
-                      ),
-                    ),
-                    color: Color(0xff8EB4FF),
+              MyListTileExpand(
+                children: [
+                  MyListTileSubSub(
+                    text: 'RED',
+                    onTap: () {},
+                    icon: const SizedBox(),
                   ),
-                  child: ExpansionTile(
-                    onExpansionChanged: (value) {
-                      setState(() {
-                        _isExpanded = value;
-                      });
-                    },
-                    title: const Text(
-                      'Meats',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xffFFAE2D),
-                      ),
-                    ),
-                    trailing: Icon(
-                      !_isExpanded ? Icons.add : CustomIcons.minus,
-                      color: const Color(0xffFFAE2D),
-                    ),
-                    children: [
-                      MyListTileSubSub(
-                        'RED',
-                        () {},
-                      ),
-                      MyListTileSubSub(
-                        'RED',
-                        () {},
-                      ),
-                      MyListTileSubSub(
-                        'RED',
-                        () {},
-                      ),
-                    ],
+                  MyListTileSubSub(
+                    text: 'RED',
+                    onTap: () {},
+                    icon: const SizedBox(),
                   ),
-                ),
-              ],
-            ),
+                  MyListTileSubSub(
+                    text: 'RED',
+                    onTap: () {},
+                    icon: const SizedBox(),
+                  ),
+                ],
+                imageAsset: const SizedBox(),
+                bgColor: const Color(0xff8EB4FF),
+                borderColor: const Color(0xffD9E6FF),
+                text: 'Kyufte',
+              ),
+            ],
+            imageAsset: Image.asset('assets/categoryMeat.png'),
+            bgColor: const Color(0xff699BFF),
+            borderColor: const Color(0xffB4CDFF),
+            text: 'Minced',
           ),
         ],
       ),
