@@ -6,7 +6,6 @@ import 'package:groceries_n_you/myWidgets/my_expansion_tile.dart';
 import 'package:groceries_n_you/myWidgets/my_floating_button.dart';
 import 'package:groceries_n_you/myWidgets/my_google_map.dart';
 import 'package:groceries_n_you/myWidgets/my_header.dart';
-import 'dart:math' as math;
 
 class ContactsPage extends StatelessWidget {
   const ContactsPage({Key? key}) : super(key: key);

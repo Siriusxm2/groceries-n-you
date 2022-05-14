@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:groceries_n_you/customIcons/custom_icons_icons.dart';
 import 'package:groceries_n_you/myWidgets/my_list_tile.dart';
 
 class MyDrawer extends StatefulWidget {
@@ -8,8 +7,6 @@ class MyDrawer extends StatefulWidget {
   @override
   State<MyDrawer> createState() => _MyDrawerState();
 }
-
-bool _isExpanded = false;
 
 class _MyDrawerState extends State<MyDrawer> {
   @override
