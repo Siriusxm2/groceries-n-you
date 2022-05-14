@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:groceries_n_you/homePage/product_manager.dart';
+import 'package:groceries_n_you/homePage/scrolling_offers.dart';
 import 'package:groceries_n_you/myWidgets/my_app_bar.dart';
 import 'package:groceries_n_you/myWidgets/my_bottom_navbar.dart';
 import 'package:groceries_n_you/myWidgets/my_drawer.dart';
@@ -10,15 +10,18 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: MyAppBar(),
-      body: ProductManager(
-        startingOffers: 'assets/Lasagna.png',
+    return Scaffold(
+      appBar: const MyAppBar(),
+      body: Column(
+        children: const [
+          SizedBox(height: 15),
+          ScrollingOffers(),
+        ],
       ),
-      drawer: MyDrawer(),
-      floatingActionButton: MyFloatingButton(),
+      drawer: const MyDrawer(),
+      floatingActionButton: const MyFloatingButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      bottomNavigationBar: MyBottomNavbar(),
+      bottomNavigationBar: const MyBottomNavbar(),
     );
   }
 }

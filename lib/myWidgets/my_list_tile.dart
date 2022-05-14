@@ -63,7 +63,7 @@ class MyListTileSub extends StatelessWidget {
         onTap: onTap,
         minLeadingWidth: 1,
         title: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
             text,
             style: const TextStyle(
