@@ -5,3 +5,5 @@ const registerRoute = '/register/';
 const verifyRoute = '/verify/';
 const aboutRoute = '/about/';
 const contactRoute = '/contact/';
+const categoryRoute = '/category/';
+const categoryBeerRoute = '/beer/';

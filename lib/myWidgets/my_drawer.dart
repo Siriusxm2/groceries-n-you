@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:groceries_n_you/constants/routes.dart';
 import 'package:groceries_n_you/myWidgets/my_list_tile.dart';
 
 class MyDrawer extends StatefulWidget {
@@ -86,38 +87,35 @@ class _MyDrawerState extends State<MyDrawer> {
           MyListTileExpand(
             children: [
               MyListTileSub(
-                'MINCED',
+                'View all',
                 () {},
                 const SizedBox(),
               ),
-              MyListTileExpand(
-                children: [
-                  MyListTileSubSub(
-                    text: 'RED',
-                    onTap: () {},
-                    icon: const SizedBox(),
-                  ),
-                  MyListTileSubSub(
-                    text: 'RED',
-                    onTap: () {},
-                    icon: const SizedBox(),
-                  ),
-                  MyListTileSubSub(
-                    text: 'RED',
-                    onTap: () {},
-                    icon: const SizedBox(),
-                  ),
-                ],
-                imageAsset: const SizedBox(),
-                bgColor: const Color(0xff8EB4FF),
-                borderColor: const Color(0xffD9E6FF),
-                text: 'Kyufte',
+              MyListTileSub(
+                'Highly alcoholic',
+                () {},
+                const SizedBox(),
+              ),
+              MyListTileSub(
+                'Wine',
+                () {},
+                const SizedBox(),
+              ),
+              MyListTileSub(
+                'Beer',
+                () {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    categoryRoute,
+                    (route) => true,
+                  );
+                },
+                const SizedBox(),
               ),
             ],
-            imageAsset: Image.asset('assets/categoryMeat.png'),
+            imageAsset: Image.asset('assets/categoryAlcohol.png'),
             bgColor: const Color(0xff699BFF),
             borderColor: const Color(0xffB4CDFF),
-            text: 'Minced',
+            text: 'Alcohol',
           ),
         ],
       ),

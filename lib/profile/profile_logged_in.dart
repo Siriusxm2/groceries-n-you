@@ -9,83 +9,79 @@ class ProfileViewLogged extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Stack(
+      child: Column(
         children: [
-          Column(
-            children: [
-              const MyHeaderWidget(
-                text: 'Profile',
+          const MyHeaderWidget(
+            text: 'Profile',
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            child: const Text(
+              'View Orders',
+              style: TextStyle(
+                color: Color(0xff333333),
               ),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text(
-                  'View Orders',
-                  style: TextStyle(
-                    color: Color(0xff333333),
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  primary: const Color(0xff8EB4FF),
-                  side: const BorderSide(
-                    color: Color(0xffFFAE2D),
-                  ),
-                ),
+            ),
+            style: ElevatedButton.styleFrom(
+              primary: const Color(0xff8EB4FF),
+              side: const BorderSide(
+                color: Color(0xffFFAE2D),
               ),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text(
-                  'Order History',
-                  style: TextStyle(
-                    color: Color(0xff333333),
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  primary: const Color(0xff8EB4FF),
-                  side: const BorderSide(
-                    color: Color(0xffFFAE2D),
-                  ),
-                ),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            child: const Text(
+              'Order History',
+              style: TextStyle(
+                color: Color(0xff333333),
               ),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text(
-                  'Settings',
-                  style: TextStyle(
-                    color: Color(0xff333333),
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  primary: const Color(0xff8EB4FF),
-                  side: const BorderSide(
-                    color: Color(0xffFFAE2D),
-                  ),
-                ),
+            ),
+            style: ElevatedButton.styleFrom(
+              primary: const Color(0xff8EB4FF),
+              side: const BorderSide(
+                color: Color(0xffFFAE2D),
               ),
-              ElevatedButton(
-                onPressed: () async {
-                  final shouldLogout = await showLogOutDialog(context);
-                  if (shouldLogout) {
-                    await AuthService.firebase().logOut();
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                      initialRoute,
-                      (_) => false,
-                    );
-                  }
-                },
-                child: const Text(
-                  'Log out',
-                  style: TextStyle(
-                    color: Color(0xff333333),
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  primary: const Color(0xff8EB4FF),
-                  side: const BorderSide(
-                    color: Color(0xffFFAE2D),
-                  ),
-                ),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            child: const Text(
+              'Settings',
+              style: TextStyle(
+                color: Color(0xff333333),
               ),
-            ],
+            ),
+            style: ElevatedButton.styleFrom(
+              primary: const Color(0xff8EB4FF),
+              side: const BorderSide(
+                color: Color(0xffFFAE2D),
+              ),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              final shouldLogout = await showLogOutDialog(context);
+              if (shouldLogout) {
+                await AuthService.firebase().logOut();
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  initialRoute,
+                  (_) => false,
+                );
+              }
+            },
+            child: const Text(
+              'Log out',
+              style: TextStyle(
+                color: Color(0xff333333),
+              ),
+            ),
+            style: ElevatedButton.styleFrom(
+              primary: const Color(0xff8EB4FF),
+              side: const BorderSide(
+                color: Color(0xffFFAE2D),
+              ),
+            ),
           ),
         ],
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_n_you/about/about_page.dart';
 import 'package:groceries_n_you/about/contacts_page.dart';
+import 'package:groceries_n_you/categories/category_page.dart';
 import 'package:material_color_generator/material_color_generator.dart';
 import 'package:groceries_n_you/constants/routes.dart';
 import 'package:groceries_n_you/profile/profile_email_verify.dart';
@@ -27,6 +28,7 @@ void main() {
         verifyRoute: ((context) => const VerifyEmail()),
         aboutRoute: ((context) => const AboutUsPage()),
         contactRoute: ((context) => const ContactsPage()),
+        categoryRoute: ((context) => const CategoryPage()),
       },
     ),
   );

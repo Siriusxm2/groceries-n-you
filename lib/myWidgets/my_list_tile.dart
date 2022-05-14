@@ -177,7 +177,7 @@ class _MyListTileExpandState extends State<MyListTileExpand> {
         leading: _image,
         title: Container(
           alignment: Alignment.centerLeft,
-          margin: EdgeInsets.only(right: 60),
+          margin: const EdgeInsets.only(right: 60),
           child: Text(
             _text,
             style: const TextStyle(

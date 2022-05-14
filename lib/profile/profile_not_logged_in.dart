@@ -8,7 +8,7 @@ class ProfileViewNotLogged extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Stack(
+      child: Column(
         children: [
           Column(
             children: [
