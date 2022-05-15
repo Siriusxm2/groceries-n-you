@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:groceries_n_you/services/auth/auth_provider.dart';
 import 'package:groceries_n_you/services/auth/auth_user.dart';
 import 'package:groceries_n_you/services/auth/firebase_auth_provider.dart';
@@ -40,4 +41,10 @@ class AuthService implements AuthProvider {
 
   @override
   Future<void> sendEmailVerification() => provider.sendEmailVerification();
+
+  @override
+  Future<UserCredential?> signInWithFacebook() => provider.signInWithFacebook();
+
+  @override
+  Future<UserCredential> signInWithGoogle() => provider.signInWithGoogle();
 }

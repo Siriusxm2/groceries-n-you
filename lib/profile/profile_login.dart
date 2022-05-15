@@ -45,6 +45,126 @@ class _ProfilePageState extends State<ProfileLogin> {
         child: Column(
           children: [
             const MyHeaderWidget(text: 'Log in to your account'),
+            // Facebook Sign in
+            ElevatedButton(
+              onPressed: () async {
+                try {
+                  await AuthService.firebase().signInWithFacebook();
+                  final user = AuthService.firebase().currentUser;
+                  if (user?.isEmailVerified ?? false) {
+                    await CustomWidgets.mySnackBarWidget(
+                      context,
+                      'Logged in successfully!',
+                    );
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      initialRoute,
+                      (route) => false,
+                    );
+                  } else {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      verifyRoute,
+                      (route) => false,
+                    );
+                  }
+                } on UserNotFoundAuthException {
+                  await CustomWidgets.showErrorDialog(
+                    context,
+                    'No user found!',
+                  );
+                } on WrongPasswordAuthException {
+                  await CustomWidgets.showErrorDialog(
+                    context,
+                    'Wrong password!',
+                  );
+                } on InvalidEmailAuthException {
+                  await CustomWidgets.showErrorDialog(
+                    context,
+                    'Invalid email!',
+                  );
+                } on GenericAuthException {
+                  CustomWidgets.showErrorDialog(
+                    context,
+                    'Authentication error',
+                  );
+                }
+              },
+              child: const Text(
+                'Log in with Facebook',
+                style: TextStyle(
+                  color: Color(0xff333333),
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(Dimensions.border10),
+                ),
+                primary: const Color(0xff8EB4FF),
+                side: const BorderSide(
+                  color: Color(0xffFFAE2D),
+                ),
+                fixedSize: Size(Dimensions.width340, Dimensions.height30),
+              ),
+            ),
+            // Google Sign in
+            ElevatedButton(
+              onPressed: () async {
+                try {
+                  await AuthService.firebase().signInWithGoogle();
+                  final user = AuthService.firebase().currentUser;
+                  if (user?.isEmailVerified ?? false) {
+                    await CustomWidgets.mySnackBarWidget(
+                      context,
+                      'Logged in successfully!',
+                    );
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      initialRoute,
+                      (route) => false,
+                    );
+                  } else {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      verifyRoute,
+                      (route) => false,
+                    );
+                  }
+                } on UserNotFoundAuthException {
+                  await CustomWidgets.showErrorDialog(
+                    context,
+                    'No user found!',
+                  );
+                } on WrongPasswordAuthException {
+                  await CustomWidgets.showErrorDialog(
+                    context,
+                    'Wrong password!',
+                  );
+                } on InvalidEmailAuthException {
+                  await CustomWidgets.showErrorDialog(
+                    context,
+                    'Invalid email!',
+                  );
+                } on GenericAuthException {
+                  CustomWidgets.showErrorDialog(
+                    context,
+                    'Authentication error',
+                  );
+                }
+              },
+              child: const Text(
+                'Log in with Google',
+                style: TextStyle(
+                  color: Color(0xff333333),
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(Dimensions.border10),
+                ),
+                primary: const Color(0xff8EB4FF),
+                side: const BorderSide(
+                  color: Color(0xffFFAE2D),
+                ),
+                fixedSize: Size(Dimensions.width340, Dimensions.height30),
+              ),
+            ),
             Container(
               width: Dimensions.width300,
               height: Dimensions.height30,

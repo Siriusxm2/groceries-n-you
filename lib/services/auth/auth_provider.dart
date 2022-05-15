@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:groceries_n_you/services/auth/auth_user.dart';
 
 abstract class AuthProvider {
@@ -18,4 +19,8 @@ abstract class AuthProvider {
   Future<void> logOut();
 
   Future<void> sendEmailVerification();
+
+  Future<UserCredential?> signInWithFacebook();
+
+  Future<UserCredential> signInWithGoogle();
 }
