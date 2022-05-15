@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_n_you/constants/routes.dart';
+import 'package:groceries_n_you/dimensions.dart';
 //import 'dart:developer' as devtools show log;
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -8,7 +9,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      toolbarHeight: 50,
+      toolbarHeight: Dimensions.height50,
       titleSpacing: 0.0,
       centerTitle: true,
       title: Row(
@@ -49,8 +50,8 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                 child: Image.asset(
                   'assets/logo.png',
                   fit: BoxFit.cover,
-                  width: 40,
-                  height: 40,
+                  width: Dimensions.width40,
+                  height: Dimensions.height40,
                 ),
               ),
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_n_you/customIcons/custom_icons_icons.dart';
+import 'package:groceries_n_you/dimensions.dart';
 
 class MyListTileMain extends StatelessWidget {
   String image;
@@ -23,13 +24,13 @@ class MyListTileMain extends StatelessWidget {
       child: ListTile(
         onTap: onTap,
         leading: Image.asset(image),
-        minLeadingWidth: 1,
+        minLeadingWidth: 0,
         title: Text(
           text,
-          style: const TextStyle(
-            fontSize: 12,
+          style: TextStyle(
+            fontSize: Dimensions.font12,
             fontWeight: FontWeight.bold,
-            color: Color(0xffFFAE2D),
+            color: const Color(0xffFFAE2D),
           ),
         ),
         trailing: const Icon(
@@ -61,15 +62,15 @@ class MyListTileSub extends StatelessWidget {
       ),
       child: ListTile(
         onTap: onTap,
-        minLeadingWidth: 1,
+        minLeadingWidth: 0,
         title: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.symmetric(horizontal: Dimensions.width20),
           child: Text(
             text,
-            style: const TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.bold,
-              color: Color(0xffffffff),
+            style: TextStyle(
+              fontSize: Dimensions.font10,
+              fontWeight: FontWeight.w600,
+              color: const Color(0xffffffff),
             ),
           ),
         ),
@@ -104,13 +105,13 @@ class MyListTileSubSub extends StatelessWidget {
       ),
       child: ListTile(
         onTap: onTap,
-        minLeadingWidth: 1,
+        minLeadingWidth: 0,
         title: Text(
           text,
-          style: const TextStyle(
-            fontSize: 10,
+          style: TextStyle(
+            fontSize: Dimensions.font10,
             fontWeight: FontWeight.bold,
-            color: Color(0xffffffff),
+            color: const Color(0xffffffff),
           ),
         ),
         trailing: icon,
@@ -180,10 +181,10 @@ class _MyListTileExpandState extends State<MyListTileExpand> {
           margin: const EdgeInsets.only(right: 60),
           child: Text(
             _text,
-            style: const TextStyle(
-              fontSize: 12,
+            style: TextStyle(
+              fontSize: Dimensions.font12,
               fontWeight: FontWeight.bold,
-              color: Color(0xffFFAE2D),
+              color: const Color(0xffFFAE2D),
             ),
           ),
         ),

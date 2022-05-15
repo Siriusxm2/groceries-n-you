@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:groceries_n_you/dimensions.dart';
 
 class CustomWidgets {
   CustomWidgets._();
@@ -15,12 +16,12 @@ class CustomWidgets {
       backgroundColor: const Color(0xffFFBE57),
       duration: const Duration(milliseconds: 2000),
       behavior: SnackBarBehavior.floating,
-      width: 200.0,
+      width: Dimensions.width200,
       shape: RoundedRectangleBorder(
         side: const BorderSide(
           color: Color(0xff699BFF),
         ),
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(Dimensions.border10),
       ),
     ));
   }

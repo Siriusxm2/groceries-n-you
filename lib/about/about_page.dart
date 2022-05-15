@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:groceries_n_you/dimensions.dart';
 import 'package:groceries_n_you/myWidgets/my_app_bar.dart';
 import 'package:groceries_n_you/myWidgets/my_bottom_navbar.dart';
 import 'package:groceries_n_you/myWidgets/my_drawer.dart';
@@ -16,89 +17,89 @@ class AboutUsPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const MyHeaderWidget(text: 'For Us'),
-          const SizedBox(height: 35),
+          SizedBox(height: Dimensions.height35),
           Container(
-            margin: const EdgeInsets.only(left: 30),
-            height: 16,
-            child: const Text(
+            margin: EdgeInsets.only(left: Dimensions.width30),
+            height: Dimensions.height16,
+            child: Text(
               "For Groceries'N'You",
               textAlign: TextAlign.left,
               style: TextStyle(
-                color: Color(0xff699BFF),
-                fontSize: 16,
+                color: const Color(0xff699BFF),
+                fontSize: Dimensions.font16,
                 fontWeight: FontWeight.w500,
               ),
             ),
           ),
-          const SizedBox(height: 18),
-          const Center(
+          SizedBox(height: Dimensions.height18),
+          Center(
             child: SizedBox(
-              height: 56,
-              width: 300,
+              height: Dimensions.height56,
+              width: Dimensions.width300,
               child: Text(
                 "Ние от Groceries’N’You целим да предоставим бързо и улеснено пазаруване на всички. Предлагаме възможност за осигуряване на повече свободно време за Вас и Вашите близки.",
                 textAlign: TextAlign.left,
-                style: TextStyle(fontSize: 12),
+                style: TextStyle(fontSize: Dimensions.font12),
               ),
             ),
           ),
-          const SizedBox(height: 8),
-          const Center(
+          SizedBox(height: Dimensions.height8),
+          Center(
             child: SizedBox(
-              height: 42,
-              width: 300,
+              height: Dimensions.height42,
+              width: Dimensions.width300,
               child: Text(
                 "Гарантираме качество на доставката и възможност за връщане на продукти при лошо състояние или при липса при доставка.",
                 textAlign: TextAlign.left,
-                style: TextStyle(fontSize: 12),
+                style: TextStyle(fontSize: Dimensions.font12),
               ),
             ),
           ),
-          const SizedBox(height: 8),
-          const Center(
+          SizedBox(height: Dimensions.height8),
+          Center(
             child: SizedBox(
-              height: 56,
-              width: 300,
+              height: Dimensions.height56,
+              width: Dimensions.width300,
               child: Text(
                 "Гарантираме качество на доставката и възможност за връщане на продукти при лошо състояние или при липса при доставка.",
                 textAlign: TextAlign.left,
-                style: TextStyle(fontSize: 12),
+                style: TextStyle(fontSize: Dimensions.font12),
               ),
             ),
           ),
-          const SizedBox(height: 8),
-          const Center(
+          SizedBox(height: Dimensions.height8),
+          Center(
             child: SizedBox(
-              height: 42,
-              width: 300,
+              height: Dimensions.height42,
+              width: Dimensions.width300,
               child: Text(
                 "Гарантираме качество на доставката и възможност за връщане на продукти при лошо състояние или при липса при доставка.",
                 textAlign: TextAlign.left,
-                style: TextStyle(fontSize: 12),
+                style: TextStyle(fontSize: Dimensions.font12),
               ),
             ),
           ),
-          const SizedBox(height: 20),
-          const Divider(
-            indent: 10,
-            endIndent: 10,
+          SizedBox(height: Dimensions.height20),
+          Divider(
+            indent: Dimensions.width10,
+            endIndent: Dimensions.width10,
             thickness: 1,
-            color: Color(0xffcccccc),
+            color: const Color(0xffcccccc),
           ),
         ],
       ),
       drawer: const MyDrawer(),
-      persistentFooterButtons: const [
+      persistentFooterButtons: [
         Center(
           child: SizedBox(
-            width: 320,
-            height: 32,
+            width: Dimensions.width320,
+            height: Dimensions.height32,
             child: Text(
               "Уебсайтът groceriesnyou.bg е собственост на Ритейл Квартирката АД, БУЛСТАТ 420420420.",
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 10,
-                color: Color(0xff999999),
+                fontSize: Dimensions.font10,
+                color: const Color(0xff999999),
               ),
             ),
           ),

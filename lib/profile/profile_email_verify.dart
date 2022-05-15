@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_n_you/constants/routes.dart';
 import 'package:groceries_n_you/custom_widget_functions.dart';
+import 'package:groceries_n_you/dimensions.dart';
 import 'package:groceries_n_you/myWidgets/my_app_bar.dart';
 import 'package:groceries_n_you/myWidgets/my_bottom_navbar.dart';
 import 'package:groceries_n_you/myWidgets/my_drawer.dart';
@@ -23,8 +24,8 @@ class VerifyEmail extends StatelessWidget {
               text: 'Verify email',
             ),
             Container(
-              margin: const EdgeInsets.symmetric(vertical: 10),
-              width: 300,
+              margin: EdgeInsets.symmetric(vertical: Dimensions.height10),
+              width: Dimensions.width300,
               child: Column(
                 children: const [
                   Text(

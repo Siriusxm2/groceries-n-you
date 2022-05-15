@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import 'package:groceries_n_you/dimensions.dart';
+
 class MyHeaderWidget extends StatelessWidget {
   final String text;
 
@@ -10,7 +12,7 @@ class MyHeaderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        height: 56,
+        height: Dimensions.height56,
         decoration: const BoxDecoration(
           color: Color(0xffffffff),
           boxShadow: [
@@ -37,7 +39,12 @@ class MyHeaderWidget extends StatelessWidget {
                     color: Color(0xff666666),
                     size: 30,
                   ),
-                  padding: const EdgeInsets.fromLTRB(0, 10, 8, 0),
+                  padding: EdgeInsets.fromLTRB(
+                    0,
+                    Dimensions.height10,
+                    Dimensions.width8,
+                    0,
+                  ),
                 ),
               ),
             ),
@@ -45,14 +52,14 @@ class MyHeaderWidget extends StatelessWidget {
               child: Text(
                 text,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 24,
+                style: TextStyle(
+                  fontSize: Dimensions.font24,
                   fontWeight: FontWeight.w600,
                 ),
               ),
             ),
-            const SizedBox(
-              width: 30,
+            SizedBox(
+              width: Dimensions.width30,
             ),
           ],
         ),

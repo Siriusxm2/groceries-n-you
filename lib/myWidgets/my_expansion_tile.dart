@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import 'package:groceries_n_you/dimensions.dart';
+
 class MyExpansionTile extends StatefulWidget {
   String parentText;
   String childText;
@@ -31,7 +33,7 @@ class _MyExpansionTileState extends State<MyExpansionTile> {
           _isExpanded = value;
         });
       },
-      tilePadding: const EdgeInsets.symmetric(horizontal: 10),
+      tilePadding: EdgeInsets.symmetric(horizontal: Dimensions.height10),
       expandedAlignment: Alignment.centerLeft,
       trailing: const SizedBox(),
       leading: AnimatedRotation(
@@ -47,7 +49,7 @@ class _MyExpansionTileState extends State<MyExpansionTile> {
         ),
       ),
       title: SizedBox(
-        width: 20,
+        width: Dimensions.width20,
         child: Text(
           _pText,
           style: const TextStyle(
@@ -57,9 +59,9 @@ class _MyExpansionTileState extends State<MyExpansionTile> {
       ),
       children: [
         Container(
-          margin: const EdgeInsets.only(left: 40),
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          width: MediaQuery.of(context).size.width - 80,
+          margin: EdgeInsets.only(left: Dimensions.width60),
+          padding: EdgeInsets.symmetric(vertical: Dimensions.height10),
+          width: MediaQuery.of(context).size.width - Dimensions.width100,
           child: Text(_cText),
         ),
       ],

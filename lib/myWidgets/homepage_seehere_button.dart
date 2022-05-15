@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:groceries_n_you/dimensions.dart';
 
 class MySeeHereButton extends StatelessWidget {
   void Function() onPressed;
@@ -9,17 +10,17 @@ class MySeeHereButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onPressed,
-      child: const Text(
+      child: Text(
         'ВИЖ ТУК',
         style: TextStyle(
-          color: Color(0xff333333),
-          fontSize: 10,
+          color: const Color(0xff333333),
+          fontSize: Dimensions.font10,
           fontWeight: FontWeight.w700,
         ),
       ),
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
+          borderRadius: BorderRadius.circular(Dimensions.border5),
         ),
         primary: const Color(0xffFFBE57),
         side: const BorderSide(
@@ -28,7 +29,7 @@ class MySeeHereButton extends StatelessWidget {
         ),
         minimumSize: Size.zero,
         padding: EdgeInsets.zero,
-        fixedSize: const Size(70.0, 20.0),
+        fixedSize: const Size(70, 20),
       ),
     );
   }

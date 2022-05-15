@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_n_you/categories/alcohol/beer/beer_page_tileview.dart';
 import 'package:groceries_n_you/customIcons/custom_icons_icons.dart';
+import 'package:groceries_n_you/dimensions.dart';
 import 'package:groceries_n_you/myWidgets/my_app_bar.dart';
 import 'package:groceries_n_you/myWidgets/my_bottom_navbar.dart';
 import 'package:groceries_n_you/myWidgets/my_drawer.dart';
@@ -24,23 +25,30 @@ class CategoryPage extends StatelessWidget {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Container(
-              margin: const EdgeInsets.fromLTRB(20, 10, 0, 10),
+              margin: EdgeInsets.fromLTRB(
+                Dimensions.width20,
+                Dimensions.height10,
+                0,
+                Dimensions.height10,
+              ),
               child: Row(
                 children: [
                   OutlinedButton(
                     onPressed: () {},
-                    child: const Text(
+                    child: Text(
                       'Astika',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.w300,
-                        color: Color(0xff333333),
-                        fontSize: 12,
+                        color: const Color(0xff333333),
+                        fontSize: Dimensions.font12,
                       ),
                     ),
                     style: OutlinedButton.styleFrom(
-                      minimumSize: const Size(80, 40),
-                      maximumSize: const Size(100, 40),
+                      minimumSize:
+                          Size(Dimensions.width80, Dimensions.height40),
+                      maximumSize:
+                          Size(Dimensions.width100, Dimensions.height40),
                       side: const BorderSide(
                         width: 0.5,
                         color: Color(0xffFFBE57),
@@ -48,21 +56,23 @@ class CategoryPage extends StatelessWidget {
                       shape: const BeveledRectangleBorder(),
                     ),
                   ),
-                  const SizedBox(width: 5),
+                  SizedBox(width: Dimensions.width5),
                   OutlinedButton(
                     onPressed: () {},
-                    child: const Text(
+                    child: Text(
                       'Tuborg',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.w300,
-                        color: Color(0xff333333),
-                        fontSize: 12,
+                        color: const Color(0xff333333),
+                        fontSize: Dimensions.font12,
                       ),
                     ),
                     style: OutlinedButton.styleFrom(
-                      minimumSize: const Size(80, 40),
-                      maximumSize: const Size(100, 40),
+                      minimumSize:
+                          Size(Dimensions.width80, Dimensions.height40),
+                      maximumSize:
+                          Size(Dimensions.width100, Dimensions.height40),
                       side: const BorderSide(
                         width: 0.5,
                         color: Color(0xffFFBE57),
@@ -70,21 +80,23 @@ class CategoryPage extends StatelessWidget {
                       shape: const BeveledRectangleBorder(),
                     ),
                   ),
-                  const SizedBox(width: 5),
+                  SizedBox(width: Dimensions.width5),
                   OutlinedButton(
                     onPressed: () {},
-                    child: const Text(
+                    child: Text(
                       'Tuborg',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.w300,
-                        color: Color(0xff333333),
-                        fontSize: 12,
+                        color: const Color(0xff333333),
+                        fontSize: Dimensions.font12,
                       ),
                     ),
                     style: OutlinedButton.styleFrom(
-                      minimumSize: const Size(80, 40),
-                      maximumSize: const Size(100, 40),
+                      minimumSize:
+                          Size(Dimensions.width80, Dimensions.height40),
+                      maximumSize:
+                          Size(Dimensions.width100, Dimensions.height40),
                       side: const BorderSide(
                         width: 0.5,
                         color: Color(0xffFFBE57),
@@ -92,21 +104,23 @@ class CategoryPage extends StatelessWidget {
                       shape: const BeveledRectangleBorder(),
                     ),
                   ),
-                  const SizedBox(width: 5),
+                  SizedBox(width: Dimensions.width5),
                   OutlinedButton(
                     onPressed: () {},
-                    child: const Text(
+                    child: Text(
                       'Tuborg',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.w300,
-                        color: Color(0xff333333),
-                        fontSize: 12,
+                        color: const Color(0xff333333),
+                        fontSize: Dimensions.font12,
                       ),
                     ),
                     style: OutlinedButton.styleFrom(
-                      minimumSize: const Size(80, 40),
-                      maximumSize: const Size(100, 40),
+                      minimumSize:
+                          Size(Dimensions.width80, Dimensions.height40),
+                      maximumSize:
+                          Size(Dimensions.width100, Dimensions.height40),
                       side: const BorderSide(
                         width: 0.5,
                         color: Color(0xffFFBE57),
@@ -114,21 +128,23 @@ class CategoryPage extends StatelessWidget {
                       shape: const BeveledRectangleBorder(),
                     ),
                   ),
-                  const SizedBox(width: 5),
+                  SizedBox(width: Dimensions.width5),
                   OutlinedButton(
                     onPressed: () {},
-                    child: const Text(
+                    child: Text(
                       'Tuborg',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.w300,
-                        color: Color(0xff333333),
-                        fontSize: 12,
+                        color: const Color(0xff333333),
+                        fontSize: Dimensions.font12,
                       ),
                     ),
                     style: OutlinedButton.styleFrom(
-                      minimumSize: const Size(80, 40),
-                      maximumSize: const Size(100, 40),
+                      minimumSize:
+                          Size(Dimensions.width80, Dimensions.height40),
+                      maximumSize:
+                          Size(Dimensions.width100, Dimensions.height40),
                       side: const BorderSide(
                         width: 0.5,
                         color: Color(0xffFFBE57),
@@ -136,21 +152,23 @@ class CategoryPage extends StatelessWidget {
                       shape: const BeveledRectangleBorder(),
                     ),
                   ),
-                  const SizedBox(width: 5),
+                  SizedBox(width: Dimensions.width5),
                   OutlinedButton(
                     onPressed: () {},
-                    child: const Text(
+                    child: Text(
                       'Tuborg',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.w300,
-                        color: Color(0xff333333),
-                        fontSize: 12,
+                        color: const Color(0xff333333),
+                        fontSize: Dimensions.font12,
                       ),
                     ),
                     style: OutlinedButton.styleFrom(
-                      minimumSize: const Size(80, 40),
-                      maximumSize: const Size(100, 40),
+                      minimumSize:
+                          Size(Dimensions.width80, Dimensions.height40),
+                      maximumSize:
+                          Size(Dimensions.width100, Dimensions.height40),
                       side: const BorderSide(
                         width: 0.5,
                         color: Color(0xffFFBE57),
@@ -162,11 +180,11 @@ class CategoryPage extends StatelessWidget {
               ),
             ),
           ),
-          const Divider(
+          Divider(
             thickness: 1,
-            indent: 10,
-            endIndent: 10,
-            color: Color(0xffcccccc),
+            indent: Dimensions.width10,
+            endIndent: Dimensions.width10,
+            color: const Color(0xffcccccc),
           ),
           Row(
             children: const [

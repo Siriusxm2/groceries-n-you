@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:groceries_n_you/dimensions.dart';
 import 'package:groceries_n_you/homePage/scrolling_offers.dart';
 import 'package:groceries_n_you/myWidgets/my_app_bar.dart';
 import 'package:groceries_n_you/myWidgets/my_bottom_navbar.dart';
@@ -13,9 +14,9 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: const MyAppBar(),
       body: Column(
-        children: const [
-          SizedBox(height: 15),
-          ScrollingOffers(),
+        children: [
+          SizedBox(height: Dimensions.height15),
+          const ScrollingOffers(),
         ],
       ),
       drawer: const MyDrawer(),

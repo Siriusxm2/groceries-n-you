@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_n_you/constants/routes.dart';
+import 'package:groceries_n_you/dimensions.dart';
 import 'package:groceries_n_you/myWidgets/my_list_tile.dart';
 
 class MyDrawer extends StatefulWidget {
@@ -17,7 +18,7 @@ class _MyDrawerState extends State<MyDrawer> {
         padding: EdgeInsets.zero,
         children: [
           Container(
-            height: 140,
+            height: Dimensions.height140,
             decoration: const BoxDecoration(
               boxShadow: [
                 BoxShadow(
@@ -31,24 +32,25 @@ class _MyDrawerState extends State<MyDrawer> {
               child: Row(
                 children: [
                   Container(
-                    height: 20,
-                    width: 10,
+                    height: Dimensions.height20,
+                    width: Dimensions.width10,
                     color: const Color(0xffFFAE2D),
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                    child: const Text(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: Dimensions.width5),
+                    child: Text(
                       'CATEGORIES',
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: Dimensions.font24,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xffFFAE2D),
+                        color: const Color(0xffFFAE2D),
                       ),
                     ),
                   ),
                   Container(
-                    height: 20,
-                    width: 132,
+                    height: Dimensions.height20,
+                    width: Dimensions.width130,
                     color: const Color(0xffFFAE2D),
                   ),
                 ],

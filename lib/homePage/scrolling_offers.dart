@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:groceries_n_you/dimensions.dart';
 import 'package:groceries_n_you/myWidgets/homepage_seehere_button.dart';
-import 'package:page_view_indicators/page_view_indicators.dart';
 
 class ScrollingOffers extends StatefulWidget {
   const ScrollingOffers({Key? key}) : super(key: key);
@@ -38,7 +38,7 @@ class _ScrollingOffersState extends State<ScrollingOffers> {
         Stack(
           children: [
             SizedBox(
-              height: 180,
+              height: Dimensions.height180,
               child: PageView.builder(
                   itemCount: 5,
                   controller: pageController,

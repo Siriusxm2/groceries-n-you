@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 import 'package:groceries_n_you/constants/routes.dart';
+import 'package:groceries_n_you/dimensions.dart';
 
 class MyBottomNavbar extends StatelessWidget {
   const MyBottomNavbar({Key? key}) : super(key: key);
@@ -9,7 +10,7 @@ class MyBottomNavbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 120,
+      height: Dimensions.height130,
       child: BottomAppBar(
         color: const Color(0xff8EB4FF),
         child: Column(
@@ -46,10 +47,9 @@ class MyBottomNavbar extends StatelessWidget {
                 ],
               ),
               style: OutlinedButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: Dimensions.width15),
                 side: const BorderSide(
-                  color: Color(
-                    0xffB4CDFF,
-                  ),
+                  color: Color(0xffB4CDFF),
                 ),
               ),
             ),
@@ -85,23 +85,21 @@ class MyBottomNavbar extends StatelessWidget {
                 ],
               ),
               style: OutlinedButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: Dimensions.width15),
                 side: const BorderSide(
-                  color: Color(
-                    0xffB4CDFF,
-                  ),
+                  color: Color(0xffB4CDFF),
                 ),
               ),
             ),
-            const Center(
-              heightFactor: 2,
+            Container(
+              height: Dimensions.height33,
+              alignment: AlignmentDirectional.center,
               child: Text(
                 'All rights reserved',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Color(
-                    0xff000000,
-                  ),
-                  fontSize: 10,
+                  color: const Color(0xff000000),
+                  fontSize: Dimensions.font10,
                   fontWeight: FontWeight.w700,
                 ),
               ),

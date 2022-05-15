@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_n_you/custom_widget_functions.dart';
 import 'package:groceries_n_you/constants/routes.dart';
+import 'package:groceries_n_you/dimensions.dart';
 import 'package:groceries_n_you/myWidgets/my_app_bar.dart';
 import 'package:groceries_n_you/customIcons/custom_icons_icons.dart';
 import 'package:groceries_n_you/myWidgets/my_bottom_navbar.dart';
@@ -43,50 +44,68 @@ class _ProfilePageState extends State<ProfileLogin> {
       body: Center(
         child: Column(
           children: [
-            const MyHeaderWidget(
-              text: 'Log in to your account',
-            ),
+            const MyHeaderWidget(text: 'Log in to your account'),
             Container(
-              width: 300,
-              height: 30,
-              margin: const EdgeInsets.fromLTRB(0, 10, 0, 5),
+              width: Dimensions.width300,
+              height: Dimensions.height30,
+              margin: EdgeInsets.fromLTRB(
+                0,
+                Dimensions.height10,
+                0,
+                Dimensions.height5,
+              ),
               child: TextField(
                 controller: _email,
                 keyboardType: TextInputType.emailAddress,
                 autocorrect: false,
-                decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.fromLTRB(12, 0, 10, 0),
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(
+                    Dimensions.width12,
+                    0,
+                    Dimensions.width10,
+                    0,
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(
-                      Radius.circular(10.0),
+                      Radius.circular(Dimensions.border10),
                     ),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Color(0xffD4D4D4),
                     ),
                   ),
                   hintText: 'Enter email...',
-                  hintStyle: TextStyle(
+                  hintStyle: const TextStyle(
                     color: Color(0xff959595),
                   ),
                 ),
               ),
             ),
             Container(
-              width: 300,
-              height: 30,
-              margin: const EdgeInsets.fromLTRB(0, 5, 0, 10),
+              width: Dimensions.width300,
+              height: Dimensions.height30,
+              margin: EdgeInsets.fromLTRB(
+                0,
+                Dimensions.height5,
+                0,
+                Dimensions.height10,
+              ),
               child: TextField(
                 controller: _password,
                 enableSuggestions: false,
                 obscureText: _obscurePassword,
                 autocorrect: false,
                 decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.fromLTRB(12, 0, 10, 0),
-                  border: const OutlineInputBorder(
+                  contentPadding: EdgeInsets.fromLTRB(
+                    Dimensions.width12,
+                    0,
+                    Dimensions.width10,
+                    0,
+                  ),
+                  border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(
-                      Radius.circular(10.0),
+                      Radius.circular(Dimensions.border10),
                     ),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Color(0xffD4D4D4),
                     ),
                   ),
@@ -167,13 +186,13 @@ class _ProfilePageState extends State<ProfileLogin> {
                   ),
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+                      borderRadius: BorderRadius.circular(Dimensions.border10),
                     ),
                     primary: const Color(0xff8EB4FF),
                     side: const BorderSide(
                       color: Color(0xffFFAE2D),
                     ),
-                    fixedSize: const Size(340.0, 30.0),
+                    fixedSize: Size(Dimensions.width340, Dimensions.height30),
                   ),
                 ),
                 TextButton(
@@ -184,14 +203,14 @@ class _ProfilePageState extends State<ProfileLogin> {
                     );
                   },
                   child: Container(
-                    width: 340,
-                    padding: const EdgeInsets.only(left: 10),
-                    child: const Text(
+                    width: Dimensions.width340,
+                    padding: EdgeInsets.only(left: Dimensions.width10),
+                    child: Text(
                       'No profile? Register here.',
                       style: TextStyle(
                         decoration: TextDecoration.underline,
-                        color: Color(0xff333333),
-                        fontSize: 10.0,
+                        color: const Color(0xff333333),
+                        fontSize: Dimensions.font10,
                         fontWeight: FontWeight.w600,
                       ),
                     ),

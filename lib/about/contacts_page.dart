@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:groceries_n_you/dimensions.dart';
 import 'package:groceries_n_you/myWidgets/my_app_bar.dart';
 import 'package:groceries_n_you/myWidgets/my_bottom_navbar.dart';
 import 'package:groceries_n_you/myWidgets/my_drawer.dart';
@@ -20,7 +21,7 @@ class ContactsPage extends StatelessWidget {
             const MyHeaderWidget(text: 'Contacts'),
             // GOOGLE MAPS
             Container(
-              height: 260,
+              height: Dimensions.height260,
               child: const MyGoogleMaps(),
               decoration: BoxDecoration(
                 border: Border.all(
@@ -28,13 +29,13 @@ class ContactsPage extends StatelessWidget {
                   color: const Color(0xffCCCCCC),
                 ),
               ),
-              margin: const EdgeInsets.only(bottom: 10),
+              margin: EdgeInsets.only(bottom: Dimensions.height10),
             ),
             // CONTACT INFO
             Container(
               width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.only(left: 10),
-              padding: const EdgeInsets.symmetric(vertical: 10),
+              margin: EdgeInsets.only(left: Dimensions.width10),
+              padding: EdgeInsets.symmetric(vertical: Dimensions.height10),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,12 +43,12 @@ class ContactsPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: RichText(
-                      text: const TextSpan(
+                      text: TextSpan(
                         style: TextStyle(
-                          fontSize: 16,
-                          color: Color(0xff333333),
+                          fontSize: Dimensions.font16,
+                          color: const Color(0xff333333),
                         ),
-                        children: [
+                        children: const [
                           TextSpan(
                             text: 'Email:',
                             style: TextStyle(
@@ -60,14 +61,15 @@ class ContactsPage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    padding:
+                        EdgeInsets.symmetric(vertical: Dimensions.height10),
                     child: RichText(
-                      text: const TextSpan(
+                      text: TextSpan(
                         style: TextStyle(
-                          fontSize: 16,
-                          color: Color(0xff333333),
+                          fontSize: Dimensions.font16,
+                          color: const Color(0xff333333),
                         ),
-                        children: [
+                        children: const [
                           TextSpan(
                             text: 'Phone:',
                             style: TextStyle(
@@ -80,14 +82,15 @@ class ContactsPage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    padding:
+                        EdgeInsets.symmetric(vertical: Dimensions.height10),
                     child: RichText(
-                      text: const TextSpan(
+                      text: TextSpan(
                         style: TextStyle(
-                          fontSize: 16,
-                          color: Color(0xff333333),
+                          fontSize: Dimensions.font16,
+                          color: const Color(0xff333333),
                         ),
-                        children: [
+                        children: const [
                           TextSpan(
                             text: 'Address:',
                             style: TextStyle(
@@ -103,34 +106,34 @@ class ContactsPage extends StatelessWidget {
                 ],
               ),
             ),
-            const Divider(
-              indent: 10,
-              endIndent: 10,
+            Divider(
+              indent: Dimensions.width10,
+              endIndent: Dimensions.width10,
               thickness: 1,
-              color: Color(0xffcccccc),
+              color: const Color(0xffcccccc),
             ),
             Container(
-              padding: const EdgeInsets.symmetric(vertical: 30),
-              child: const Text(
+              padding: EdgeInsets.symmetric(vertical: Dimensions.height30),
+              child: Text(
                 'Frequently asked questions',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  color: Color(0xff333333),
+                  fontSize: Dimensions.font18,
+                  color: const Color(0xff333333),
                 ),
               ),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: Dimensions.height10),
             Column(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  width: MediaQuery.of(context).size.width - 80,
-                  child: const Text(
+                  padding: EdgeInsets.symmetric(vertical: Dimensions.height10),
+                  width: MediaQuery.of(context).size.width - Dimensions.width80,
+                  child: Text(
                     'Feedback',
                     style: TextStyle(
-                      color: Color(0xff699BFF),
-                      fontSize: 18,
+                      color: const Color(0xff699BFF),
+                      fontSize: Dimensions.font18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -144,13 +147,13 @@ class ContactsPage extends StatelessWidget {
                   'watchu want cuh',
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  width: MediaQuery.of(context).size.width - 80,
-                  child: const Text(
+                  padding: EdgeInsets.symmetric(vertical: Dimensions.height10),
+                  width: MediaQuery.of(context).size.width - Dimensions.width80,
+                  child: Text(
                     'Delivery',
                     style: TextStyle(
-                      color: Color(0xff699BFF),
-                      fontSize: 18,
+                      color: const Color(0xff699BFF),
+                      fontSize: Dimensions.font18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -164,13 +167,13 @@ class ContactsPage extends StatelessWidget {
                   'watchu want cuh',
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  width: MediaQuery.of(context).size.width - 80,
-                  child: const Text(
+                  padding: EdgeInsets.symmetric(vertical: Dimensions.height10),
+                  width: MediaQuery.of(context).size.width - Dimensions.width80,
+                  child: Text(
                     'Payment',
                     style: TextStyle(
-                      color: Color(0xff699BFF),
-                      fontSize: 18,
+                      color: const Color(0xff699BFF),
+                      fontSize: Dimensions.font18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

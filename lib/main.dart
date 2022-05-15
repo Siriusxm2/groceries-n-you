@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:groceries_n_you/about/about_page.dart';
 import 'package:groceries_n_you/about/contacts_page.dart';
 import 'package:groceries_n_you/categories/category_page.dart';
@@ -13,7 +14,7 @@ import 'package:groceries_n_you/services/auth/firebase_user_auth.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
-    MaterialApp(
+    GetMaterialApp(
       title: "Groceries 'N' You",
       theme: ThemeData(
         primarySwatch: generateMaterialColor(
