@@ -46,7 +46,7 @@ class _ProfilePageState extends State<ProfileLogin> {
           children: [
             const MyHeaderWidget(text: 'Log in to your account'),
             // Facebook Sign in
-            ElevatedButton(
+            ElevatedButton.icon(
               onPressed: () async {
                 try {
                   await AuthService.firebase().signInWithFacebook();
@@ -88,20 +88,23 @@ class _ProfilePageState extends State<ProfileLogin> {
                   );
                 }
               },
-              child: const Text(
-                'Log in with Facebook',
-                style: TextStyle(
-                  color: Color(0xff333333),
-                ),
+              icon: Image.asset('assets/facebook_logo.png'),
+              label: Row(
+                children: const [
+                  Text(
+                    'Sign in with Facebook',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Color(0xff333333),
+                    ),
+                  ),
+                ],
               ),
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(Dimensions.border10),
                 ),
-                primary: const Color(0xff8EB4FF),
-                side: const BorderSide(
-                  color: Color(0xffFFAE2D),
-                ),
+                primary: const Color(0xff4167B2),
                 fixedSize: Size(Dimensions.width340, Dimensions.height30),
               ),
             ),
@@ -148,19 +151,31 @@ class _ProfilePageState extends State<ProfileLogin> {
                   );
                 }
               },
-              child: const Text(
-                'Log in with Google',
-                style: TextStyle(
-                  color: Color(0xff333333),
-                ),
+              child: Row(
+                children: [
+                  Image.asset(
+                    'assets/google_icon.png',
+                    width: 16,
+                    height: 16,
+                  ),
+                  const Center(
+                    child: Text(
+                      'Sign in with Google',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Color(0xff333333),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(Dimensions.border10),
                 ),
-                primary: const Color(0xff8EB4FF),
+                primary: const Color(0xffEEEEEE),
                 side: const BorderSide(
-                  color: Color(0xffFFAE2D),
+                  color: Color(0xffD8D8D8),
                 ),
                 fixedSize: Size(Dimensions.width340, Dimensions.height30),
               ),

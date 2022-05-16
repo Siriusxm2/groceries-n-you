@@ -15,3 +15,5 @@ class CouldNotFindUserException implements Exception {}
 class CouldNotFindOrderException implements Exception {}
 
 class CouldNotUpdateOrderException implements Exception {}
+
+class CouldNotFindProductException implements Exception {}

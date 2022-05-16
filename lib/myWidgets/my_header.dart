@@ -6,7 +6,7 @@ import 'package:groceries_n_you/dimensions.dart';
 class MyHeaderWidget extends StatelessWidget {
   final String text;
 
-  const MyHeaderWidget({Key? key, this.text = ''}) : super(key: key);
+  const MyHeaderWidget({Key? key, required this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -6,14 +6,14 @@ import 'package:groceries_n_you/services/auth/auth_service.dart';
 class ProfileViewLogged extends StatelessWidget {
   const ProfileViewLogged({Key? key}) : super(key: key);
 
+  String get userEmail => AuthService.firebase().currentUser!.email!;
+
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Column(
         children: [
-          const MyHeaderWidget(
-            text: 'Profile',
-          ),
+          const MyHeaderWidget(text: 'Profile'),
           ElevatedButton(
             onPressed: () {},
             child: const Text(
@@ -30,7 +30,12 @@ class ProfileViewLogged extends StatelessWidget {
             ),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                profileOrdersRoute,
+                (route) => true,
+              );
+            },
             child: const Text(
               'Order History',
               style: TextStyle(

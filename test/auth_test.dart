@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:groceries_n_you/services/auth/auth_exceptions.dart';
 import 'package:groceries_n_you/services/auth/auth_provider.dart';
 import 'package:groceries_n_you/services/auth/auth_user.dart';
@@ -138,5 +139,15 @@ class MockAuthProvider implements AuthProvider {
     if (user == null) throw UserNotFoundAuthException();
     const newUser = AuthUser(isEmailVerified: true);
     _user = newUser;
+  }
+
+  @override
+  Future<UserCredential?> signInWithFacebook() {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<UserCredential?> signInWithGoogle() {
+    throw UnimplementedError();
   }
 }

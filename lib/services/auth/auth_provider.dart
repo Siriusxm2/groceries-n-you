@@ -22,5 +22,5 @@ abstract class AuthProvider {
 
   Future<UserCredential?> signInWithFacebook();
 
-  Future<UserCredential> signInWithGoogle();
+  Future<UserCredential?> signInWithGoogle();
 }

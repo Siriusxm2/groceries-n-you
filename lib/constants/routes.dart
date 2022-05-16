@@ -1,5 +1,6 @@
 const initialRoute = '/';
 const profileRoute = '/profile/';
+const profileOrdersRoute = '/orders/';
 const loginRoute = '/login/';
 const registerRoute = '/register/';
 const verifyRoute = '/verify/';
