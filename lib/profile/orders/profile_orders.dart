@@ -25,12 +25,6 @@ class _ProfileOrdersPageState extends State<ProfileOrdersPage> {
   }
 
   @override
-  void dispose() {
-    _ordersService.close();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MyAppBar(),
@@ -47,11 +41,29 @@ class _ProfileOrdersPageState extends State<ProfileOrdersPage> {
               switch (snapshot.connectionState) {
                 case ConnectionState.done:
                   return StreamBuilder(
-                    stream: _ordersService.allOrders,
+                    stream: _ordersService.allProducts,
                     builder: (context, snapshot) {
                       switch (snapshot.connectionState) {
                         case ConnectionState.waiting:
-                          return const Text('WAITING FOR NOTES');
+                          return const Text('No previous orders.');
+                        case ConnectionState.active:
+                          if (snapshot.hasData) {
+                            final allProducts =
+                                snapshot.data as List<DatabaseProduct>;
+                            return ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              itemCount: allProducts.length,
+                              itemBuilder: (context, index) {
+                                final prod = allProducts[index];
+                                return ListTile(
+                                  title: Text(prod.toString()),
+                                );
+                              },
+                            );
+                          } else {
+                            return const CircularProgressIndicator();
+                          }
                         default:
                           return const CircularProgressIndicator();
                       }

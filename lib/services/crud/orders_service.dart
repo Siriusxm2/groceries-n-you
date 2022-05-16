@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:path/path.dart' show join;
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
@@ -9,17 +12,33 @@ import 'package:intl/intl.dart';
 
 class OrdersService {
   Database? _db;
+  Database? _dbP;
   List<DatabaseOrder> _orders = [];
+  List<DatabaseProduct> _product = [];
+
+  late final StreamController<List<DatabaseProduct>> _productsStreamController;
+  Stream<List<DatabaseProduct>> get allProducts =>
+      _productsStreamController.stream;
 
   // SINGLETON
   static final OrdersService _shared = OrdersService._sharedInstance();
-  OrdersService._sharedInstance();
+  OrdersService._sharedInstance() {
+    _productsStreamController =
+        StreamController<List<DatabaseProduct>>.broadcast(
+      onListen: () {
+        _productsStreamController.sink.add(_product);
+      },
+    );
+    _ordersStreamController = StreamController<List<DatabaseOrder>>.broadcast(
+      onListen: () {
+        _ordersStreamController.sink.add(_orders);
+      },
+    );
+  }
   factory OrdersService() => _shared;
-  // SINGLETON END
+  // SINGLETON
 
-  final _ordersStreamController =
-      StreamController<List<DatabaseOrder>>.broadcast();
-
+  late final StreamController<List<DatabaseOrder>> _ordersStreamController;
   Stream<List<DatabaseOrder>> get allOrders => _ordersStreamController.stream;
 
   Future<void> _cacheOrders() async {
@@ -28,6 +47,13 @@ class OrdersService {
     _ordersStreamController.add(_orders);
   }
 
+  Future<void> _cacheProducts() async {
+    final allProducts = await getAllProducts();
+    _product = allProducts.toList();
+    _productsStreamController.add(_product);
+  }
+
+  // USER ACTIONS
   Future<DatabaseUser> createUser({required String email}) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
@@ -87,6 +113,7 @@ class OrdersService {
     if (deletedCount != 1) throw CouldNotDeleteUserException();
   }
 
+  // ORDER ACTIONS
   Future<DatabaseOrder> createOrder({
     required DatabaseUser owner,
     required DatabaseProduct product,
@@ -107,6 +134,7 @@ class OrdersService {
 
     const orderPrice = 0.0;
     const orderDate = '';
+    const orderStatus = '';
 
     // Create the note
     final orderId = await db.insert(orderTable, {
@@ -114,6 +142,7 @@ class OrdersService {
       productIdColumn: product.id,
       orderPriceColumn: orderPrice,
       orderDateColumn: orderDate,
+      orderStatusColumn: orderStatus,
       isSyncedWithCloudColumn: 1,
     });
 
@@ -123,6 +152,7 @@ class OrdersService {
       productId: product.id,
       orderPrice: orderPrice,
       orderDate: orderDate,
+      orderStatus: orderStatus,
       isSyncedWithCloud: true,
     );
 
@@ -149,7 +179,6 @@ class OrdersService {
       _orders.removeWhere((order) => order.id == id);
       _orders.add(order);
       _ordersStreamController.add(_orders);
-
       return order;
     }
   }
@@ -220,15 +249,29 @@ class OrdersService {
       productTable,
       limit: 1,
       where: 'product_name = ?',
-      whereArgs: [name.toLowerCase()],
+      whereArgs: [name],
     );
     if (results.isEmpty) {
       throw CouldNotFindProductException();
     } else {
-      return DatabaseProduct.fromRow(results.first);
+      final product = DatabaseProduct.fromRow(results.first);
+      _product.removeWhere((product) => product.productName == name);
+      _product.add(product);
+      _productsStreamController.add(_product);
+      return product;
     }
   }
 
+  Future<Iterable<DatabaseProduct>> getAllProducts() async {
+    await _ensureDbIsOpen();
+    final db = _getDatabaseOrThrow();
+    final product = await db.query(productTable);
+
+    final result = product.map((n) => DatabaseProduct.fromRow(n));
+    return result;
+  }
+
+  // DATABASE ACTIONS
   Database _getDatabaseOrThrow() {
     final db = _db;
     if (db == null) {
@@ -246,22 +289,57 @@ class OrdersService {
     }
   }
 
+  // INITIALIZE PRODUCTS.DB
+  Future<void> _initializeProducts() async {
+    final docsPath = await getApplicationDocumentsDirectory();
+    final dbPath = join(docsPath.path, dbProducts);
+
+    // Delete DB if exists
+    await deleteDatabase(dbPath);
+
+    // Copy from asset
+    ByteData data = await rootBundle.load(join("assets", dbProducts));
+    List<int> bytes =
+        data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+    await File(dbPath).writeAsBytes(bytes, flush: true);
+  }
+
   Future<void> open() async {
     if (_db != null) {
       throw DatabaseAlreadyOpenedException();
+    } else if (_dbP != null) {
+      throw DatabaseAlreadyOpenedException();
     }
     try {
+      // Initialize products.db
+      await _initializeProducts();
+      // Get path to products.db
+      final docsPathProducts = await getApplicationDocumentsDirectory();
+      final dbPathProducts = join(docsPathProducts.path, dbProducts);
+      final dbP = await openDatabase(dbPathProducts);
+      _dbP = dbP;
+
+      // Get path to orders.db
       final docsPath = await getApplicationDocumentsDirectory();
-      final dbPath = join(docsPath.path, dbName);
+      final dbPath = join(docsPath.path, dbOrders);
       final db = await openDatabase(dbPath);
       _db = db;
+
       // CREATE USER TABLE
       await db.execute(createUserTable);
       // CREATE ORDERS TABLE
       await db.execute(createOrdersTable);
       // CREATE PRODUCTS TABLE
       await db.execute(createProductsTable);
+      await db.execute('delete from $productTable');
 
+      // COPY PRODUCTS.PRODUCTS TO ORDERS.PRODUCTS
+      final dbProductsContent = await dbP.query(productTable);
+      for (var row in dbProductsContent) {
+        db.insert(productTable, row);
+      }
+
+      await _cacheProducts();
       await _cacheOrders();
     } on MissingPlatformDirectoryException {
       throw UnableToGetDocumentsDirectoryException();
@@ -279,6 +357,7 @@ class OrdersService {
   }
 }
 
+// USERS TABLE
 @immutable
 class DatabaseUser {
   final int id;
@@ -303,6 +382,7 @@ class DatabaseUser {
   int get hashCode => id.hashCode;
 }
 
+// ORDERS TABLE
 @immutable
 class DatabaseOrder {
   final int id;
@@ -310,6 +390,7 @@ class DatabaseOrder {
   final int productId;
   final num orderPrice;
   final String orderDate;
+  final String orderStatus;
   final bool isSyncedWithCloud;
 
   const DatabaseOrder({
@@ -318,6 +399,7 @@ class DatabaseOrder {
     required this.productId,
     required this.orderPrice,
     required this.orderDate,
+    required this.orderStatus,
     required this.isSyncedWithCloud,
   });
 
@@ -327,12 +409,13 @@ class DatabaseOrder {
         productId = map[productIdColumn] as int,
         orderPrice = map[orderPriceColumn] as num,
         orderDate = map[orderDateColumn] as String,
+        orderStatus = map[orderStatusColumn] as String,
         isSyncedWithCloud =
             (map[isSyncedWithCloudColumn] as int) == 1 ? true : false;
 
   @override
   String toString() =>
-      'Sale: ID = $id, UserID = $userId, ProductID = $productId, Synced = $isSyncedWithCloud, OrderPrice = $orderPrice, OrderDate = $orderDate';
+      'Sale: ID = $id, UserID = $userId, ProductID = $productId, Synced = $isSyncedWithCloud, OrderPrice = $orderPrice, OrderDate = $orderDate, OrderStatus = $orderStatus';
 
   @override
   bool operator ==(covariant DatabaseOrder other) => id == other.id;
@@ -341,6 +424,7 @@ class DatabaseOrder {
   int get hashCode => id.hashCode;
 }
 
+// PRODUCTS TABLE
 @immutable
 class DatabaseProduct {
   final int id;
@@ -375,7 +459,8 @@ class DatabaseProduct {
   int get hashCode => id.hashCode;
 }
 
-const dbName = 'orders.db';
+const dbOrders = 'orders.db';
+const dbProducts = 'products.db';
 const orderTable = 'orders';
 const userTable = 'users';
 const productTable = 'products';
@@ -385,6 +470,7 @@ const userIdColumn = 'user_id';
 const productIdColumn = 'product_id';
 const orderPriceColumn = 'order_price';
 const orderDateColumn = 'order_date';
+const orderStatusColumn = 'order_status';
 const productNameColumn = 'product_name';
 const productManufacturerColumn = 'product_manufacturer';
 const productPictureColumn = 'product_picture';
@@ -403,6 +489,7 @@ const createOrdersTable = '''
 	      "product_id"	INTEGER NOT NULL,
 	      "order_price"	REAL NOT NULL,
 	      "order_date"	TEXT NOT NULL,
+        "order_status" TEXT NOT NULL,
 	      "is_synced_with_cloud"	INTEGER NOT NULL DEFAULT 0,
 	      PRIMARY KEY("id" AUTOINCREMENT),
         FOREIGN KEY("product_id") REFERENCES "products",
