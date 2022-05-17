@@ -1,9 +1,29 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:groceries_n_you/dimensions.dart';
-import 'dart:math' as math;
 
 class CustomWidgets {
   CustomWidgets._();
+
+  static Future<bool> showErrorDialog(BuildContext context, String message) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Oops...'),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    ).then((value) => value ?? false);
+  }
 
   static mySnackBarWidget(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -27,35 +47,19 @@ class CustomWidgets {
     ));
   }
 
-  static Future<bool> showErrorDialog(BuildContext context, String message) {
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Oops...'),
-          content: Text(message),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Close'),
-            ),
-          ],
-        );
-      },
-    ).then((value) => value ?? false);
-  }
-
   static List<Widget> promotion(
     bool isSale,
     num originalPrice,
     int saleAmount,
+    int quantity,
   ) {
+    final q = quantity;
     if (isSale) {
       final percentOff = originalPrice * saleAmount / 100;
-      final result = originalPrice - percentOff;
+      final salePrice = originalPrice - percentOff;
+      final result = salePrice * q;
       return [
+        // Price and currency
         RichText(
           text: TextSpan(
             style: TextStyle(
@@ -64,11 +68,15 @@ class CustomWidgets {
               color: const Color(0xff333333),
             ),
             children: [
-              TextSpan(text: result.toStringAsFixed(2)),
+              TextSpan(
+                  text: result < 1
+                      ? salePrice.toStringAsFixed(2)
+                      : result.toStringAsFixed(2)),
               const TextSpan(text: ' лв.'),
             ],
           ),
         ),
+        // Sale ticket
         Stack(
           children: [
             Image.asset(
@@ -89,7 +97,9 @@ class CustomWidgets {
         ),
       ];
     } else {
+      final result = originalPrice * q;
       return [
+        // Price and currency
         RichText(
           text: TextSpan(
             style: TextStyle(
@@ -98,7 +108,10 @@ class CustomWidgets {
               color: const Color(0xff333333),
             ),
             children: [
-              TextSpan(text: originalPrice.toStringAsFixed(2)),
+              TextSpan(
+                  text: result < 1
+                      ? originalPrice.toStringAsFixed(2)
+                      : result.toStringAsFixed(2)),
               const TextSpan(text: ' лв.'),
             ],
           ),
@@ -114,9 +127,11 @@ class CustomWidgets {
     required String manufacturer,
     required num price,
     required int saleAmount,
+    required int quantity,
   }) {
     if (isSale) {
       return [
+        // Picture
         Container(
           height: Dimensions.height170,
           decoration: BoxDecoration(
@@ -126,6 +141,7 @@ class CustomWidgets {
             ),
           ),
         ),
+        // Stars and cart
         Padding(
           padding: EdgeInsets.symmetric(vertical: Dimensions.height10),
           child: Row(
@@ -148,6 +164,7 @@ class CustomWidgets {
             ],
           ),
         ),
+        // Name
         Text(
           name,
           style: TextStyle(
@@ -156,6 +173,7 @@ class CustomWidgets {
             fontWeight: FontWeight.w500,
           ),
         ),
+        // Manufacturer
         Padding(
           padding: EdgeInsets.only(
             top: Dimensions.height5,
@@ -170,11 +188,13 @@ class CustomWidgets {
             ),
           ),
         ),
+        // Price
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: CustomWidgets.promotion(isSale, price, saleAmount),
+          children: promotion(isSale, price, saleAmount, quantity),
         ),
+        // Old Price
         Stack(
           children: [
             SizedBox(
@@ -209,6 +229,7 @@ class CustomWidgets {
       ];
     } else {
       return [
+        // Picture
         Container(
           height: Dimensions.height170,
           decoration: BoxDecoration(
@@ -218,6 +239,7 @@ class CustomWidgets {
             ),
           ),
         ),
+        // Stars and cart
         Padding(
           padding: EdgeInsets.symmetric(vertical: Dimensions.height10),
           child: Row(
@@ -240,6 +262,7 @@ class CustomWidgets {
             ],
           ),
         ),
+        // Name
         Text(
           name,
           style: TextStyle(
@@ -248,6 +271,7 @@ class CustomWidgets {
             fontWeight: FontWeight.w500,
           ),
         ),
+        // Manufacturer
         Padding(
           padding: EdgeInsets.only(
             top: Dimensions.height5,
@@ -262,12 +286,65 @@ class CustomWidgets {
             ),
           ),
         ),
+        // Price
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: CustomWidgets.promotion(isSale, price, saleAmount),
+          children: promotion(isSale, price, saleAmount, quantity),
         ),
       ];
     }
+  }
+
+  static List<Widget> popUpWidget({
+    required bool isSale,
+    required String picture,
+    required String name,
+    required num price,
+    required int saleAmount,
+  }) {
+    return [
+      Container(
+        height: Dimensions.height170,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.scaleDown,
+            image: AssetImage(picture),
+          ),
+        ),
+      ),
+      // Stars and cart
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: Dimensions.height10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Wrap(
+              children: List.generate(
+                5,
+                (index) => const Icon(
+                  Icons.star,
+                  size: 16,
+                  color: Color(0xff4382FF),
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {},
+              child: Image.asset('assets/cart.png'),
+            ),
+          ],
+        ),
+      ),
+      // Name
+      Text(
+        name,
+        style: TextStyle(
+          fontSize: Dimensions.font13,
+          color: const Color(0xff333333),
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+    ];
   }
 }

@@ -39,6 +39,8 @@ class Dimensions {
   static double height140 = screenHeight / 5.58;
   static double height170 = screenHeight / 4.6;
   static double height180 = screenHeight / 4.34;
+  static double height190 = screenHeight / 4.11;
+  static double height200 = screenHeight / 3.9;
   static double height260 = screenHeight / 3.00;
   static double height315 = screenHeight / 2.48;
 
@@ -62,6 +64,7 @@ class Dimensions {
   static double width300 = screenWidth / 1.31;
   static double width320 = screenWidth / 1.23;
   static double width340 = screenWidth / 1.155;
+  static double width360 = screenWidth / 1.1;
 
   //// BORDERS ////
   static double border1 = screenHeight / 781.1;

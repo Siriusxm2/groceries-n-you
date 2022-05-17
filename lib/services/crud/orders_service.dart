@@ -330,13 +330,15 @@ class OrdersService {
       // CREATE ORDERS TABLE
       await db.execute(createOrdersTable);
       // CREATE PRODUCTS TABLE
-      await db.execute(createProductsTable);
       await db.execute('delete from $productTable');
+      await db.execute('drop table if exists $productTable');
+      await db.execute(createProductsTable);
 
       // COPY PRODUCTS.PRODUCTS TO ORDERS.PRODUCTS
       final dbProductsContent = await dbP.query(productTable);
       for (var row in dbProductsContent) {
-        db.insert(productTable, row);
+        db.insert(productTable, row,
+            conflictAlgorithm: ConflictAlgorithm.replace);
       }
 
       await _cacheProducts();
@@ -432,6 +434,7 @@ class DatabaseProduct {
   final String productManufacturer;
   final String productPicture;
   final num productPrice;
+  final String productTag;
 
   const DatabaseProduct({
     required this.id,
@@ -439,6 +442,7 @@ class DatabaseProduct {
     required this.productManufacturer,
     required this.productPicture,
     required this.productPrice,
+    required this.productTag,
   });
 
   DatabaseProduct.fromRow(Map<String, Object?> map)
@@ -446,11 +450,12 @@ class DatabaseProduct {
         productName = map[productNameColumn] as String,
         productManufacturer = map[productManufacturerColumn] as String,
         productPicture = map[productPictureColumn] as String,
-        productPrice = map[productPriceColumn] as num;
+        productPrice = map[productPriceColumn] as num,
+        productTag = map[productTagColumn] as String;
 
   @override
   String toString() =>
-      'Product: ID = $id, Name = $productName, Manufacturer = $productManufacturer, Picture = $productPicture, Price = $productPrice';
+      'Product: ID = $id, Name = $productName, Manufacturer = $productManufacturer, Picture = $productPicture, Price = $productPrice, Tag = $productTag';
 
   @override
   bool operator ==(covariant DatabaseProduct other) => id == other.id;
@@ -475,6 +480,7 @@ const productNameColumn = 'product_name';
 const productManufacturerColumn = 'product_manufacturer';
 const productPictureColumn = 'product_picture';
 const productPriceColumn = 'product_price';
+const productTagColumn = 'product_tag';
 const isSyncedWithCloudColumn = 'is_synced_with_cloud';
 const createUserTable = '''
         CREATE TABLE IF NOT EXISTS "users" (
@@ -502,5 +508,6 @@ const createProductsTable = '''
 	      "product_manufacturer"	TEXT NOT NULL,
 	      "product_picture"	TEXT NOT NULL,
 	      "product_price"	REAL NOT NULL,
+        "product_tag"	TEXT NOT NULL,
 	      PRIMARY KEY("id" AUTOINCREMENT)
         );''';
