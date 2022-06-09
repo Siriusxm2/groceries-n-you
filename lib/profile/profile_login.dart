@@ -11,6 +11,8 @@ import 'package:groceries_n_you/myWidgets/my_header.dart';
 import 'package:groceries_n_you/services/auth/auth_exceptions.dart';
 import 'package:groceries_n_you/services/auth/auth_service.dart';
 
+import '../utils/dialogs/error_dialog.dart';
+
 class ProfileLogin extends StatefulWidget {
   const ProfileLogin({Key? key}) : super(key: key);
 
@@ -67,22 +69,22 @@ class _ProfilePageState extends State<ProfileLogin> {
                     );
                   }
                 } on UserNotFoundAuthException {
-                  await CustomWidgets.showErrorDialog(
+                  await showErrorDialog(
                     context,
                     'No user found!',
                   );
                 } on WrongPasswordAuthException {
-                  await CustomWidgets.showErrorDialog(
+                  await showErrorDialog(
                     context,
                     'Wrong password!',
                   );
                 } on InvalidEmailAuthException {
-                  await CustomWidgets.showErrorDialog(
+                  await showErrorDialog(
                     context,
                     'Invalid email!',
                   );
                 } on GenericAuthException {
-                  CustomWidgets.showErrorDialog(
+                  showErrorDialog(
                     context,
                     'Authentication error',
                   );
@@ -130,22 +132,22 @@ class _ProfilePageState extends State<ProfileLogin> {
                     );
                   }
                 } on UserNotFoundAuthException {
-                  await CustomWidgets.showErrorDialog(
+                  await showErrorDialog(
                     context,
                     'No user found!',
                   );
                 } on WrongPasswordAuthException {
-                  await CustomWidgets.showErrorDialog(
+                  await showErrorDialog(
                     context,
                     'Wrong password!',
                   );
                 } on InvalidEmailAuthException {
-                  await CustomWidgets.showErrorDialog(
+                  await showErrorDialog(
                     context,
                     'Invalid email!',
                   );
                 } on GenericAuthException {
-                  CustomWidgets.showErrorDialog(
+                  showErrorDialog(
                     context,
                     'Authentication error',
                   );
@@ -292,22 +294,22 @@ class _ProfilePageState extends State<ProfileLogin> {
                         );
                       }
                     } on UserNotFoundAuthException {
-                      await CustomWidgets.showErrorDialog(
+                      await showErrorDialog(
                         context,
                         'No user found!',
                       );
                     } on WrongPasswordAuthException {
-                      await CustomWidgets.showErrorDialog(
+                      await showErrorDialog(
                         context,
                         'Wrong password!',
                       );
                     } on InvalidEmailAuthException {
-                      await CustomWidgets.showErrorDialog(
+                      await showErrorDialog(
                         context,
                         'Invalid email!',
                       );
                     } on GenericAuthException {
-                      CustomWidgets.showErrorDialog(
+                      showErrorDialog(
                         context,
                         'Authentication error',
                       );

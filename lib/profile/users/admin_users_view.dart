@@ -4,18 +4,19 @@ import 'package:groceries_n_you/myWidgets/my_bottom_navbar.dart';
 import 'package:groceries_n_you/myWidgets/my_drawer.dart';
 import 'package:groceries_n_you/myWidgets/my_floating_button.dart';
 import 'package:groceries_n_you/myWidgets/my_header.dart';
-import 'package:groceries_n_you/services/auth/auth_service.dart';
+import 'package:groceries_n_you/profile/users/users_list_view.dart';
 import 'package:groceries_n_you/services/crud/orders_service.dart';
 
-class ProfileOrdersPage extends StatefulWidget {
-  const ProfileOrdersPage({Key? key}) : super(key: key);
+import '../../services/auth/auth_service.dart';
+
+class AdminUsersPage extends StatefulWidget {
+  const AdminUsersPage({Key? key}) : super(key: key);
 
   @override
-  State<ProfileOrdersPage> createState() => _ProfileOrdersPageState();
+  State<AdminUsersPage> createState() => _AdminUsersPageState();
 }
 
-class _ProfileOrdersPageState extends State<ProfileOrdersPage> {
-  String get userEmail => AuthService.firebase().currentUser!.email!;
+class _AdminUsersPageState extends State<AdminUsersPage> {
   late final OrdersService _ordersService;
 
   @override
@@ -34,38 +35,23 @@ class _ProfileOrdersPageState extends State<ProfileOrdersPage> {
       bottomNavigationBar: const MyBottomNavbar(),
       body: Column(
         children: [
-          const MyHeaderWidget(text: 'Order history'),
+          const MyHeaderWidget(text: 'All Users'),
           FutureBuilder(
-            future: _ordersService.getUser(email: userEmail),
+            future: _ordersService.getAllUsers(),
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.done:
                   return StreamBuilder(
-                    stream: _ordersService.allProducts,
+                    stream: _ordersService.allUsers,
                     builder: (context, snapshot) {
                       switch (snapshot.connectionState) {
                         case ConnectionState.waiting:
-                          return const Text('No previous orders.');
+                          return const Text('No users.');
                         case ConnectionState.active:
                           if (snapshot.hasData) {
-                            final allProducts =
-                                snapshot.data as List<DatabaseProduct>;
-                            return ListView.builder(
-                              scrollDirection: Axis.vertical,
-                              shrinkWrap: true,
-                              itemCount: allProducts.length,
-                              itemBuilder: (context, index) {
-                                final prod = allProducts[index];
-                                return ListTile(
-                                  title: Text(
-                                    prod.toString(),
-                                    maxLines: 1,
-                                    softWrap: true,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                );
-                              },
-                            );
+                            final allUsers =
+                                snapshot.data as List<DatabaseUser>;
+                            return UsersListView(users: allUsers);
                           } else {
                             return const CircularProgressIndicator();
                           }

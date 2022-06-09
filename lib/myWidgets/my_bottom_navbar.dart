@@ -25,7 +25,7 @@ class MyBottomNavbar extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
-                    'FOR US',
+                    'ABOUT US',
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       color: Color(

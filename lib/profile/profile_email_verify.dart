@@ -68,12 +68,12 @@ class VerifyEmail extends StatelessWidget {
                   onPressed: () async {
                     await AuthService.firebase().logOut();
                     Navigator.of(context).pushNamedAndRemoveUntil(
-                      registerRoute,
+                      loginRoute,
                       (route) => false,
                     );
                   },
                   child: const Text(
-                    'Restart',
+                    'Log in',
                     style: TextStyle(
                       color: Color(0xff333333),
                     ),

@@ -5,26 +5,6 @@ import 'package:groceries_n_you/dimensions.dart';
 class CustomWidgets {
   CustomWidgets._();
 
-  static Future<bool> showErrorDialog(BuildContext context, String message) {
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Oops...'),
-          content: Text(message),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Close'),
-            ),
-          ],
-        );
-      },
-    ).then((value) => value ?? false);
-  }
-
   static mySnackBarWidget(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(
@@ -135,6 +115,10 @@ class CustomWidgets {
         Container(
           height: Dimensions.height170,
           decoration: BoxDecoration(
+            border: Border.all(
+              color: const Color(0xffc4c4c4),
+              width: 1,
+            ),
             image: DecorationImage(
               fit: BoxFit.scaleDown,
               image: AssetImage(picture),
@@ -233,6 +217,10 @@ class CustomWidgets {
         Container(
           height: Dimensions.height170,
           decoration: BoxDecoration(
+            border: Border.all(
+              color: const Color(0xffcccccc),
+              width: 1,
+            ),
             image: DecorationImage(
               fit: BoxFit.scaleDown,
               image: AssetImage(picture),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:groceries_n_you/categories/alcohol/beer/beer_count.dart';
 import 'package:groceries_n_you/dimensions.dart';
-import 'package:groceries_n_you/myWidgets/my_product.dart';
+
+import '../../../services/crud/orders_service.dart';
 
 class BeerPageTileView extends StatelessWidget {
   const BeerPageTileView({Key? key}) : super(key: key);
@@ -12,28 +14,7 @@ class BeerPageTileView extends StatelessWidget {
       width: MediaQuery.of(context).size.width - Dimensions.width20,
       child: Wrap(
         alignment: WrapAlignment.center,
-        children: const [
-          MyProductWidget(
-            prodName: 'Amstel Premium Pilsener - 0,5 Л кен',
-            isSale: true,
-            saleAmount: 33,
-          ),
-          MyProductWidget(
-            prodName: 'Amstel Premium Pilsener - 0,5 Л стъкло',
-            isSale: false,
-            saleAmount: 0,
-          ),
-          MyProductWidget(
-            prodName: 'Ариана светло пиво - 0,5Л кен',
-            isSale: false,
-            saleAmount: 0,
-          ),
-          MyProductWidget(
-            prodName: 'Ариана светло пиво - 0,5Л стъкло',
-            isSale: true,
-            saleAmount: 20,
-          ),
-        ],
+        children: productList,
       ),
     );
   }

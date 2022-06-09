@@ -4,21 +4,25 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:groceries_n_you/services/auth/auth_exceptions.dart';
 import 'package:path/path.dart' show join;
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'crud_exceptions.dart';
-import 'package:intl/intl.dart';
 
 class OrdersService {
   Database? _db;
   Database? _dbP;
   List<DatabaseOrder> _orders = [];
-  List<DatabaseProduct> _product = [];
+  List<DatabaseProduct> _products = [];
+  List<DatabaseUser> _users = [];
 
   late final StreamController<List<DatabaseProduct>> _productsStreamController;
   Stream<List<DatabaseProduct>> get allProducts =>
       _productsStreamController.stream;
+
+  late final StreamController<List<DatabaseUser>> _usersStreamController;
+  Stream<List<DatabaseUser>> get allUsers => _usersStreamController.stream;
 
   // SINGLETON
   static final OrdersService _shared = OrdersService._sharedInstance();
@@ -26,7 +30,12 @@ class OrdersService {
     _productsStreamController =
         StreamController<List<DatabaseProduct>>.broadcast(
       onListen: () {
-        _productsStreamController.sink.add(_product);
+        _productsStreamController.sink.add(_products);
+      },
+    );
+    _usersStreamController = StreamController<List<DatabaseUser>>.broadcast(
+      onListen: () {
+        _usersStreamController.sink.add(_users);
       },
     );
     _ordersStreamController = StreamController<List<DatabaseOrder>>.broadcast(
@@ -49,12 +58,23 @@ class OrdersService {
 
   Future<void> _cacheProducts() async {
     final allProducts = await getAllProducts();
-    _product = allProducts.toList();
-    _productsStreamController.add(_product);
+    _products = allProducts.toList();
+    _productsStreamController.add(_products);
+  }
+
+  Future<void> _cacheUsers() async {
+    final allUsers = await getAllUsers();
+    _users = allUsers.toList();
+    _usersStreamController.add(_users);
   }
 
   // USER ACTIONS
-  Future<DatabaseUser> createUser({required String email}) async {
+  Future<DatabaseUser> createUser({
+    required String name,
+    required String email,
+    required String address,
+    required String phone,
+  }) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
     final results = await db.query(
@@ -68,10 +88,19 @@ class OrdersService {
     }
 
     final userId = await db.insert(userTable, {
+      nameColumn: name,
       emailColumn: email.toLowerCase(),
+      addressColumn: address,
+      phoneColumn: phone,
     });
 
-    return DatabaseUser(id: userId, email: email);
+    return DatabaseUser(
+      id: userId,
+      name: name,
+      email: email,
+      address: address,
+      phone: phone,
+    );
   }
 
   Future<DatabaseUser> getUser({required String email}) async {
@@ -86,21 +115,51 @@ class OrdersService {
     if (results.isEmpty) {
       throw CouldNotFindUserException();
     } else {
-      return DatabaseUser.fromRow(results.first);
+      final user = DatabaseUser.fromRow(results.first);
+      _users.removeWhere((user) => user.email == email);
+      _users.add(user);
+      _usersStreamController.add(_users);
+      return user;
     }
   }
 
-  Future<DatabaseUser> getOrCreateUser({required String email}) async {
-    try {
-      final user = await getUser(email: email);
-      return user;
-    } on CouldNotFindUserException {
-      final createdUser = await createUser(email: email);
-      return createdUser;
-    } catch (e) {
-      rethrow;
+  Future<Iterable<DatabaseUser>> getAllUsers() async {
+    await _ensureDbIsOpen();
+    final db = _getDatabaseOrThrow();
+    final users = await db.query(userTable);
+
+    final result = users.map((n) => DatabaseUser.fromRow(users.first));
+    return result;
+  }
+
+  Future<String> getUserName({required String email}) async {
+    await _ensureDbIsOpen();
+    final db = _getDatabaseOrThrow();
+    final results = await db.query(
+      userTable,
+      columns: [nameColumn],
+      limit: 1,
+      where: 'email = ?',
+      whereArgs: [email.toLowerCase()],
+    );
+    if (results.isEmpty) {
+      throw UserNotFoundAuthException();
+    } else {
+      return results.first.values.first.toString();
     }
   }
+
+  // Future<DatabaseUser> getOrCreateUser({required String email}) async {
+  //   try {
+  //     final user = await getUser(email: email);
+  //     return user;
+  //   } on CouldNotFindUserException {
+  //     final createdUser = await createUser(email: email);
+  //     return createdUser;
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
 
   Future<void> deleteUser({required String email}) async {
     await _ensureDbIsOpen();
@@ -192,30 +251,6 @@ class OrdersService {
     return result;
   }
 
-  // Future<DatabaseOrder> updateOrder({
-  //   required DatabaseOrder order,
-  //   required String name,
-  // }) async {
-  //   await _ensureDbIsOpen();
-  //   final db = _getDatabaseOrThrow();
-
-  //   await getOrder(id: order.id);
-  //   final updatesCount = await db.update(orderTable, {
-  //     orderNameColumn: name,
-  //     isSyncedWithCloudColumn: 0,
-  //   });
-
-  //   if (updatesCount == 0) {
-  //     throw CouldNotUpdateOrderException();
-  //   } else {
-  //     final updatedOrder = await getOrder(id: order.id);
-  //     _orders.removeWhere((order) => order.id == updatedOrder.id);
-  //     _orders.add(updatedOrder);
-  //     _ordersStreamController.add(_orders);
-  //     return updatedOrder;
-  //   }
-  // }
-
   Future<void> deleteOrder({required int id}) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
@@ -255,9 +290,9 @@ class OrdersService {
       throw CouldNotFindProductException();
     } else {
       final product = DatabaseProduct.fromRow(results.first);
-      _product.removeWhere((product) => product.productName == name);
-      _product.add(product);
-      _productsStreamController.add(_product);
+      _products.removeWhere((product) => product.productName == name);
+      _products.add(product);
+      _productsStreamController.add(_products);
       return product;
     }
   }
@@ -330,7 +365,15 @@ class OrdersService {
       // CREATE ORDERS TABLE
       await db.execute(createOrdersTable);
       // CREATE PRODUCTS TABLE
-      await db.execute('delete from $productTable');
+      var tableCheck = Sqflite.firstIntValue(await db.query(
+        'sqlite_master',
+        where: 'name = ?',
+        whereArgs: [productTable],
+      ));
+      if (tableCheck == 1) {
+        await db.execute('delete from $productTable');
+      }
+
       await db.execute('drop table if exists $productTable');
       await db.execute(createProductsTable);
 
@@ -343,6 +386,7 @@ class OrdersService {
 
       await _cacheProducts();
       await _cacheOrders();
+      await _cacheUsers();
     } on MissingPlatformDirectoryException {
       throw UnableToGetDocumentsDirectoryException();
     }
@@ -363,19 +407,29 @@ class OrdersService {
 @immutable
 class DatabaseUser {
   final int id;
+  final String name;
   final String email;
+  final String address;
+  final String phone;
 
   const DatabaseUser({
     required this.id,
+    required this.name,
     required this.email,
+    required this.address,
+    required this.phone,
   });
 
   DatabaseUser.fromRow(Map<String, Object?> map)
       : id = map[idColumn] as int,
-        email = map[emailColumn] as String;
+        name = map[nameColumn] as String,
+        email = map[emailColumn] as String,
+        address = map[addressColumn] as String,
+        phone = map[phoneColumn] as String;
 
   @override
-  String toString() => 'Person: ID = $id, email = $email';
+  String toString() =>
+      'Person: ID = $id, email = $email, Name = $name, Address = $address, Phone = $phone';
 
   @override
   bool operator ==(covariant DatabaseUser other) => id == other.id;
@@ -470,7 +524,10 @@ const orderTable = 'orders';
 const userTable = 'users';
 const productTable = 'products';
 const idColumn = 'id';
+const nameColumn = 'name';
 const emailColumn = 'email';
+const addressColumn = 'address';
+const phoneColumn = 'phone';
 const userIdColumn = 'user_id';
 const productIdColumn = 'product_id';
 const orderPriceColumn = 'order_price';
@@ -485,7 +542,10 @@ const isSyncedWithCloudColumn = 'is_synced_with_cloud';
 const createUserTable = '''
         CREATE TABLE IF NOT EXISTS "users" (
 	      "id"	INTEGER NOT NULL,
+        "name" TEXT NOT NULL,
 	      "email"	TEXT NOT NULL UNIQUE,
+        "address" TEXT NOT NULL,
+        "phone" TEXT NOT NULL,
 	      PRIMARY KEY("id" AUTOINCREMENT)
         );''';
 const createOrdersTable = ''' 

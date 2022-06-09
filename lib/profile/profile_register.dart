@@ -10,6 +10,9 @@ import 'package:groceries_n_you/customIcons/custom_icons_icons.dart';
 import 'package:groceries_n_you/myWidgets/my_app_bar.dart';
 import 'package:groceries_n_you/services/auth/auth_exceptions.dart';
 import 'package:groceries_n_you/services/auth/auth_service.dart';
+import 'package:groceries_n_you/services/crud/orders_service.dart';
+
+import '../utils/dialogs/error_dialog.dart';
 
 class ProfileRegister extends StatefulWidget {
   const ProfileRegister({Key? key}) : super(key: key);
@@ -20,16 +23,23 @@ class ProfileRegister extends StatefulWidget {
 
 class _ProfileRegisterPageState extends State<ProfileRegister> {
   late final TextEditingController _email;
-  // late final TextEditingController _username;
+  late final TextEditingController _name;
   late final TextEditingController _password;
-  // late final TextEditingController _password2;
+  late final TextEditingController _address;
+  late final TextEditingController _phone;
+  late final OrdersService _ordersService;
   bool _obscurePassword = true;
+
   // bool _obscurePassword2 = true;
 
   @override
   void initState() {
     _email = TextEditingController();
     _password = TextEditingController();
+    _name = TextEditingController();
+    _address = TextEditingController();
+    _phone = TextEditingController();
+    _ordersService = OrdersService();
     super.initState();
   }
 
@@ -37,6 +47,9 @@ class _ProfileRegisterPageState extends State<ProfileRegister> {
   void dispose() {
     _email.dispose();
     _password.dispose();
+    _name.dispose();
+    _address.dispose();
+    _phone.dispose();
     super.dispose();
   }
 
@@ -48,12 +61,44 @@ class _ProfileRegisterPageState extends State<ProfileRegister> {
         child: Column(
           children: [
             const MyHeaderWidget(text: 'Register an account'),
+            // name
             Container(
               width: Dimensions.width300,
               height: Dimensions.height30,
               margin: EdgeInsets.fromLTRB(
                 0,
                 Dimensions.height10,
+                0,
+                Dimensions.height5,
+              ),
+              child: TextField(
+                controller: _name,
+                autocorrect: false,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(
+                    Dimensions.width12,
+                    0,
+                    Dimensions.width10,
+                    0,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(Dimensions.border10),
+                    ),
+                    borderSide: const BorderSide(color: Color(0xffD4D4D4)),
+                  ),
+                  hintText: 'Enter your name...',
+                  hintStyle: const TextStyle(color: Color(0xff959595)),
+                ),
+              ),
+            ),
+            // email
+            Container(
+              width: Dimensions.width300,
+              height: Dimensions.height30,
+              margin: EdgeInsets.fromLTRB(
+                0,
+                Dimensions.height5,
                 0,
                 Dimensions.height5,
               ),
@@ -79,6 +124,7 @@ class _ProfileRegisterPageState extends State<ProfileRegister> {
                 ),
               ),
             ),
+            // password
             Container(
               width: Dimensions.width300,
               height: Dimensions.height30,
@@ -86,7 +132,7 @@ class _ProfileRegisterPageState extends State<ProfileRegister> {
                 0,
                 Dimensions.height5,
                 0,
-                Dimensions.height10,
+                Dimensions.height5,
               ),
               child: TextField(
                 controller: _password,
@@ -126,16 +172,88 @@ class _ProfileRegisterPageState extends State<ProfileRegister> {
                 ),
               ),
             ),
+            // address
+            Container(
+              width: Dimensions.width300,
+              height: Dimensions.height30,
+              margin: EdgeInsets.fromLTRB(
+                0,
+                Dimensions.height5,
+                0,
+                Dimensions.height5,
+              ),
+              child: TextField(
+                controller: _address,
+                autocorrect: false,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(
+                    Dimensions.width12,
+                    0,
+                    Dimensions.width10,
+                    0,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(Dimensions.border10),
+                    ),
+                    borderSide: const BorderSide(color: Color(0xffD4D4D4)),
+                  ),
+                  hintText: 'Enter your address...',
+                  hintStyle: const TextStyle(color: Color(0xff959595)),
+                ),
+              ),
+            ),
+            // phone
+            Container(
+              width: Dimensions.width300,
+              height: Dimensions.height30,
+              margin: EdgeInsets.fromLTRB(
+                0,
+                Dimensions.height5,
+                0,
+                Dimensions.height10,
+              ),
+              child: TextField(
+                controller: _phone,
+                autocorrect: false,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(
+                    Dimensions.width12,
+                    0,
+                    Dimensions.width10,
+                    0,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(Dimensions.border10),
+                    ),
+                    borderSide: const BorderSide(color: Color(0xffD4D4D4)),
+                  ),
+                  hintText: 'Enter phone number...',
+                  hintStyle: const TextStyle(color: Color(0xff959595)),
+                ),
+              ),
+            ),
             Column(
               children: [
                 ElevatedButton(
                   onPressed: () async {
                     final email = _email.text;
                     final password = _password.text;
+                    final name = _name.text;
+                    final address = _address.text;
+                    final phone = _phone.text;
                     try {
                       await AuthService.firebase().createUser(
+                        name: name,
                         email: email,
                         password: password,
+                      );
+                      await _ordersService.createUser(
+                        name: name,
+                        email: email,
+                        address: address,
+                        phone: phone,
                       );
                       await AuthService.firebase().sendEmailVerification();
                       await CustomWidgets.mySnackBarWidget(
@@ -144,22 +262,22 @@ class _ProfileRegisterPageState extends State<ProfileRegister> {
                       );
                       Navigator.of(context).pushNamed(verifyRoute);
                     } on WeakPasswordAuthException {
-                      await CustomWidgets.showErrorDialog(
+                      await showErrorDialog(
                         context,
                         'Password is too weak!',
                       );
                     } on EmailAlreadyInUseAuthException {
-                      await CustomWidgets.showErrorDialog(
+                      await showErrorDialog(
                         context,
                         'There is already an account with that email!',
                       );
                     } on InvalidEmailAuthException {
-                      await CustomWidgets.showErrorDialog(
+                      await showErrorDialog(
                         context,
                         'Invalid email!',
                       );
                     } on GenericAuthException {
-                      CustomWidgets.showErrorDialog(
+                      showErrorDialog(
                         context,
                         'Authentication error',
                       );
@@ -184,7 +302,8 @@ class _ProfileRegisterPageState extends State<ProfileRegister> {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Navigator.of(context)
+                        .pushNamedAndRemoveUntil(loginRoute, (route) => false);
                   },
                   child: Container(
                     width: Dimensions.width340,

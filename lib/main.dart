@@ -4,6 +4,8 @@ import 'package:groceries_n_you/about/about_page.dart';
 import 'package:groceries_n_you/about/contacts_page.dart';
 import 'package:groceries_n_you/categories/category_page.dart';
 import 'package:groceries_n_you/profile/orders/profile_orders.dart';
+import 'package:groceries_n_you/profile/settings_view.dart';
+import 'package:groceries_n_you/profile/users/admin_users_view.dart';
 import 'package:material_color_generator/material_color_generator.dart';
 import 'package:groceries_n_you/constants/routes.dart';
 import 'package:groceries_n_you/profile/profile_email_verify.dart';
@@ -25,7 +27,9 @@ void main() {
       home: const MyFirebaseUserAuth(),
       routes: {
         profileRoute: ((context) => ProfileView()),
+        profileSettingsRoute: ((context) => const ProfileSettingsView()),
         profileOrdersRoute: ((context) => const ProfileOrdersPage()),
+        adminUsersRoute: ((context) => const AdminUsersPage()),
         loginRoute: ((context) => const ProfileLogin()),
         registerRoute: ((context) => const ProfileRegister()),
         verifyRoute: ((context) => const VerifyEmail()),

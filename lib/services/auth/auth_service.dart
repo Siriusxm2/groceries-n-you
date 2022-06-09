@@ -15,10 +15,12 @@ class AuthService implements AuthProvider {
 
   @override
   Future<AuthUser> createUser({
+    required String name,
     required String email,
     required String password,
   }) =>
       provider.createUser(
+        name: name,
         email: email,
         password: password,
       );
@@ -38,6 +40,9 @@ class AuthService implements AuthProvider {
 
   @override
   Future<void> logOut() => provider.logOut();
+
+  @override
+  Future<void> delete() => provider.delete();
 
   @override
   Future<void> sendEmailVerification() => provider.sendEmailVerification();

@@ -24,6 +24,7 @@ class FirebaseAuthProvider extends AuthProvider {
 
   @override
   Future<AuthUser> createUser({
+    required String name,
     required String email,
     required String password,
   }) async {
@@ -34,6 +35,7 @@ class FirebaseAuthProvider extends AuthProvider {
       );
       final user = currentUser;
       if (user != null) {
+        await FirebaseAuth.instance.currentUser!.updateDisplayName(name);
         return user;
       } else {
         throw UserNotLoggedInAuthException();
@@ -98,6 +100,17 @@ class FirebaseAuthProvider extends AuthProvider {
   Future<void> logOut() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
+      await FirebaseAuth.instance.signOut();
+    } else {
+      throw UserNotLoggedInAuthException();
+    }
+  }
+
+  @override
+  Future<void> delete() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      user.delete();
       await FirebaseAuth.instance.signOut();
     } else {
       throw UserNotLoggedInAuthException();

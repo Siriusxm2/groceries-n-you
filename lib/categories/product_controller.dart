@@ -64,6 +64,10 @@ class _ProductControllerState extends State<ProductController> {
                 width: Dimensions.width145,
                 height: Dimensions.height170,
                 decoration: BoxDecoration(
+                  border: Border.all(
+                    color: const Color(0xffc4c4c4),
+                    width: 1,
+                  ),
                   image: DecorationImage(
                     fit: BoxFit.scaleDown,
                     image: AssetImage(picture),

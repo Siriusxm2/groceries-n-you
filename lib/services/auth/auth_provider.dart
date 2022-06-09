@@ -12,11 +12,14 @@ abstract class AuthProvider {
   });
 
   Future<AuthUser> createUser({
+    required String name,
     required String email,
     required String password,
   });
 
   Future<void> logOut();
+
+  Future<void> delete();
 
   Future<void> sendEmailVerification();
 

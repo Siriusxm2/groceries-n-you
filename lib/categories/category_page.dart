@@ -8,8 +8,25 @@ import 'package:groceries_n_you/myWidgets/my_drawer.dart';
 import 'package:groceries_n_you/myWidgets/my_floating_button.dart';
 import 'package:groceries_n_you/myWidgets/my_header.dart';
 
-class CategoryPage extends StatelessWidget {
+import 'alcohol/beer/beer_page_listview.dart';
+
+class CategoryPage extends StatefulWidget {
   const CategoryPage({Key? key}) : super(key: key);
+
+  @override
+  State<CategoryPage> createState() => _CategoryPageState();
+}
+
+class _CategoryPageState extends State<CategoryPage> {
+  late bool _gridState;
+  late bool _listState;
+
+  @override
+  void initState() {
+    _gridState = true;
+    _listState = false;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -188,16 +205,44 @@ class CategoryPage extends StatelessWidget {
               color: const Color(0xffcccccc),
             ),
             Row(
-              children: const [
-                Icon(CustomIcons.gridView),
-                Icon(CustomIcons.listView),
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: Icon(
+                    CustomIcons.gridView,
+                    color: _gridState
+                        ? const Color(0xff333333)
+                        : const Color(0xffcccccc),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _gridState = true;
+                      _listState = false;
+                    });
+                  },
+                ),
+                SizedBox(width: Dimensions.width50 / 2),
+                IconButton(
+                  icon: Icon(
+                    CustomIcons.listView,
+                    color: _listState
+                        ? const Color(0xff333333)
+                        : const Color(0xffcccccc),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _listState = true;
+                      _gridState = false;
+                    });
+                  },
+                ),
               ],
             ),
             const Divider(
               thickness: 1,
               color: Color(0xffcccccc),
             ),
-            const BeerPageTileView(),
+            _gridState ? const BeerPageTileView() : const BeerPageListView(),
           ],
         ),
       ),
