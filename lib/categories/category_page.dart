@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:groceries_n_you/categories/alcohol/beer/beer_page_tileview.dart';
 import 'package:groceries_n_you/customIcons/custom_icons_icons.dart';
 import 'package:groceries_n_you/dimensions.dart';
 import 'package:groceries_n_you/myWidgets/my_app_bar.dart';
@@ -8,7 +7,7 @@ import 'package:groceries_n_you/myWidgets/my_drawer.dart';
 import 'package:groceries_n_you/myWidgets/my_floating_button.dart';
 import 'package:groceries_n_you/myWidgets/my_header.dart';
 
-import 'alcohol/beer/beer_page_listview.dart';
+import 'alcohol/beer/beer_count.dart';
 
 class CategoryPage extends StatefulWidget {
   const CategoryPage({Key? key}) : super(key: key);
@@ -30,6 +29,8 @@ class _CategoryPageState extends State<CategoryPage> {
 
   @override
   Widget build(BuildContext context) {
+    Products p = Products();
+
     return Scaffold(
       appBar: const MyAppBar(),
       drawer: const MyDrawer(),
@@ -102,7 +103,7 @@ class _CategoryPageState extends State<CategoryPage> {
                     OutlinedButton(
                       onPressed: () {},
                       child: Text(
-                        'Tuborg',
+                        'Heineken',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.w300,
@@ -126,7 +127,7 @@ class _CategoryPageState extends State<CategoryPage> {
                     OutlinedButton(
                       onPressed: () {},
                       child: Text(
-                        'Tuborg',
+                        'Ariana',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.w300,
@@ -150,7 +151,7 @@ class _CategoryPageState extends State<CategoryPage> {
                     OutlinedButton(
                       onPressed: () {},
                       child: Text(
-                        'Tuborg',
+                        'Shumensko',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.w300,
@@ -174,7 +175,7 @@ class _CategoryPageState extends State<CategoryPage> {
                     OutlinedButton(
                       onPressed: () {},
                       child: Text(
-                        'Tuborg',
+                        'Pirinsko',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.w300,
@@ -242,7 +243,20 @@ class _CategoryPageState extends State<CategoryPage> {
               thickness: 1,
               color: Color(0xffcccccc),
             ),
-            _gridState ? const BeerPageTileView() : const BeerPageListView(),
+            Container(
+              margin: EdgeInsets.only(top: Dimensions.height10),
+              //width: MediaQuery.of(context).size.width - Dimensions.width40,
+              child: _gridState
+                  ? Wrap(
+                      alignment: WrapAlignment.center,
+                      children: p.convertToView(_gridState),
+                    )
+                  : SingleChildScrollView(
+                      child: Column(
+                        children: p.convertToView(_gridState),
+                      ),
+                    ),
+            ),
           ],
         ),
       ),

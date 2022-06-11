@@ -14,6 +14,8 @@ import 'package:groceries_n_you/profile/profile.dart';
 import 'package:groceries_n_you/profile/profile_register.dart';
 import 'package:groceries_n_you/services/auth/firebase_user_auth.dart';
 
+import 'cart/cart_page.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
@@ -36,6 +38,7 @@ void main() {
         aboutRoute: ((context) => const AboutUsPage()),
         contactRoute: ((context) => const ContactsPage()),
         categoryRoute: ((context) => const CategoryPage()),
+        cartRoute: ((context) => const CartPage()),
       },
     ),
   );

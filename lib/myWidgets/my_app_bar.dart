@@ -67,7 +67,12 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         IconButton(
           iconSize: 28.0,
-          onPressed: () {},
+          onPressed: () {
+            if (ModalRoute.of(context)!.settings.name != cartRoute) {
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil(cartRoute, (route) => true);
+            }
+          },
           icon: const Icon(Icons.shopping_cart),
         ),
       ],

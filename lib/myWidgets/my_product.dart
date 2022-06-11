@@ -2,91 +2,87 @@ import 'package:flutter/material.dart';
 import 'package:groceries_n_you/categories/product_controller.dart';
 import 'package:groceries_n_you/custom_widget_functions.dart';
 import 'package:groceries_n_you/dimensions.dart';
-import 'package:groceries_n_you/services/crud/orders_service.dart';
 
-class MyProductWidget extends StatefulWidget {
+class MyProductWidget extends StatelessWidget {
   final String prodName;
+  final String prodManu;
+  final String prodPic;
+  final num prodPrice;
   final bool isSale;
   final int saleAmount;
-  const MyProductWidget(
-      {Key? key,
-      required this.prodName,
-      required this.isSale,
-      required this.saleAmount})
-      : super(key: key);
+  final bool view;
 
-  @override
-  State<MyProductWidget> createState() => _MyProductWidgetState();
-}
-
-class _MyProductWidgetState extends State<MyProductWidget> {
-  late final OrdersService _ordersService;
-  late final String pName;
-  late final bool isSale;
-  late final int saleAmount;
-
-  @override
-  void initState() {
-    _ordersService = OrdersService();
-    pName = widget.prodName;
-    isSale = widget.isSale;
-    saleAmount = widget.saleAmount;
-    super.initState();
-  }
+  const MyProductWidget({
+    Key? key,
+    required this.prodName,
+    required this.prodManu,
+    required this.prodPic,
+    required this.prodPrice,
+    required this.isSale,
+    required this.saleAmount,
+    required this.view,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(
-        left: Dimensions.width20,
-        right: Dimensions.width20,
-        top: Dimensions.height10,
-        bottom: Dimensions.height10,
-      ),
-      width: Dimensions.width145,
-      height: Dimensions.height315,
-      child: FutureBuilder(
-        future: _ordersService.getProduct(name: pName),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.done:
-              final product = snapshot.data as DatabaseProduct;
-              return GestureDetector(
-                onLongPress: () {
-                  showGeneralDialog(
-                    barrierDismissible: true,
-                    barrierLabel: 'Barrier',
-                    barrierColor: Colors.black.withOpacity(0.75),
-                    context: context,
-                    pageBuilder: (context, __, ___) {
-                      return ProductController(
-                        isSale: isSale,
-                        picture: product.productPicture,
-                        name: product.productName,
-                        manufacturer: product.productManufacturer,
-                        price: product.productPrice,
-                        saleAmount: saleAmount,
-                      );
-                    },
-                  );
-                },
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: CustomWidgets.isPromotion(
-                    isSale: isSale,
-                    picture: product.productPicture,
-                    name: product.productName,
-                    manufacturer: product.productManufacturer,
-                    price: product.productPrice,
-                    saleAmount: saleAmount,
-                    quantity: 0,
-                  ),
-                ),
+      margin: view
+          ? EdgeInsets.only(
+              left: Dimensions.width50 / 2,
+              right: Dimensions.width50 / 2,
+              top: Dimensions.height10,
+              bottom: Dimensions.height10,
+            )
+          : EdgeInsets.symmetric(
+              horizontal: Dimensions.width20,
+              vertical: Dimensions.height10,
+            ),
+      width: view ? Dimensions.width145 : MediaQuery.of(context).size.width,
+      height: view ? Dimensions.height315 : Dimensions.height130,
+      child: GestureDetector(
+        onLongPress: () {
+          showGeneralDialog(
+            barrierDismissible: true,
+            barrierLabel: 'Barrier',
+            barrierColor: Colors.black.withOpacity(0.75),
+            context: context,
+            pageBuilder: (context, __, ___) {
+              return ProductController(
+                isSale: isSale,
+                picture: prodPic,
+                name: prodName,
+                manufacturer: prodManu,
+                price: prodPrice,
+                saleAmount: saleAmount,
               );
-            default:
-              return const CircularProgressIndicator();
-          }
+            },
+          );
         },
+        child: view
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: CustomWidgets.isPromotionGrid(
+                  isSale: isSale,
+                  picture: prodPic,
+                  name: prodName,
+                  manufacturer: prodManu,
+                  price: prodPrice,
+                  saleAmount: saleAmount,
+                  quantity: 1,
+                ),
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: CustomWidgets.isPromotionList(
+                  isSale: isSale,
+                  picture: prodPic,
+                  name: prodName,
+                  manufacturer: prodManu,
+                  price: prodPrice,
+                  saleAmount: saleAmount,
+                  quantity: 1,
+                ),
+              ),
       ),
     );
   }

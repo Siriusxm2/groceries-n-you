@@ -489,6 +489,8 @@ class DatabaseProduct {
   final String productPicture;
   final num productPrice;
   final String productTag;
+  final bool isSale;
+  final int saleAmount;
 
   const DatabaseProduct({
     required this.id,
@@ -497,6 +499,8 @@ class DatabaseProduct {
     required this.productPicture,
     required this.productPrice,
     required this.productTag,
+    required this.isSale,
+    required this.saleAmount,
   });
 
   DatabaseProduct.fromRow(Map<String, Object?> map)
@@ -505,11 +509,13 @@ class DatabaseProduct {
         productManufacturer = map[productManufacturerColumn] as String,
         productPicture = map[productPictureColumn] as String,
         productPrice = map[productPriceColumn] as num,
+        isSale = (map[productIsSaleColumn] as int) == 1 ? true : false,
+        saleAmount = map[productSaleAmountColumn] as int,
         productTag = map[productTagColumn] as String;
 
   @override
   String toString() =>
-      'Product: ID = $id, Name = $productName, Manufacturer = $productManufacturer, Picture = $productPicture, Price = $productPrice, Tag = $productTag';
+      'ID: $id, Name: $productName, Manufacturer: $productManufacturer, Picture: $productPicture, Price: $productPrice, IsSale: $isSale, SaleAmount: $saleAmount, Tag: $productTag';
 
   @override
   bool operator ==(covariant DatabaseProduct other) => id == other.id;
@@ -538,6 +544,8 @@ const productManufacturerColumn = 'product_manufacturer';
 const productPictureColumn = 'product_picture';
 const productPriceColumn = 'product_price';
 const productTagColumn = 'product_tag';
+const productIsSaleColumn = 'is_sale';
+const productSaleAmountColumn = 'sale_amount';
 const isSyncedWithCloudColumn = 'is_synced_with_cloud';
 const createUserTable = '''
         CREATE TABLE IF NOT EXISTS "users" (
@@ -568,6 +576,8 @@ const createProductsTable = '''
 	      "product_manufacturer"	TEXT NOT NULL,
 	      "product_picture"	TEXT NOT NULL,
 	      "product_price"	REAL NOT NULL,
+        "is_sale"	INTEGER NOT NULL,
+	      "sale_amount"	INTEGER NOT NULL,
         "product_tag"	TEXT NOT NULL,
 	      PRIMARY KEY("id" AUTOINCREMENT)
         );''';

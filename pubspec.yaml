@@ -49,6 +49,7 @@ dependencies:
   path: ^1.8.0
   get: ^4.6.3
   intl: ^0.17.0
+  equatable: ^2.0.3
 
 dev_dependencies:
   flutter_test:

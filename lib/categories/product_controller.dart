@@ -9,6 +9,7 @@ class ProductController extends StatefulWidget {
   final String manufacturer;
   final num price;
   final int saleAmount;
+
   const ProductController({
     Key? key,
     required this.isSale,
@@ -25,7 +26,9 @@ class ProductController extends StatefulWidget {
 
 class _ProductControllerState extends State<ProductController> {
   int _quantity = 0;
+  int _inCartItems = 0;
   int get quantity => _quantity;
+  int get inCartItems => _inCartItems + _quantity;
 
   late bool isSale;
   late String picture;
@@ -52,14 +55,22 @@ class _ProductControllerState extends State<ProductController> {
         width: Dimensions.width360,
         height: Dimensions.height190,
         child: Material(
-          borderRadius: BorderRadius.circular(Dimensions.border10),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(Dimensions.border10),
+            side: const BorderSide(
+              color: Color(0xff4382FF),
+              width: 3,
+            ),
+          ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              // picture
               Container(
                 margin: EdgeInsets.only(
-                  left: Dimensions.width20,
-                  right: Dimensions.width10,
+                  left: Dimensions.width15,
+                  top: Dimensions.height10,
+                  bottom: Dimensions.height10,
                 ),
                 width: Dimensions.width145,
                 height: Dimensions.height170,
@@ -75,33 +86,55 @@ class _ProductControllerState extends State<ProductController> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(right: Dimensions.width20),
-                width: Dimensions.width300 / 2,
-                height: Dimensions.height200 / 2,
+                margin: EdgeInsets.only(
+                  top: Dimensions.height10,
+                  bottom: Dimensions.height10,
+                ),
+                padding: EdgeInsets.only(
+                  left: Dimensions.width15,
+                  right: Dimensions.width15,
+                ),
+                width: Dimensions.width360 -
+                    Dimensions.width15 -
+                    Dimensions.width145,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: Dimensions.height30,
+                    // product name
+                    Padding(
+                      padding: EdgeInsets.only(top: Dimensions.height10),
                       child: Text(
                         name,
                         style: TextStyle(
-                          fontSize: Dimensions.font13,
+                          fontSize: Dimensions.font14,
                           color: const Color(0xff333333),
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: Dimensions.height30,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: CustomWidgets.promotion(
-                            isSale, price, saleAmount, quantity),
+                    // manufacturer
+                    Container(
+                      margin: EdgeInsets.only(bottom: Dimensions.height10),
+                      child: Text(
+                        manufacturer,
+                        style: TextStyle(
+                          fontSize: Dimensions.font12,
+                          fontWeight: FontWeight.w400,
+                          color: const Color(0xffcccccc),
+                        ),
                       ),
                     ),
-                    SizedBox(
-                      height: Dimensions.height40,
+                    // price - promotion
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: CustomWidgets.promotionGrid(
+                          isSale, price, saleAmount, quantity),
+                    ),
+                    // add button
+                    Padding(
+                      padding: EdgeInsets.only(bottom: Dimensions.height10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -200,12 +233,17 @@ class _ProductControllerState extends State<ProductController> {
   }
 
   int checkQuantity(int q) {
-    if (q < 0) {
-      return 0;
+    if (q < 1) {
+      return 1;
     } else if (q > 99) {
       return 99;
     } else {
       return q;
     }
+  }
+
+  void initProduct() {
+    _quantity = 0;
+    _inCartItems = 0;
   }
 }

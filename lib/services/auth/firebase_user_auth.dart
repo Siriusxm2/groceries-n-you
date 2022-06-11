@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:groceries_n_you/home_page.dart';
 import 'package:groceries_n_you/services/auth/auth_service.dart';
+
+import '../crud/initialize_products.dart';
 
 class MyFirebaseUserAuth extends StatelessWidget {
   const MyFirebaseUserAuth({Key? key}) : super(key: key);
@@ -12,7 +13,7 @@ class MyFirebaseUserAuth extends StatelessWidget {
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.done:
-            return const HomePage();
+            return const InitDbProducts();
           default:
             return const CircularProgressIndicator();
         }

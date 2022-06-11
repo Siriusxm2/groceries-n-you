@@ -10,89 +10,103 @@ class MyBottomNavbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: Dimensions.height130,
+      height: Dimensions.height120 + Dimensions.height3,
       child: BottomAppBar(
         color: const Color(0xff8EB4FF),
         child: Column(
           children: [
-            OutlinedButton(
-              onPressed: () {
-                if (ModalRoute.of(context)!.settings.name != aboutRoute) {
-                  Navigator.of(context).pushNamed(aboutRoute);
-                }
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'ABOUT US',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      color: Color(
-                        0xff000000,
+            SizedBox(
+              height: Dimensions.height40,
+              child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () {
+                  if (ModalRoute.of(context)!.settings.name != aboutRoute) {
+                    Navigator.of(context).pushNamed(aboutRoute);
+                  }
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: Dimensions.width10),
+                      child: Text(
+                        'ABOUT US',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          color: const Color(
+                            0xff000000,
+                          ),
+                          fontSize: Dimensions.font12,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
-                  ),
-                  Transform.rotate(
-                    angle: 90 * math.pi / 180,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
+                    Transform.rotate(
+                      angle: 90 * math.pi / 180,
+                      child: const Icon(
                         Icons.expand_less,
                         color: Color(0xff666666),
                         size: 30,
                       ),
                     ),
-                  ),
-                ],
-              ),
-              style: OutlinedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: Dimensions.width15),
-                side: const BorderSide(
-                  color: Color(0xffB4CDFF),
+                  ],
                 ),
               ),
             ),
-            OutlinedButton(
-              onPressed: () {
-                if (ModalRoute.of(context)!.settings.name != contactRoute) {
-                  Navigator.of(context).pushNamed(contactRoute);
-                }
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'CONTACT AND HELP',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      color: Color(
-                        0xff000000,
+            Divider(
+              indent: Dimensions.width15,
+              endIndent: Dimensions.width15,
+              height: 1,
+              thickness: 1,
+              color: const Color(0xffB4CDFF),
+            ),
+            SizedBox(
+              height: Dimensions.height40,
+              child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () {
+                  if (ModalRoute.of(context)!.settings.name != contactRoute) {
+                    Navigator.of(context).pushNamed(contactRoute);
+                  }
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: Dimensions.width10),
+                      child: Text(
+                        'CONTACT AND HELP',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          color: const Color(
+                            0xff000000,
+                          ),
+                          fontSize: Dimensions.font12,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
-                  ),
-                  Transform.rotate(
-                    angle: 90 * math.pi / 180,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
+                    Transform.rotate(
+                      angle: 90 * math.pi / 180,
+                      child: const Icon(
                         Icons.expand_less,
                         color: Color(0xff666666),
                         size: 30,
                       ),
                     ),
-                  ),
-                ],
-              ),
-              style: OutlinedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: Dimensions.width15),
-                side: const BorderSide(
-                  color: Color(0xffB4CDFF),
+                  ],
                 ),
               ),
+            ),
+            Divider(
+              indent: Dimensions.width15,
+              endIndent: Dimensions.width15,
+              height: 1,
+              thickness: 1,
+              color: const Color(0xffB4CDFF),
             ),
             Container(
-              height: Dimensions.height33,
+              height: Dimensions.height40,
               alignment: AlignmentDirectional.center,
               child: Text(
                 'All rights reserved',
