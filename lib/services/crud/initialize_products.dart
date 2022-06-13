@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:groceries_n_you/homePage/home_page.dart';
 import 'package:groceries_n_you/models/product_model.dart';
 import 'package:groceries_n_you/services/crud/orders_service.dart';
+import 'package:groceries_n_you/splash_screen.dart';
 
 class InitDbProducts extends StatefulWidget {
   const InitDbProducts({Key? key}) : super(key: key);
@@ -21,8 +21,6 @@ class _InitDbProductsState extends State<InitDbProducts> {
 
   @override
   Widget build(BuildContext context) {
-    ProductModel pm = const ProductModel();
-
     return FutureBuilder(
       future: _ordersService.getAllProducts(),
       builder: (context, snapshot) {
@@ -33,7 +31,7 @@ class _InitDbProductsState extends State<InitDbProducts> {
             if (ProductModel.products.isNotEmpty) {
               product.toList().asMap().forEach((index, prod) {
                 if (ProductModel.products[index].id != prod.id) {
-                  ProductModel.products.add(pm.setProducts(
+                  ProductModel.products.add(const ProductModel().setProducts(
                     prod.id,
                     prod.productName,
                     prod.productManufacturer,
@@ -46,7 +44,7 @@ class _InitDbProductsState extends State<InitDbProducts> {
               });
             } else {
               product.toList().asMap().forEach((index, prod) {
-                ProductModel.products.add(pm.setProducts(
+                ProductModel.products.add(const ProductModel().setProducts(
                   prod.id,
                   prod.productName,
                   prod.productManufacturer,
@@ -57,9 +55,9 @@ class _InitDbProductsState extends State<InitDbProducts> {
                 ));
               });
             }
-            return const HomePage();
+            return const SplashScreen();
           default:
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
         }
       },
     );

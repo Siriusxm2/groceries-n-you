@@ -40,7 +40,7 @@ class ProfileAdminView extends StatelessWidget {
               if (shouldLogout) {
                 await AuthService.firebase().logOut();
                 Navigator.of(context).pushNamedAndRemoveUntil(
-                  initialRoute,
+                  homeRoute,
                   (_) => false,
                 );
               }

@@ -1,4 +1,5 @@
 const initialRoute = '/';
+const homeRoute = '/home/';
 const profileRoute = '/profile/';
 const profileSettingsRoute = '/settings/';
 const profileOrdersRoute = '/orders/';

@@ -59,7 +59,7 @@ class _ProfilePageState extends State<ProfileLogin> {
                       'Logged in successfully!',
                     );
                     Navigator.of(context).pushNamedAndRemoveUntil(
-                      initialRoute,
+                      homeRoute,
                       (route) => false,
                     );
                   } else {
@@ -122,7 +122,7 @@ class _ProfilePageState extends State<ProfileLogin> {
                       'Logged in successfully!',
                     );
                     Navigator.of(context).pushNamedAndRemoveUntil(
-                      initialRoute,
+                      homeRoute,
                       (route) => false,
                     );
                   } else {
@@ -284,7 +284,7 @@ class _ProfilePageState extends State<ProfileLogin> {
                           'Logged in successfully!',
                         );
                         Navigator.of(context).pushNamedAndRemoveUntil(
-                          initialRoute,
+                          homeRoute,
                           (route) => false,
                         );
                       } else {

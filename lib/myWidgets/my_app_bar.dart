@@ -42,9 +42,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Center(
               child: GestureDetector(
                 onTap: () {
-                  if (ModalRoute.of(context)!.settings.name != initialRoute) {
+                  if (ModalRoute.of(context)!.settings.name != homeRoute) {
                     Navigator.of(context)
-                        .pushNamedAndRemoveUntil(initialRoute, (_) => false);
+                        .pushNamedAndRemoveUntil(homeRoute, (_) => false);
                   }
                 },
                 child: Image.asset(

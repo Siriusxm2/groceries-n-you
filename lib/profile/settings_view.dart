@@ -42,7 +42,7 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView> {
                   await _ordersService.deleteUser(email: userEmail);
                   await AuthService.firebase().delete();
                   Navigator.of(context).pushNamedAndRemoveUntil(
-                    initialRoute,
+                    homeRoute,
                     (route) => false,
                   );
                 }

@@ -10,12 +10,7 @@ class Products {
     List<Widget> productList = [];
     for (int i = 0; i < prods.length; i++) {
       productList.add(MyProductWidget(
-        prodName: prods[i].name!,
-        prodManu: prods[i].manu!,
-        prodPic: prods[i].picture!,
-        prodPrice: prods[i].price!,
-        isSale: prods[i].isOnSale!,
-        saleAmount: prods[i].saleAmount!,
+        product: prods[i],
         view: view,
       ));
     }

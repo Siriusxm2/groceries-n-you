@@ -1,24 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:groceries_n_you/custom_widget_functions.dart';
 import 'package:groceries_n_you/dimensions.dart';
+import 'package:groceries_n_you/models/product_model.dart';
+
+import '../blocks/cart/cart_bloc.dart';
 
 class ProductController extends StatefulWidget {
-  final bool isSale;
-  final String picture;
-  final String name;
-  final String manufacturer;
-  final num price;
-  final int saleAmount;
+  final ProductModel product;
 
-  const ProductController({
-    Key? key,
-    required this.isSale,
-    required this.picture,
-    required this.name,
-    required this.manufacturer,
-    required this.price,
-    required this.saleAmount,
-  }) : super(key: key);
+  const ProductController({Key? key, required this.product}) : super(key: key);
 
   @override
   State<ProductController> createState() => _ProductControllerState();
@@ -30,21 +21,11 @@ class _ProductControllerState extends State<ProductController> {
   int get quantity => _quantity;
   int get inCartItems => _inCartItems + _quantity;
 
-  late bool isSale;
-  late String picture;
-  late String name;
-  late String manufacturer;
-  late num price;
-  late int saleAmount;
+  late ProductModel product;
 
   @override
   void initState() {
-    isSale = widget.isSale;
-    picture = widget.picture;
-    name = widget.name;
-    manufacturer = widget.manufacturer;
-    price = widget.price;
-    saleAmount = widget.saleAmount;
+    product = widget.product;
     super.initState();
   }
 
@@ -81,7 +62,7 @@ class _ProductControllerState extends State<ProductController> {
                   ),
                   image: DecorationImage(
                     fit: BoxFit.scaleDown,
-                    image: AssetImage(picture),
+                    image: AssetImage(product.picture),
                   ),
                 ),
               ),
@@ -105,7 +86,7 @@ class _ProductControllerState extends State<ProductController> {
                     Padding(
                       padding: EdgeInsets.only(top: Dimensions.height10),
                       child: Text(
-                        name,
+                        product.name,
                         style: TextStyle(
                           fontSize: Dimensions.font14,
                           color: const Color(0xff333333),
@@ -117,7 +98,7 @@ class _ProductControllerState extends State<ProductController> {
                     Container(
                       margin: EdgeInsets.only(bottom: Dimensions.height10),
                       child: Text(
-                        manufacturer,
+                        product.manu,
                         style: TextStyle(
                           fontSize: Dimensions.font12,
                           fontWeight: FontWeight.w400,
@@ -129,8 +110,8 @@ class _ProductControllerState extends State<ProductController> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: CustomWidgets.promotionGrid(
-                          isSale, price, saleAmount, quantity),
+                      children: CustomWidgets.promotionGrid(product.isOnSale,
+                          product.price, product.saleAmount, quantity),
                     ),
                     // add button
                     Padding(
@@ -207,9 +188,19 @@ class _ProductControllerState extends State<ProductController> {
                               ),
                             ],
                           ),
-                          GestureDetector(
-                            onTap: () {},
-                            child: Image.asset('assets/cart.png'),
+                          BlocBuilder<CartBloc, CartState>(
+                            builder: (context, state) {
+                              return InkWell(
+                                onTap: () {
+                                  for (int i = 0; i < quantity; i++) {
+                                    context
+                                        .read<CartBloc>()
+                                        .add(AddProduct(product));
+                                  }
+                                },
+                                child: Image.asset('assets/cart.png'),
+                              );
+                            },
                           ),
                         ],
                       ),

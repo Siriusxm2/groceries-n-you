@@ -1,6 +1,10 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:groceries_n_you/dimensions.dart';
+import 'package:groceries_n_you/models/product_model.dart';
+
+import 'blocks/cart/cart_bloc.dart';
 
 class CustomWidgets {
   CustomWidgets._();
@@ -181,15 +185,10 @@ class CustomWidgets {
   }
 
   static List<Widget> isPromotionGrid({
-    required bool isSale,
-    required String picture,
-    required String name,
-    required String manufacturer,
-    required num price,
-    required int saleAmount,
+    required ProductModel product,
     required int quantity,
   }) {
-    if (isSale) {
+    if (product.isOnSale) {
       return [
         // Picture
         Container(
@@ -201,7 +200,7 @@ class CustomWidgets {
             ),
             image: DecorationImage(
               fit: BoxFit.scaleDown,
-              image: AssetImage(picture),
+              image: AssetImage(product.picture),
             ),
           ),
         ),
@@ -221,9 +220,29 @@ class CustomWidgets {
                   ),
                 ),
               ),
-              GestureDetector(
-                onTap: () {},
-                child: Image.asset('assets/cart.png'),
+              BlocBuilder<CartBloc, CartState>(
+                builder: (context, state) {
+                  if (state is CartLoading) {
+                    return Center(
+                      child: SizedBox(
+                        height: Dimensions.height50 / 2,
+                        width: Dimensions.width50 / 2,
+                        child: const CircularProgressIndicator(
+                          color: Color(0xffFFBE57),
+                        ),
+                      ),
+                    );
+                  } else if (state is CartLoaded) {
+                    return InkWell(
+                      onTap: () {
+                        context.read<CartBloc>().add(AddProduct(product));
+                      },
+                      child: Image.asset('assets/cart.png'),
+                    );
+                  } else {
+                    return const Text('Something went wrong!');
+                  }
+                },
               ),
             ],
           ),
@@ -232,7 +251,7 @@ class CustomWidgets {
         SizedBox(
           height: Dimensions.height15 * 2,
           child: Text(
-            name,
+            product.name,
             style: TextStyle(
               fontSize: Dimensions.font13,
               color: const Color(0xff333333),
@@ -247,7 +266,7 @@ class CustomWidgets {
             bottom: Dimensions.height8,
           ),
           child: Text(
-            manufacturer,
+            product.manu,
             style: TextStyle(
               fontSize: Dimensions.font12,
               fontWeight: FontWeight.w400,
@@ -259,7 +278,8 @@ class CustomWidgets {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: promotionGrid(isSale, price, saleAmount, quantity),
+          children: promotionGrid(
+              product.isOnSale, product.price, product.saleAmount, quantity),
         ),
         // Old Price
         Stack(
@@ -274,7 +294,7 @@ class CustomWidgets {
                     color: const Color(0xffCCCCCC),
                   ),
                   children: [
-                    TextSpan(text: price.toStringAsFixed(2)),
+                    TextSpan(text: product.price.toStringAsFixed(2)),
                     const TextSpan(text: ' лв.'),
                   ],
                 ),
@@ -306,7 +326,7 @@ class CustomWidgets {
             ),
             image: DecorationImage(
               fit: BoxFit.scaleDown,
-              image: AssetImage(picture),
+              image: AssetImage(product.picture),
             ),
           ),
         ),
@@ -326,9 +346,29 @@ class CustomWidgets {
                   ),
                 ),
               ),
-              GestureDetector(
-                onTap: () {},
-                child: Image.asset('assets/cart.png'),
+              BlocBuilder<CartBloc, CartState>(
+                builder: (context, state) {
+                  if (state is CartLoading) {
+                    return Center(
+                      child: SizedBox(
+                        height: Dimensions.height50 / 2,
+                        width: Dimensions.width50 / 2,
+                        child: const CircularProgressIndicator(
+                          color: Color(0xffFFBE57),
+                        ),
+                      ),
+                    );
+                  } else if (state is CartLoaded) {
+                    return InkWell(
+                      onTap: () {
+                        context.read<CartBloc>().add(AddProduct(product));
+                      },
+                      child: Image.asset('assets/cart.png'),
+                    );
+                  } else {
+                    return const Text('Something went wrong!');
+                  }
+                },
               ),
             ],
           ),
@@ -337,7 +377,7 @@ class CustomWidgets {
         SizedBox(
           height: Dimensions.height15 * 2,
           child: Text(
-            name,
+            product.name,
             style: TextStyle(
               fontSize: Dimensions.font13,
               color: const Color(0xff333333),
@@ -352,7 +392,7 @@ class CustomWidgets {
             bottom: Dimensions.height8,
           ),
           child: Text(
-            manufacturer,
+            product.manu,
             style: TextStyle(
               fontSize: Dimensions.font12,
               fontWeight: FontWeight.w400,
@@ -364,22 +404,18 @@ class CustomWidgets {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: promotionGrid(isSale, price, saleAmount, quantity),
+          children: promotionGrid(
+              product.isOnSale, product.price, product.saleAmount, quantity),
         ),
       ];
     }
   }
 
   static List<Widget> isPromotionList({
-    required bool isSale,
-    required String picture,
-    required String name,
-    required String manufacturer,
-    required num price,
-    required int saleAmount,
+    required ProductModel product,
     required int quantity,
   }) {
-    if (isSale) {
+    if (product.isOnSale) {
       return [
         // Picture
         Container(
@@ -391,7 +427,7 @@ class CustomWidgets {
             ),
             image: DecorationImage(
               fit: BoxFit.scaleDown,
-              image: AssetImage(picture),
+              image: AssetImage(product.picture),
             ),
           ),
         ),
@@ -407,7 +443,7 @@ class CustomWidgets {
               SizedBox(
                 height: Dimensions.height15 * 2,
                 child: Text(
-                  name,
+                  product.name,
                   style: TextStyle(
                     fontSize: Dimensions.font14,
                     color: const Color(0xff333333),
@@ -419,7 +455,7 @@ class CustomWidgets {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: Dimensions.height5),
                 child: Text(
-                  manufacturer,
+                  product.manu,
                   style: TextStyle(
                     fontSize: Dimensions.font12,
                     fontWeight: FontWeight.w400,
@@ -457,7 +493,7 @@ class CustomWidgets {
                               color: const Color(0xffCCCCCC),
                             ),
                             children: [
-                              TextSpan(text: price.toStringAsFixed(2)),
+                              TextSpan(text: product.price.toStringAsFixed(2)),
                               const TextSpan(text: ' лв.'),
                             ],
                           ),
@@ -480,40 +516,59 @@ class CustomWidgets {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children:
-                        promotionList(isSale, price, saleAmount, quantity),
+                    children: promotionList(product.isOnSale, product.price,
+                        product.saleAmount, quantity),
                   ),
                 ],
               ),
               // Buy button
-              SizedBox(
-                height: Dimensions.height50 / 2,
-                width: Dimensions.width50 + Dimensions.width5,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: const Color(0xffFFBE57),
-                    side: const BorderSide(
-                      color: Color(0xff699BFF),
-                    ),
-                    minimumSize: Size.zero,
-                    padding: EdgeInsets.zero,
-                    fixedSize: Size(Dimensions.height50 / 2,
-                        Dimensions.width50 + Dimensions.width5),
-                    maximumSize: Size(Dimensions.height50 / 2,
-                        Dimensions.width50 + Dimensions.width5),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(Dimensions.border5),
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    '+ BUY',
-                    style: TextStyle(
-                      fontSize: Dimensions.font12,
-                      color: const Color(0xff333333),
-                    ),
-                  ),
-                ),
+              BlocBuilder<CartBloc, CartState>(
+                builder: (context, state) {
+                  if (state is CartLoading) {
+                    return Center(
+                      child: SizedBox(
+                        height: Dimensions.height50 / 2,
+                        width: Dimensions.width50 / 2,
+                        child: const CircularProgressIndicator(
+                          color: Color(0xffFFBE57),
+                        ),
+                      ),
+                    );
+                  } else if (state is CartLoaded) {
+                    return SizedBox(
+                      height: Dimensions.height50 / 2,
+                      width: Dimensions.width50 + Dimensions.width5,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: const Color(0xffFFBE57),
+                          side: const BorderSide(
+                            color: Color(0xff699BFF),
+                          ),
+                          minimumSize: Size.zero,
+                          padding: EdgeInsets.zero,
+                          fixedSize: Size(Dimensions.height50 / 2,
+                              Dimensions.width50 + Dimensions.width5),
+                          maximumSize: Size(Dimensions.height50 / 2,
+                              Dimensions.width50 + Dimensions.width5),
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.border5),
+                          ),
+                        ),
+                        onPressed: () {},
+                        child: Text(
+                          '+ BUY',
+                          style: TextStyle(
+                            fontSize: Dimensions.font12,
+                            color: const Color(0xff333333),
+                          ),
+                        ),
+                      ),
+                    );
+                  } else {
+                    return const Text('Something went wrong!');
+                  }
+                },
               ),
             ],
           ),
@@ -531,7 +586,7 @@ class CustomWidgets {
             ),
             image: DecorationImage(
               fit: BoxFit.scaleDown,
-              image: AssetImage(picture),
+              image: AssetImage(product.picture),
             ),
           ),
         ),
@@ -547,7 +602,7 @@ class CustomWidgets {
               SizedBox(
                 height: Dimensions.height15 * 2,
                 child: Text(
-                  name,
+                  product.name,
                   style: TextStyle(
                     fontSize: Dimensions.font13,
                     color: const Color(0xff333333),
@@ -559,7 +614,7 @@ class CustomWidgets {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: Dimensions.height5),
                 child: Text(
-                  manufacturer,
+                  product.manu,
                   style: TextStyle(
                     fontSize: Dimensions.font12,
                     fontWeight: FontWeight.w400,
@@ -587,38 +642,58 @@ class CustomWidgets {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: promotionList(isSale, price, saleAmount, quantity),
+                  children: promotionList(product.isOnSale, product.price,
+                      product.saleAmount, quantity),
                 ),
               ),
               // Buy button
-              SizedBox(
-                height: Dimensions.height50 / 2,
-                width: Dimensions.width50 + Dimensions.width5,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: const Color(0xffFFBE57),
-                    side: const BorderSide(
-                      color: Color(0xff699BFF),
-                    ),
-                    minimumSize: Size.zero,
-                    padding: EdgeInsets.zero,
-                    fixedSize: Size(Dimensions.height50 / 2,
-                        Dimensions.width50 + Dimensions.width5),
-                    maximumSize: Size(Dimensions.height50 / 2,
-                        Dimensions.width50 + Dimensions.width5),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(Dimensions.border5),
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    '+ BUY',
-                    style: TextStyle(
-                      fontSize: Dimensions.font12,
-                      color: const Color(0xff333333),
-                    ),
-                  ),
-                ),
+              BlocBuilder<CartBloc, CartState>(
+                builder: (context, state) {
+                  if (state is CartLoading) {
+                    return Center(
+                      child: SizedBox(
+                        height: Dimensions.height50 / 2,
+                        width: Dimensions.width50 / 2,
+                        child: const CircularProgressIndicator(
+                          color: Color(0xffFFBE57),
+                        ),
+                      ),
+                    );
+                  } else if (state is CartLoaded) {
+                    return SizedBox(
+                      height: Dimensions.height50 / 2,
+                      width: Dimensions.width50 + Dimensions.width5,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: const Color(0xffFFBE57),
+                          side: const BorderSide(
+                            color: Color(0xff699BFF),
+                          ),
+                          minimumSize: Size.zero,
+                          padding: EdgeInsets.zero,
+                          fixedSize: Size(Dimensions.height50 / 2,
+                              Dimensions.width50 + Dimensions.width5),
+                          maximumSize: Size(Dimensions.height50 / 2,
+                              Dimensions.width50 + Dimensions.width5),
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.border5),
+                          ),
+                        ),
+                        onPressed: () {},
+                        child: Text(
+                          '+ BUY',
+                          style: TextStyle(
+                            fontSize: Dimensions.font12,
+                            color: const Color(0xff333333),
+                          ),
+                        ),
+                      ),
+                    );
+                  } else {
+                    return const Text('Something went wrong!');
+                  }
+                },
               ),
             ],
           ),

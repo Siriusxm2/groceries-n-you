@@ -15,7 +15,7 @@ class MyFirebaseUserAuth extends StatelessWidget {
           case ConnectionState.done:
             return const InitDbProducts();
           default:
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
         }
       },
     );
