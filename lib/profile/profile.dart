@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:groceries_n_you/myWidgets/my_app_bar.dart';
-import 'package:groceries_n_you/myWidgets/my_bottom_navbar.dart';
-import 'package:groceries_n_you/myWidgets/my_floating_button.dart';
 import 'package:groceries_n_you/profile/profile_admin.dart';
 import 'package:groceries_n_you/profile/profile_logged_in.dart';
 import 'package:groceries_n_you/profile/profile_not_logged_in.dart';
 import 'package:groceries_n_you/services/auth/auth_service.dart';
 
-import '../myWidgets/my_drawer.dart';
+import '../myWidgets/widgets.dart';
 
 class ProfileView extends StatelessWidget {
   ProfileView({Key? key}) : super(key: key);

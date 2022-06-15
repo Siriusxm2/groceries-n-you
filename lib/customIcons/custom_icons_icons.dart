@@ -37,4 +37,8 @@ class CustomIcons {
       IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData gridView =
       IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData cardPay =
+      IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData cashPay =
+      IconData(0xe807, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:groceries_n_you/myWidgets/my_app_bar.dart';
-import 'package:groceries_n_you/myWidgets/my_bottom_navbar.dart';
-import 'package:groceries_n_you/myWidgets/my_floating_button.dart';
 import 'package:groceries_n_you/services/auth/auth_service.dart';
 import 'package:groceries_n_you/utils/dialogs/delete_dialog.dart';
 
 import '../constants/routes.dart';
-import '../myWidgets/my_drawer.dart';
-import '../myWidgets/my_header.dart';
+import '../myWidgets/widgets.dart';
 import '../services/crud/orders_service.dart';
 
 class ProfileSettingsView extends StatefulWidget {

@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:groceries_n_you/myWidgets/my_app_bar.dart';
-import 'package:groceries_n_you/myWidgets/my_bottom_navbar.dart';
-import 'package:groceries_n_you/myWidgets/my_drawer.dart';
-import 'package:groceries_n_you/myWidgets/my_floating_button.dart';
-import 'package:groceries_n_you/myWidgets/my_header.dart';
 import 'package:groceries_n_you/services/auth/auth_service.dart';
 import 'package:groceries_n_you/services/crud/orders_service.dart';
+
+import '../../myWidgets/widgets.dart';
 
 class ProfileOrdersPage extends StatefulWidget {
   const ProfileOrdersPage({Key? key}) : super(key: key);

@@ -17,6 +17,8 @@ import 'package:groceries_n_you/profile/profile_register.dart';
 import 'package:groceries_n_you/services/auth/firebase_user_auth.dart';
 
 import 'cart/cart_page.dart';
+import 'checkout/checkout_page.dart';
+import 'checkout/finalize_order.dart';
 import 'homePage/home_page.dart';
 
 void main() async {
@@ -40,7 +42,7 @@ class MyApp extends StatelessWidget {
             color: const Color(0xff699BFF),
           ),
         ),
-        home: const MyFirebaseUserAuth(),
+        home: const MyFirebaseUserAuth(), //const MyFirebaseUserAuth(),
         routes: {
           homeRoute: ((context) => const HomePage()),
           profileRoute: ((context) => ProfileView()),
@@ -54,6 +56,8 @@ class MyApp extends StatelessWidget {
           contactRoute: ((context) => const ContactsPage()),
           categoryRoute: ((context) => const CategoryPage()),
           cartRoute: ((context) => const CartPage()),
+          checkoutRoute: ((context) => const CheckoutPage()),
+          finalizeRoute: ((context) => const FinalizePage()),
         },
       ),
     );
