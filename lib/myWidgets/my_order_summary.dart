@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocks/cart/cart_bloc.dart';
+import '../blocs/cart/cart_bloc.dart';
 import '../dimensions.dart';
 
 class MyOrderSummaryWidget extends StatelessWidget {

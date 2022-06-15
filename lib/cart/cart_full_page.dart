@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocks/cart/cart_bloc.dart';
+import '../blocs/cart/cart_bloc.dart';
 import '../constants/prices.dart';
 import '../myWidgets/widgets.dart';
 import '../../constants/routes.dart';
@@ -78,21 +78,16 @@ class _CartFullPageState extends State<CartFullPage> {
                             .keys
                             .length,
                         itemBuilder: (context, index) {
-                          if (state.cart.products.isEmpty) {
-                            return const Text(
-                                'There are no products in the cart yet!');
-                          } else {
-                            return CartProduct(
-                              product: state.cart
-                                  .productQuantity(state.cart.products)
-                                  .keys
-                                  .elementAt(index),
-                              quantity: state.cart
-                                  .productQuantity(state.cart.products)
-                                  .values
-                                  .elementAt(index),
-                            );
-                          }
+                          return CartProduct(
+                            product: state.cart
+                                .productQuantity(state.cart.products)
+                                .keys
+                                .elementAt(index),
+                            quantity: state.cart
+                                .productQuantity(state.cart.products)
+                                .values
+                                .elementAt(index),
+                          );
                         },
                       ),
                     ),

@@ -4,7 +4,7 @@ import 'package:groceries_n_you/custom_widget_functions.dart';
 import 'package:groceries_n_you/dimensions.dart';
 import 'package:groceries_n_you/models/product_model.dart';
 
-import '../blocks/cart/cart_bloc.dart';
+import '../blocs/cart/cart_bloc.dart';
 
 class ProductController extends StatefulWidget {
   final ProductModel product;

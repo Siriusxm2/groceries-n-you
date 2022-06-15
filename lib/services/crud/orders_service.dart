@@ -191,7 +191,10 @@ class OrdersService {
       throw CouldNotFindProductException();
     }
 
-    const orderPrice = 0.0;
+    const orderSubTotal = 0.0;
+    const orderDeliveryFee = 0.0;
+    const orderVoucher = 0.0;
+    const orderTotal = 0.0;
     const orderDate = '';
     const orderStatus = '';
 
@@ -199,7 +202,10 @@ class OrdersService {
     final orderId = await db.insert(orderTable, {
       userIdColumn: owner.id,
       productIdColumn: product.id,
-      orderPriceColumn: orderPrice,
+      orderSubTotalColumn: orderSubTotal,
+      orderDeliveryFeeColumn: orderDeliveryFee,
+      orderVoucherColumn: orderVoucher,
+      orderTotalColumn: orderTotal,
       orderDateColumn: orderDate,
       orderStatusColumn: orderStatus,
       isSyncedWithCloudColumn: 1,
@@ -209,7 +215,10 @@ class OrdersService {
       id: orderId,
       userId: owner.id,
       productId: product.id,
-      orderPrice: orderPrice,
+      subTotal: orderSubTotal,
+      deliveryFee: orderDeliveryFee,
+      voucher: orderVoucher,
+      total: orderTotal,
       orderDate: orderDate,
       orderStatus: orderStatus,
       isSyncedWithCloud: true,
@@ -444,7 +453,10 @@ class DatabaseOrder {
   final int id;
   final int userId;
   final int productId;
-  final num orderPrice;
+  final num subTotal;
+  final num deliveryFee;
+  final num voucher;
+  final num total;
   final String orderDate;
   final String orderStatus;
   final bool isSyncedWithCloud;
@@ -453,7 +465,10 @@ class DatabaseOrder {
     required this.id,
     required this.userId,
     required this.productId,
-    required this.orderPrice,
+    required this.subTotal,
+    required this.deliveryFee,
+    required this.voucher,
+    required this.total,
     required this.orderDate,
     required this.orderStatus,
     required this.isSyncedWithCloud,
@@ -463,15 +478,29 @@ class DatabaseOrder {
       : id = map[idColumn] as int,
         userId = map[userIdColumn] as int,
         productId = map[productIdColumn] as int,
-        orderPrice = map[orderPriceColumn] as num,
+        subTotal = map[orderSubTotalColumn] as num,
+        deliveryFee = map[orderDeliveryFeeColumn] as num,
+        voucher = map[orderVoucherColumn] as num,
+        total = map[orderTotalColumn] as num,
         orderDate = map[orderDateColumn] as String,
         orderStatus = map[orderStatusColumn] as String,
         isSyncedWithCloud =
             (map[isSyncedWithCloudColumn] as int) == 1 ? true : false;
 
   @override
-  String toString() =>
-      'Sale: ID = $id, UserID = $userId, ProductID = $productId, Synced = $isSyncedWithCloud, OrderPrice = $orderPrice, OrderDate = $orderDate, OrderStatus = $orderStatus';
+  String toString() {
+    return '''Sale:
+              ID: $id, 
+              UserID: $userId, 
+              ProductID: $productId, 
+              Synced: $isSyncedWithCloud, 
+              OrderSubTotal: $subTotal,
+              OrderDeliveryFee: $deliveryFee,
+              OrderVoucher: $voucher,
+              OrderTotal: $total,
+              OrderDate: $orderDate, 
+              OrderStatus: $orderStatus''';
+  }
 
   @override
   bool operator ==(covariant DatabaseOrder other) => id == other.id;
@@ -487,7 +516,7 @@ class DatabaseProduct {
   final String productName;
   final String productManufacturer;
   final String productPicture;
-  final num productPrice;
+  final double productPrice;
   final String productTag;
   final bool isSale;
   final int saleAmount;
@@ -508,7 +537,7 @@ class DatabaseProduct {
         productName = map[productNameColumn] as String,
         productManufacturer = map[productManufacturerColumn] as String,
         productPicture = map[productPictureColumn] as String,
-        productPrice = map[productPriceColumn] as num,
+        productPrice = map[productPriceColumn] as double,
         isSale = (map[productIsSaleColumn] as int) == 1 ? true : false,
         saleAmount = map[productSaleAmountColumn] as int,
         productTag = map[productTagColumn] as String;
@@ -536,7 +565,10 @@ const addressColumn = 'address';
 const phoneColumn = 'phone';
 const userIdColumn = 'user_id';
 const productIdColumn = 'product_id';
-const orderPriceColumn = 'order_price';
+const orderSubTotalColumn = 'order_subtotal';
+const orderDeliveryFeeColumn = 'order_deliveryfee';
+const orderVoucherColumn = 'order_voucher';
+const orderTotalColumn = 'order_total';
 const orderDateColumn = 'order_date';
 const orderStatusColumn = 'order_status';
 const productNameColumn = 'product_name';
@@ -561,7 +593,10 @@ const createOrdersTable = '''
 	      "id"	INTEGER NOT NULL,
 	      "user_id"	INTEGER NOT NULL,
 	      "product_id"	INTEGER NOT NULL,
-	      "order_price"	REAL NOT NULL,
+	      "order_subtotal"	REAL NOT NULL,
+	      "order_deliveryfee"	REAL NOT NULL,
+	      "order_voucher"	REAL NOT NULL,
+	      "order_total"	REAL NOT NULL,
 	      "order_date"	TEXT NOT NULL,
         "order_status" TEXT NOT NULL,
 	      "is_synced_with_cloud"	INTEGER NOT NULL DEFAULT 0,
