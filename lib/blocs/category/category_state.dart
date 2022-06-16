@@ -12,7 +12,7 @@ class CategoryLoading extends CategoryState {}
 class CategoryLoaded extends CategoryState {
   final List<CategoryModel> categories;
 
-  CategoryLoaded({this.categories = const <CategoryModel>[]});
+  const CategoryLoaded({this.categories = const <CategoryModel>[]});
 
   @override
   List<Object> get props => [categories];

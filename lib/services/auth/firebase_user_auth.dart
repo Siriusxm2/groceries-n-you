@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:groceries_n_you/services/auth/auth_service.dart';
 
 import '../../splash_screen.dart';
-import '../crud/initialize_products.dart';
 
 class MyFirebaseUserAuth extends StatelessWidget {
   const MyFirebaseUserAuth({Key? key}) : super(key: key);

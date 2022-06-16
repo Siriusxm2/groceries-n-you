@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:groceries_n_you/customIcons/custom_icons_icons.dart';
 import 'package:groceries_n_you/dimensions.dart';
 
-import '../blocs/product/product_bloc.dart';
+import '../blocs/blocs.dart';
 import '../models/product_model.dart';
 import '../myWidgets/widgets.dart';
 
@@ -242,51 +242,38 @@ class _CategoryPageState extends State<CategoryPage> {
                     thickness: 1,
                     color: Color(0xffcccccc),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(top: Dimensions.height10),
-                    //width: MediaQuery.of(context).size.width - Dimensions.width40,
-                    child: _gridState
-                        ? BlocBuilder<ProductBloc, ProductState>(
-                            builder: (context, state) {
-                              if (state is ProductLoading) {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              } else if (state is ProductLoaded) {
-                                return Wrap(
+                  BlocBuilder<ProductBloc, ProductState>(
+                    builder: (context, state) {
+                      if (state is ProductLoading) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      if (state is ProductLoaded) {
+                        return Container(
+                          margin: EdgeInsets.only(top: Dimensions.height10),
+                          //width: MediaQuery.of(context).size.width - Dimensions.width40,
+                          child: _gridState
+                              ? Wrap(
                                   alignment: WrapAlignment.center,
                                   children: _convertToView(
                                     state.products,
                                     state.products.length,
                                     _gridState,
                                   ),
-                                );
-                              } else {
-                                return const Text('Something went wrong!');
-                              }
-                              // alignment: WrapAlignment.center,
-                              // children: p.convertToView(_gridState),
-                            },
-                          )
-                        : BlocBuilder<ProductBloc, ProductState>(
-                            builder: (context, state) {
-                              if (state is ProductLoading) {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              } else if (state is ProductLoaded) {
-                                return Column(
+                                )
+                              : Column(
                                   children: _convertToView(
                                     state.products,
                                     state.products.length,
                                     _gridState,
                                   ),
-                                );
-                              } else {
-                                return const Text('Something went wrong!');
-                              }
-                            },
-                          ),
+                                ),
+                        );
+                      } else {
+                        return const Text('Something went wrong!');
+                      }
+                    },
                   ),
                 ],
               ),

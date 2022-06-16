@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 
+import '../constants/prices.dart';
 import 'product_model.dart';
 
 class CartModel extends Equatable {
@@ -28,6 +29,8 @@ class CartModel extends Equatable {
   double total(subtotal, deliveryFee) {
     return subtotal + deliveryFee;
   }
+
+  double get voucher => pricesVoucher;
 
   String get subtotalString => subtotal.toStringAsFixed(2) + ' лв.';
 

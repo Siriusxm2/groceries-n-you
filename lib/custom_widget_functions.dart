@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:groceries_n_you/dimensions.dart';
 import 'package:groceries_n_you/models/product_model.dart';
 
-import 'blocs/cart/cart_bloc.dart';
+import 'blocs/blocs.dart';
 
 class CustomWidgets {
   CustomWidgets._();
@@ -199,7 +199,7 @@ class CustomWidgets {
               width: 1,
             ),
             image: DecorationImage(
-              fit: BoxFit.scaleDown,
+              fit: BoxFit.fill,
               image: AssetImage(product.picture),
             ),
           ),
@@ -289,7 +289,7 @@ class CustomWidgets {
               child: RichText(
                 text: TextSpan(
                   style: TextStyle(
-                    fontSize: Dimensions.font16,
+                    fontSize: Dimensions.font14,
                     fontWeight: FontWeight.w800,
                     color: const Color(0xffCCCCCC),
                   ),
@@ -325,7 +325,7 @@ class CustomWidgets {
               width: 1,
             ),
             image: DecorationImage(
-              fit: BoxFit.scaleDown,
+              fit: BoxFit.fill,
               image: AssetImage(product.picture),
             ),
           ),
@@ -426,7 +426,7 @@ class CustomWidgets {
               width: 1,
             ),
             image: DecorationImage(
-              fit: BoxFit.scaleDown,
+              fit: BoxFit.fill,
               image: AssetImage(product.picture),
             ),
           ),
@@ -585,7 +585,7 @@ class CustomWidgets {
               width: 1,
             ),
             image: DecorationImage(
-              fit: BoxFit.scaleDown,
+              fit: BoxFit.fill,
               image: AssetImage(product.picture),
             ),
           ),

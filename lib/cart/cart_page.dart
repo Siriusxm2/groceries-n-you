@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:groceries_n_you/cart/cart_empty.dart';
 import 'package:groceries_n_you/cart/cart_full_page.dart';
 
-import '../blocs/cart/cart_bloc.dart';
+import '../blocs/blocs.dart';
 import '../myWidgets/widgets.dart';
 
 class CartPage extends StatefulWidget {

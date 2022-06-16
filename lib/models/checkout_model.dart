@@ -8,6 +8,9 @@ class CheckoutModel extends Equatable {
   final String? address;
   final String? phone;
   final List<ProductModel>? products;
+  final String? deliveryDate;
+  final String? deliveryTime;
+  final String? paymentMethod;
   final num? subtotal;
   final num? deliveryFee;
   final num? voucher;
@@ -19,6 +22,9 @@ class CheckoutModel extends Equatable {
     required this.address,
     required this.phone,
     required this.products,
+    required this.deliveryDate,
+    required this.deliveryTime,
+    required this.paymentMethod,
     required this.subtotal,
     required this.deliveryFee,
     required this.voucher,
@@ -32,9 +38,36 @@ class CheckoutModel extends Equatable {
         address,
         phone,
         products,
+        deliveryDate,
+        deliveryTime,
+        paymentMethod,
         subtotal,
         deliveryFee,
         voucher,
         total,
       ];
+
+  Map<String, Object> toDocument() {
+    Map customerInfo = {};
+    Map orderInfo = {};
+
+    customerInfo['name'] = name;
+    customerInfo['email'] = email;
+    customerInfo['address'] = address;
+    customerInfo['phone'] = phone;
+
+    orderInfo['payment_method'] = paymentMethod;
+    orderInfo['delivery_date'] = deliveryDate;
+    orderInfo['delivery_time'] = deliveryTime;
+
+    return {
+      'customerInfo': customerInfo,
+      'orderInfo': orderInfo,
+      'products': products!.map((product) => product.name).toList(),
+      'order_subtotal': subtotal!,
+      'order_deliveryFee': deliveryFee!,
+      'order_voucher': voucher!,
+      'order_total': total!,
+    };
+  }
 }

@@ -14,3 +14,4 @@ const categoryBeerRoute = '/beer/';
 const cartRoute = '/cart/';
 const checkoutRoute = '/checkout/';
 const finalizeRoute = '/finalize/';
+const orderSuccessRoute = '/orderSuccess/';

@@ -3,7 +3,6 @@ import 'package:groceries_n_you/profile/users/users_list_view.dart';
 import 'package:groceries_n_you/services/crud/orders_service.dart';
 
 import '../../myWidgets/widgets.dart';
-import '../../services/auth/auth_service.dart';
 
 class AdminUsersPage extends StatefulWidget {
   const AdminUsersPage({Key? key}) : super(key: key);
