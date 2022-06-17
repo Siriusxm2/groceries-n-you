@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:groceries_n_you/controllers/product_controller.dart';
 import 'package:groceries_n_you/models/admin_product_model.dart';
 import 'package:groceries_n_you/models/product_model.dart';
+import 'package:groceries_n_you/constants/routes.dart';
+import 'package:groceries_n_you/profile/admin/new_product_page.dart';
 
 import '../../dimensions.dart';
 import '../../myWidgets/widgets.dart';
 
 class ProductsPage extends StatelessWidget {
-  const ProductsPage({Key? key}) : super(key: key);
+  ProductsPage({Key? key}) : super(key: key);
+
+  final ProductController productController = Get.put(ProductController());
 
   @override
   Widget build(BuildContext context) {
@@ -14,22 +20,70 @@ class ProductsPage extends StatelessWidget {
       appBar: MyAppBarHeader(label: 'All Products'),
       drawer: const MyDrawer(),
       bottomNavigationBar: const MyBottomNavbar(),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: ProductModelAdmin.products.length,
-              itemBuilder: (context, index) {
-                return SizedBox(
-                  height: 220,
-                  child: ProductCard(
-                    product: ProductModelAdmin.products[index],
-                  ),
-                );
+      body: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: Dimensions.width10,
+          vertical: Dimensions.height10,
+        ),
+        child: Column(
+          children: [
+            InkWell(
+              onTap: () {
+                Get.to(() => NewProductPage());
               },
+              child: SizedBox(
+                height: Dimensions.height50 * 2,
+                child: Card(
+                  margin: EdgeInsets.zero,
+                  color: const Color(0xff8EB4FF),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(Dimensions.border5),
+                    side: BorderSide(
+                      width: Dimensions.width8 / 4,
+                      color: const Color(0xffFFAE2D),
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.symmetric(
+                            horizontal: Dimensions.width10),
+                        child: const Icon(
+                          Icons.add_circle,
+                          color: Color(0xffFFAE2D),
+                        ),
+                      ),
+                      Text(
+                        'Add new product',
+                        style: TextStyle(
+                          color: const Color(0xff333333),
+                          fontSize: Dimensions.font16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
-          ),
-        ],
+            Expanded(
+              child: ListView.builder(
+                itemCount: productController.products.length,
+                itemBuilder: (context, index) {
+                  return Obx(
+                    () => SizedBox(
+                      height: Dimensions.height200 + Dimensions.height20,
+                      child: ProductCard(
+                        product: productController.products[index],
+                        index: index,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -37,10 +91,13 @@ class ProductsPage extends StatelessWidget {
 
 class ProductCard extends StatelessWidget {
   final ProductModelAdmin product;
+  final int index;
+  final ProductController productController = Get.find();
 
-  const ProductCard({
+  ProductCard({
     Key? key,
     required this.product,
+    required this.index,
   }) : super(key: key);
 
   @override
@@ -89,7 +146,13 @@ class ProductCard extends StatelessWidget {
                             const Text('Sale'),
                             Checkbox(
                               value: product.isOnSale,
-                              onChanged: (value) {},
+                              onChanged: (value) {
+                                productController.updateProductIsSale(
+                                  index,
+                                  product,
+                                  value!,
+                                );
+                              },
                             ),
                           ],
                         ),
@@ -104,7 +167,13 @@ class ProductCard extends StatelessWidget {
                               child: TextFormField(
                                 textAlign: TextAlign.center,
                                 initialValue: product.saleAmount.toString(),
-                                onChanged: (value) {},
+                                onChanged: (value) {
+                                  productController.updateProductSaleAmount(
+                                    index,
+                                    product,
+                                    int.parse(value),
+                                  );
+                                },
                               ),
                             ),
                           ],
@@ -123,7 +192,13 @@ class ProductCard extends StatelessWidget {
                               child: TextFormField(
                                 textAlign: TextAlign.center,
                                 initialValue: product.price.toString(),
-                                onChanged: (value) {},
+                                onChanged: (value) {
+                                  productController.updateProductPrice(
+                                    index,
+                                    product,
+                                    double.parse(value),
+                                  );
+                                },
                               ),
                             ),
                           ],
@@ -139,7 +214,13 @@ class ProductCard extends StatelessWidget {
                               child: TextFormField(
                                 textAlign: TextAlign.center,
                                 initialValue: product.inStorage.toString(),
-                                onChanged: (value) {},
+                                onChanged: (value) {
+                                  productController.updateProductInStorage(
+                                    index,
+                                    product,
+                                    int.parse(value),
+                                  );
+                                },
                               ),
                             ),
                           ],

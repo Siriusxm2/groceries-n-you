@@ -18,7 +18,7 @@ class ProfileAdminView extends StatelessWidget {
           const MyHeaderWidget(text: 'Admin Panel'),
           ElevatedButton(
             onPressed: () {
-              Get.to(() => const ProductsPage());
+              Get.to(() => ProductsPage());
             },
             child: const Text(
               'View Products',
