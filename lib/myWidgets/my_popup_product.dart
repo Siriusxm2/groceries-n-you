@@ -6,16 +6,17 @@ import 'package:groceries_n_you/models/product_model.dart';
 
 import '../blocs/blocs.dart';
 
-class ProductController extends StatefulWidget {
+class MyPopupProductWidget extends StatefulWidget {
   final ProductModel product;
 
-  const ProductController({Key? key, required this.product}) : super(key: key);
+  const MyPopupProductWidget({Key? key, required this.product})
+      : super(key: key);
 
   @override
-  State<ProductController> createState() => _ProductControllerState();
+  State<MyPopupProductWidget> createState() => _MyPopupProductWidgetState();
 }
 
-class _ProductControllerState extends State<ProductController> {
+class _MyPopupProductWidgetState extends State<MyPopupProductWidget> {
   int _quantity = 0;
   int _inCartItems = 0;
   int get quantity => _quantity;

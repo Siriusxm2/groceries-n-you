@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:groceries_n_you/services/auth/auth_service.dart';
 import 'package:groceries_n_you/utils/dialogs/delete_dialog.dart';
 
-import '../constants/routes.dart';
-import '../myWidgets/widgets.dart';
-import '../services/crud/orders_service.dart';
+import '../../constants/routes.dart';
+import '../../myWidgets/widgets.dart';
+import '../../services/crud/orders_service.dart';
 
 class ProfileSettingsView extends StatefulWidget {
   const ProfileSettingsView({Key? key}) : super(key: key);
@@ -26,11 +26,10 @@ class _ProfileSettingsViewState extends State<ProfileSettingsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MyAppBar(),
+      appBar: MyAppBarHeader(label: 'Settings'),
       body: Center(
         child: Column(
           children: [
-            const MyHeaderWidget(text: 'Settings'),
             ElevatedButton(
               onPressed: () async {
                 final shouldDelete = await showDeleteDialog(context);

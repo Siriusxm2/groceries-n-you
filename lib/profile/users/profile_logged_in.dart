@@ -3,7 +3,7 @@ import 'package:groceries_n_you/constants/routes.dart';
 import 'package:groceries_n_you/myWidgets/my_header.dart';
 import 'package:groceries_n_you/services/auth/auth_service.dart';
 
-import '../utils/dialogs/log_out_dialog.dart';
+import '../../utils/dialogs/log_out_dialog.dart';
 
 class ProfileViewLogged extends StatefulWidget {
   const ProfileViewLogged({Key? key}) : super(key: key);

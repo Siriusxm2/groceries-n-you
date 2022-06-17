@@ -28,14 +28,13 @@ class _CategoryPageState extends State<CategoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MyAppBar(),
+      appBar: MyAppBarHeader(label: 'Beer'),
       drawer: const MyDrawer(),
       floatingActionButton: const MyFloatingButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       bottomNavigationBar: const MyBottomNavbar(),
       body: Column(
         children: [
-          const MyHeaderWidget(text: 'Beer'),
           Expanded(
             child: SingleChildScrollView(
               child: Column(

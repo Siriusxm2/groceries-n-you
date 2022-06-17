@@ -12,13 +12,10 @@ class VerifyEmail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MyAppBar(),
+      appBar: MyAppBarHeader(label: 'Verify email'),
       body: Center(
         child: Column(
           children: [
-            const MyHeaderWidget(
-              text: 'Verify email',
-            ),
             Container(
               margin: EdgeInsets.symmetric(vertical: Dimensions.height10),
               width: Dimensions.width300,

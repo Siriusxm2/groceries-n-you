@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:groceries_n_you/about/about_page.dart';
 import 'package:groceries_n_you/about/contacts_page.dart';
 import 'package:groceries_n_you/categories/category_page.dart';
-import 'package:groceries_n_you/profile/orders/profile_orders.dart';
-import 'package:groceries_n_you/profile/settings_view.dart';
-import 'package:groceries_n_you/profile/users/admin_users_view.dart';
+import 'package:groceries_n_you/profile/admin/new_product_page.dart';
+import 'package:groceries_n_you/profile/admin/products_page.dart';
+import 'package:groceries_n_you/profile/users/orders/profile_orders.dart';
+import 'package:groceries_n_you/profile/users/settings_view.dart';
 import 'package:groceries_n_you/repositories/category/category_repo.dart';
 import 'package:groceries_n_you/repositories/checkout/checkout_repo.dart';
 import 'package:groceries_n_you/repositories/product/product_repo.dart';
@@ -62,13 +64,16 @@ class MyApp extends StatelessWidget {
             color: const Color(0xff699BFF),
           ),
         ),
-        home: const MyFirebaseUserAuth(),
+        home: const ProductsPage(), //const MyFirebaseUserAuth(),
+        getPages: [
+          GetPage(name: allProductsRoute, page: () => const ProductsPage()),
+        ],
         routes: {
           homeRoute: ((context) => const HomePage()),
           profileRoute: ((context) => ProfileView()),
           profileSettingsRoute: ((context) => const ProfileSettingsView()),
           profileOrdersRoute: ((context) => const ProfileOrdersPage()),
-          adminUsersRoute: ((context) => const AdminUsersPage()),
+          newProductRoute: ((context) => const NewProductPage()),
           loginRoute: ((context) => const ProfileLogin()),
           registerRoute: ((context) => const ProfileRegister()),
           verifyRoute: ((context) => const VerifyEmail()),

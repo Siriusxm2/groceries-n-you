@@ -51,10 +51,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MyAppBar(),
+      appBar: MyAppBarHeader(label: 'Checkout'),
       body: Column(
         children: [
-          const MyHeaderWidget(text: 'Checkout'),
           BlocBuilder<CheckoutBloc, CheckoutState>(
             builder: (context, state) {
               if (state is CheckoutLoading) {

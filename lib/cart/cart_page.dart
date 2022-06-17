@@ -6,28 +6,13 @@ import 'package:groceries_n_you/cart/cart_full_page.dart';
 import '../blocs/blocs.dart';
 import '../myWidgets/widgets.dart';
 
-class CartPage extends StatefulWidget {
+class CartPage extends StatelessWidget {
   const CartPage({Key? key}) : super(key: key);
-
-  @override
-  State<CartPage> createState() => _CartPageState();
-}
-
-class _CartPageState extends State<CartPage> {
-  late TextEditingController _voucher;
-  late String voucher;
-
-  @override
-  void initState() {
-    _voucher = TextEditingController();
-    voucher = '';
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MyAppBar(),
+      appBar: MyAppBarHeader(label: 'Your Cart'),
       body: BlocBuilder<CartBloc, CartState>(builder: (context, state) {
         if (state is CartLoading) {
           return const Center(
@@ -37,7 +22,6 @@ class _CartPageState extends State<CartPage> {
         if (state is CartLoaded) {
           return Column(
             children: [
-              const MyHeaderWidget(text: 'Your Cart'),
               state.cart.productQuantity(state.cart.products).keys.isEmpty
                   ? const CartEmptyPage()
                   : const CartFullPage(),

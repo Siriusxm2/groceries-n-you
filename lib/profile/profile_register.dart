@@ -52,11 +52,10 @@ class _ProfileRegisterPageState extends State<ProfileRegister> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MyAppBar(),
+      appBar: MyAppBarHeader(label: 'Register an Account'),
       body: Center(
         child: Column(
           children: [
-            const MyHeaderWidget(text: 'Register an account'),
             // name
             Container(
               width: Dimensions.width300,

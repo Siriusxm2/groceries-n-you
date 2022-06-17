@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:groceries_n_you/services/auth/auth_service.dart';
 import 'package:groceries_n_you/services/crud/orders_service.dart';
 
-import '../../myWidgets/widgets.dart';
+import '../../../myWidgets/widgets.dart';
 
 class ProfileOrdersPage extends StatefulWidget {
   const ProfileOrdersPage({Key? key}) : super(key: key);
@@ -24,14 +24,13 @@ class _ProfileOrdersPageState extends State<ProfileOrdersPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MyAppBar(),
+      appBar: MyAppBarHeader(label: 'Order history'),
       drawer: const MyDrawer(),
       floatingActionButton: const MyFloatingButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       bottomNavigationBar: const MyBottomNavbar(),
       body: Column(
         children: [
-          const MyHeaderWidget(text: 'Order history'),
           FutureBuilder(
             future: _ordersService.getUser(email: userEmail),
             builder: (context, snapshot) {

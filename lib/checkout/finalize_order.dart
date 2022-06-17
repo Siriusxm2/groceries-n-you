@@ -12,10 +12,9 @@ class FinalizePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MyAppBar(),
+      appBar: MyAppBarHeader(label: 'Finalize'),
       body: Column(
         children: [
-          const MyHeaderWidget(text: 'Finalize'),
           Expanded(
             child: SingleChildScrollView(
               child: Column(

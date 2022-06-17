@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_n_you/constants/routes.dart';
 import 'package:groceries_n_you/dimensions.dart';
+import 'package:groceries_n_you/myWidgets/my_header.dart';
 //import 'dart:developer' as devtools show log;
 
-class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const MyAppBar({Key? key}) : super(key: key);
+class MyAppBarHeader extends StatelessWidget implements PreferredSizeWidget {
+  late String label;
+
+  MyAppBarHeader({Key? key, required this.label}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -80,10 +83,11 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ],
         ),
+        MyHeaderWidget(text: label),
       ],
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight) * 2;
 }

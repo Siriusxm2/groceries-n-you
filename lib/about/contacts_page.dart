@@ -9,11 +9,10 @@ class ContactsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MyAppBar(),
+      appBar: MyAppBarHeader(label: 'Contacts'),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const MyHeaderWidget(text: 'Contacts'),
             // GOOGLE MAPS
             Container(
               height: Dimensions.height260,

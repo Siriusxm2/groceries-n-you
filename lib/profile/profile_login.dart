@@ -38,11 +38,10 @@ class _ProfilePageState extends State<ProfileLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MyAppBar(),
+      appBar: MyAppBarHeader(label: 'Log in to your account'),
       body: Center(
         child: Column(
           children: [
-            const MyHeaderWidget(text: 'Log in to your account'),
             // Facebook Sign in
             ElevatedButton.icon(
               onPressed: () async {

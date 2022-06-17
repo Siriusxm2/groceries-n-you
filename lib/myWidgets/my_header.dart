@@ -12,7 +12,7 @@ class MyHeaderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        height: Dimensions.height56,
+        height: Dimensions.height50,
         decoration: const BoxDecoration(
           color: Color(0xffffffff),
           boxShadow: [

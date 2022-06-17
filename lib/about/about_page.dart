@@ -9,11 +9,10 @@ class AboutUsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MyAppBar(),
+      appBar: MyAppBarHeader(label: 'About Us'),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const MyHeaderWidget(text: 'For Us'),
           SizedBox(height: Dimensions.height35),
           Container(
             margin: EdgeInsets.only(left: Dimensions.width30),

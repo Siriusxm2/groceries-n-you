@@ -20,24 +20,6 @@ class ProductModel extends Equatable {
 
   static List<ProductModel> products = [];
 
-  dynamic setProducts(
-    String name,
-    String manu,
-    String pic,
-    double price,
-    bool sale,
-    int saleAmount,
-  ) {
-    return ProductModel(
-      name: name,
-      manu: manu,
-      picture: pic,
-      price: price,
-      isOnSale: sale,
-      saleAmount: saleAmount,
-    );
-  }
-
   static ProductModel fromSnapshot(DocumentSnapshot snap) {
     ProductModel product = ProductModel(
       name: snap['product_name'],

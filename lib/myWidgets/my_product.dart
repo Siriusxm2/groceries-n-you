@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:groceries_n_you/categories/product_controller.dart';
+import 'package:groceries_n_you/myWidgets/my_popup_product.dart';
 import 'package:groceries_n_you/custom_widget_functions.dart';
 import 'package:groceries_n_you/dimensions.dart';
 
@@ -39,7 +39,7 @@ class MyProductWidget extends StatelessWidget {
             barrierColor: Colors.black.withOpacity(0.75),
             context: context,
             pageBuilder: (context, __, ___) {
-              return ProductController(product: product);
+              return MyPopupProductWidget(product: product);
             },
           );
         },

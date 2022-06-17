@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:groceries_n_you/constants/routes.dart';
 import 'package:groceries_n_you/myWidgets/my_header.dart';
+import 'package:groceries_n_you/profile/admin/products_page.dart';
 import 'package:groceries_n_you/services/auth/auth_service.dart';
 
-import '../utils/dialogs/log_out_dialog.dart';
+import '../../utils/dialogs/log_out_dialog.dart';
 
 class ProfileAdminView extends StatelessWidget {
   const ProfileAdminView({Key? key}) : super(key: key);
@@ -16,13 +18,10 @@ class ProfileAdminView extends StatelessWidget {
           const MyHeaderWidget(text: 'Admin Panel'),
           ElevatedButton(
             onPressed: () {
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                adminUsersRoute,
-                (route) => true,
-              );
+              Get.to(() => const ProductsPage());
             },
             child: const Text(
-              'View Users',
+              'View Products',
               style: TextStyle(
                 color: Color(0xff333333),
               ),
