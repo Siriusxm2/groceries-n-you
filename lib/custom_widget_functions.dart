@@ -200,7 +200,7 @@ class CustomWidgets {
             ),
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: AssetImage(product.picture),
+              image: NetworkImage(product.picture),
             ),
           ),
         ),
@@ -326,7 +326,7 @@ class CustomWidgets {
             ),
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: AssetImage(product.picture),
+              image: NetworkImage(product.picture),
             ),
           ),
         ),
@@ -427,7 +427,7 @@ class CustomWidgets {
             ),
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: AssetImage(product.picture),
+              image: NetworkImage(product.picture),
             ),
           ),
         ),
@@ -586,7 +586,7 @@ class CustomWidgets {
             ),
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: AssetImage(product.picture),
+              image: NetworkImage(product.picture),
             ),
           ),
         ),

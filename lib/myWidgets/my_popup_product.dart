@@ -63,7 +63,7 @@ class _MyPopupProductWidgetState extends State<MyPopupProductWidget> {
                   ),
                   image: DecorationImage(
                     fit: BoxFit.scaleDown,
-                    image: AssetImage(product.picture),
+                    image: NetworkImage(product.picture),
                   ),
                 ),
               ),

@@ -5,8 +5,6 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:groceries_n_you/about/about_page.dart';
 import 'package:groceries_n_you/about/contacts_page.dart';
 import 'package:groceries_n_you/categories/category_page.dart';
-import 'package:groceries_n_you/profile/admin/new_product_page.dart';
-import 'package:groceries_n_you/profile/admin/products_page.dart';
 import 'package:groceries_n_you/profile/users/orders/profile_orders.dart';
 import 'package:groceries_n_you/profile/users/settings_view.dart';
 import 'package:groceries_n_you/repositories/category/category_repo.dart';
@@ -27,7 +25,7 @@ import 'checkout/finalize_order.dart';
 import 'checkout/order_sent.dart';
 import 'homePage/home_page.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
@@ -64,17 +62,12 @@ class MyApp extends StatelessWidget {
             color: const Color(0xff699BFF),
           ),
         ),
-        home: ProductsPage(), //const MyFirebaseUserAuth(),
-        getPages: [
-          GetPage(name: allProductsRoute, page: () => ProductsPage()),
-          GetPage(name: newProductRoute, page: () => NewProductPage()),
-        ],
+        home: const MyFirebaseUserAuth(), //const MyFirebaseUserAuth(),
         routes: {
           homeRoute: ((context) => const HomePage()),
           profileRoute: ((context) => ProfileView()),
           profileSettingsRoute: ((context) => const ProfileSettingsView()),
           profileOrdersRoute: ((context) => const ProfileOrdersPage()),
-          newProductRoute: ((context) => NewProductPage()),
           loginRoute: ((context) => const ProfileLogin()),
           registerRoute: ((context) => const ProfileRegister()),
           verifyRoute: ((context) => const VerifyEmail()),
